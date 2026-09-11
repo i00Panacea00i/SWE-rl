@@ -1,0 +1,10 @@
+# 修复镜像：swe-ags 基底重建时丢失了官方 Dockerfile 中的系统库
+# （官方构建时装有 imagemagick ffmpeg libqhull-dev libfreetype6-dev pkg-config），
+# 导致 matplotlib C 扩展 ft2font ImportError: libfreetype.so.6。
+# 红线：不覆盖 WORKDIR / USER / ENTRYPOINT（AGS 要求 / 、root、/init）。
+FROM tcr.example.com/swe-mirror/swe-ags:matplotlib_1776_matplotlib-13859
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libfreetype6 libqhull-dev imagemagick ffmpeg pkg-config \
+    && rm -rf /var/lib/apt/lists/* \
+    && /opt/miniconda3/envs/testbed/bin/python -c 'from matplotlib import ft2font; print("ft2font OK")'

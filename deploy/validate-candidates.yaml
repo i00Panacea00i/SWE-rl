@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-validate-candidates
+  labels:
+    app: swe-rl-validation
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 14400
+  containers:
+    - name: validate
+      image: verlai/verl:vllm024.dev2
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          python -m pip install --no-cache-dir 'e2b==2.49.0' 'unidiff==0.7.5'
+          python -m pip install --no-cache-dir 'swebench==5.0.2'
+          cd /mnt/cfs/swe-rl/kit
+          python -u -m sandbox.validate_candidates \
+            --instances django__django-12286 --parallel 2 \
+            --output /mnt/cfs/swe-rl/validation/round0-offline-v2
+      env:
+        - name: PYTHONPATH
+          value: /mnt/cfs/swe-rl/kit
+        - name: SWE_INSTANCES_FILE
+          value: /mnt/cfs/swe-rl/kit/data/active_instances.jsonl
+        - name: E2B_DOMAIN
+          value: ags.example.com
+        - name: E2B_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+      resources:
+        requests: {cpu: "1", memory: 1Gi}
+        limits: {cpu: "2", memory: 4Gi}
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs

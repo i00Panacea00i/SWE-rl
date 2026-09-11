@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-model-download
+  labels: {app: swe-rl-model-download}
+spec:
+  restartPolicy: Never
+  containers:
+    - name: dl
+      image: python:3.11-slim
+      env:
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+        - name: HF_HUB_ENABLE_HF_TRANSFER
+          value: "1"
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: hf-credentials
+              key: HF_TOKEN
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -e
+          pip install -q -U huggingface_hub hf_transfer &&
+          hf download Qwen/Qwen3-Coder-30B-A3B-Instruct \
+            --local-dir /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct \
+            --exclude "*.pth" &&
+          echo DONE && du -sh /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct
+      resources:
+        limits: {cpu: "4", memory: 16Gi}
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-verl-setup
+spec:
+  restartPolicy: Never
+  containers:
+    - name: setup
+      image: verlai/verl:vllm024.dev2
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -e
+          rm -rf /mnt/cfs/swe-rl/verl-src
+          git clone --depth 1 https://github.com/volcengine/verl.git /mnt/cfs/swe-rl/verl-src
+          cd /mnt/cfs/swe-rl/verl-src && git log --oneline -1
+          export PYTHONPATH=/mnt/cfs/swe-rl/verl-src
+          python -c 'import verl; print("import verl OK")' 2>&1 | tail -1
+          python -c 'from verl.trainer.main_ppo import main; print("main_ppo OK")' 2>&1 | tail -1
+          python -c 'import verl.experimental.agent_loop as al; print("agent_loop OK:", al.__file__)' 2>&1 | tail -1
+          grep -n "lora_rank" /mnt/cfs/swe-rl/verl-src/verl/trainer/config/ppo_trainer.yaml | head -2
+      resources:
+        limits: {cpu: "4", memory: 16Gi}
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs

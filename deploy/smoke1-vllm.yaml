@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-smoke1-vllm
+spec:
+  restartPolicy: Never
+  containers:
+    - name: smoke
+      image: verlai/verl:vllm024.dev2
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -x
+          cat > /tmp/smoke1.py <<'EOF'
+          import time
+
+          def main():
+              from vllm import LLM, SamplingParams
+              t0 = time.time()
+              llm = LLM(model="/mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct",
+                        tensor_parallel_size=2,
+                        gpu_memory_utilization=0.85,
+                        max_model_len=16384,
+                        enforce_eager=False)
+              print(f"LOAD_OK in {time.time()-t0:.0f}s", flush=True)
+              msgs = [{"role": "user", "content":
+                       "Output exactly one bash command to list files in /testbed"}]
+              out = llm.chat([msgs], SamplingParams(max_tokens=64, temperature=0.7), use_tqdm=False)
+              print("GEN_OK:", out[0].outputs[0].text.strip()[:120], flush=True)
+
+          if __name__ == "__main__":
+              main()
+          EOF
+          python /tmp/smoke1.py
+          nvidia-smi --query-gpu=name,memory.used --format=csv 2>/dev/null | head -3
+      resources:
+        limits:
+          nvidia.com/gpu: 2
+          cpu: "16"
+          memory: 64Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory

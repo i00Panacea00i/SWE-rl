@@ -1,0 +1,99 @@
+# 独立评估（pass@1）：在冻结的 4 题评估集上跑真实 SWE AgentLoop + 真实奖励。
+# 渲染后应用：sed -e 's|__RUN__|round0-baseline|g' ... | kubectl apply -f -
+#   __RUN__        评估轮次标识（同时作为 tracing 目录与日志目录）
+#   __VAL_DATA__   评估数据 parquet
+#   __RESUME__     disable（基座）| auto（加载已训练 adapter）
+#   __CKPT_DIR__   resume_mode=auto 时的 checkpoint 目录
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-eval-__RUN__
+  labels:
+    app: swe-rl-eval
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 10800
+  containers:
+    - name: eval
+      image: verlai/verl:vllm024.dev2
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          export PYTHONPATH=/mnt/cfs/swe-rl/verl-src:/mnt/cfs/swe-rl/kit
+          python -m pip install --no-cache-dir 'accelerate==1.15.0' 'e2b==2.49.0' 'unidiff==0.7.5' 'swebench==5.0.2'
+          mkdir -p /mnt/cfs/swe-rl/logs/__RUN__
+          python -m sandbox.preflight __VAL_DATA__
+          python -u -m verl.trainer.main_ppo \
+            algorithm.adv_estimator=grpo \
+            data.train_files=__VAL_DATA__ \
+            data.val_files=__VAL_DATA__ \
+            data.train_batch_size=4 data.dataloader_num_workers=0 \
+            data.max_prompt_length=4096 data.max_response_length=8192 \
+            actor_rollout_ref.model.path=/mnt/cfs/swe-rl/model/Qwen2.5-Coder-7B-Instruct \
+            actor_rollout_ref.model.lora_rank=32 actor_rollout_ref.model.lora_alpha=64 \
+            actor_rollout_ref.model.lora.merge=False \
+            'actor_rollout_ref.model.target_modules=[q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj]' \
+            actor_rollout_ref.actor.strategy=fsdp \
+            actor_rollout_ref.actor.fsdp_config.model_dtype=bf16 \
+            actor_rollout_ref.actor.fsdp_config.param_offload=True \
+            actor_rollout_ref.actor.ppo_mini_batch_size=4 \
+            actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=1 \
+            actor_rollout_ref.rollout.name=vllm actor_rollout_ref.rollout.mode=async \
+            actor_rollout_ref.rollout.dtype=bfloat16 \
+            actor_rollout_ref.rollout.load_format=safetensors \
+            actor_rollout_ref.rollout.layered_summon=True \
+            actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
+            actor_rollout_ref.rollout.gpu_memory_utilization=0.45 \
+            actor_rollout_ref.rollout.enforce_eager=True \
+            actor_rollout_ref.rollout.max_num_batched_tokens=8192 \
+            actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=1 \
+            actor_rollout_ref.rollout.n=1 \
+            actor_rollout_ref.rollout.agent.num_workers=2 \
+            actor_rollout_ref.rollout.agent.agent_loop_config_path=/mnt/cfs/swe-rl/kit/configs/swe_agent.yaml \
+            actor_rollout_ref.rollout.agent.default_agent_loop=swe_ags \
+            reward.custom_reward_function.path=/mnt/cfs/swe-rl/kit/verl_plugin/reward.py \
+            reward.custom_reward_function.name=compute_score \
+            trainer.val_only=True trainer.val_before_train=True \
+            trainer.resume_mode=__RESUME__ \
+            trainer.default_local_dir=__CKPT_DIR__ \
+            trainer.total_training_steps=1 \
+            trainer.logger='["console"]' trainer.project_name=swe-rl \
+            trainer.experiment_name=__RUN__ \
+            trainer.validation_data_dir=/mnt/cfs/swe-rl/eval_reports/__RUN__ \
+            trainer.n_gpus_per_node=2 trainer.nnodes=1 \
+            2>&1 | tee /mnt/cfs/swe-rl/logs/__RUN__/train.log
+      env:
+        - name: PYTHONPATH
+          value: /mnt/cfs/swe-rl/verl-src:/mnt/cfs/swe-rl/kit
+        - name: HYDRA_FULL_ERROR
+          value: "1"
+        - name: RAY_memory_monitor_refresh_ms
+          value: "250"
+        - name: VLLM_WORKER_MULTIPROC_METHOD
+          value: spawn
+        - name: SWE_RUN_ID
+          value: __RUN__
+        - name: E2B_DOMAIN
+          value: ags.example.com
+        - name: E2B_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+      resources:
+        requests: {cpu: "24", memory: 120Gi, nvidia.com/gpu: 2}
+        limits: {cpu: "32", memory: 170Gi, nvidia.com/gpu: 2}
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: shm
+          mountPath: /dev/shm
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: shm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 24Gi

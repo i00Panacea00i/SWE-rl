@@ -1,0 +1,53 @@
+# ===== 密钥与环境（绝不入库）=====
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+venv/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ===== 运行产物与大文件 =====
+artifacts/
+output/
+logs/
+*.log
+*.tgz
+*.tmp
+traces/
+checkpoints/
+eval_reports/
+monitor/
+
+# ===== 内部汇报材料（不入公开仓库）=====
+briefing/
+
+# ===== 数据：保留源数据/协议/脚本与实际使用的冻结切分，排除可再生中间切分 =====
+data/round0*/
+
+# ===== IDE / 系统 =====
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ===== 构建产物 =====
+dist/
+build/
+*.whl
+
+# 数据切分 parquet 为二进制产物（含镜像地址），可由 prepare_data.py 再生，不入库
+*.parquet

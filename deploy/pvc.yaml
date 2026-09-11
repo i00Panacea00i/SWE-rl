@@ -1,0 +1,30 @@
+# CFS NFS 挂载（集群未装 CFS CSI，用 K8s 原生 NFS PV——无需任何组件）
+# CFS: cfs-3qt8i05t (swe-rl, ap-tokyo-1, SD/NFS, 挂载点 10.0.16.9, FSID 83cemawp)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: swe-rl-cfs-pv
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.0.16.9
+    path: /
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: swe-rl-cfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: swe-rl-cfs
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: swe-rl-cfs
+  volumeName: swe-rl-cfs-pv
+  resources:
+    requests:
+      storage: 500Gi

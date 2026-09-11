@@ -1,0 +1,89 @@
+# Qwen2.5-Coder-7B-Instruct，2×L20；两步 mock 冒烟已通过，正式 SWE RL 尚未验收。
+# 使用 BF16 + safetensors 基座预加载 + layered_summon，不使用实验性 FSDP2 补丁。
+# 训练数据为 10 题全验证后的冻结切分（round0-v5）：train 6 / eval 4。
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-train
+  namespace: default
+  labels:
+    app: swe-rl-train
+spec:
+  activeDeadlineSeconds: 43200            # 安全上限 12h
+  containers:
+    - name: train
+      image: verlai/verl:vllm024.dev2
+      workingDir: /workspace
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          export PYTHONPATH=/mnt/cfs/swe-rl/verl-src:/mnt/cfs/swe-rl/kit
+          python -m pip install --no-cache-dir 'accelerate==1.15.0' 'e2b==2.49.0' 'unidiff==0.7.5' 'swebench==5.0.2'
+          mkdir -p /mnt/cfs/swe-rl/logs/round0-train
+          python -m sandbox.preflight \
+            /mnt/cfs/swe-rl/kit/data/round0-v5/train.parquet \
+            /mnt/cfs/swe-rl/kit/data/round0-v5/eval.parquet
+          exec bash /mnt/cfs/swe-rl/kit/configs/grpo_l20_lora.sh
+      env:
+        - name: PYTHONPATH
+          value: /mnt/cfs/swe-rl/verl-src:/mnt/cfs/swe-rl/kit
+        - name: E2B_DOMAIN
+          value: ags.example.com
+        - name: E2B_API_KEY              # Secret 注入，不落明文
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+        - name: SWE_RUN_ID
+          value: round0-train
+        - name: VERL_DATA
+          value: /mnt/cfs/swe-rl/kit/data/round0-v5/train.parquet
+        - name: VERL_VAL_DATA
+          value: /mnt/cfs/swe-rl/kit/data/round0-v5/eval.parquet
+        - name: VERL_REWARD_PATH
+          value: /mnt/cfs/swe-rl/kit/verl_plugin/reward.py
+        - name: VERL_AGENT_LOOP_CONFIG
+          value: /mnt/cfs/swe-rl/kit/configs/swe_agent.yaml
+        - name: VERL_AGENT_NAME
+          value: swe_ags
+        - name: VERL_MAX_PROMPT_LENGTH
+          value: "4096"
+        - name: VERL_MAX_RESPONSE_LENGTH
+          value: "8192"
+        - name: VERL_TRAIN_STEPS
+          value: "50"
+        - name: VERL_AGENT_WORKERS
+          value: "1"
+        - name: VERL_LOG_DIR
+          value: /mnt/cfs/swe-rl/logs/round0-train
+        - name: VERL_REPORT_DIR
+          value: /mnt/cfs/swe-rl/eval_reports/round0-train
+        - name: VERL_MODEL
+          value: /mnt/cfs/swe-rl/model/Qwen2.5-Coder-7B-Instruct
+        - name: VERL_OUT
+          value: /mnt/cfs/swe-rl/checkpoints/round0
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+        - name: VLLM_LOGGING_LEVEL
+          value: INFO
+        - name: NPROC_PER_NODE
+          value: "2"
+      resources:
+        limits:
+          nvidia.com/gpu: 2              # 2×L20 整卡直通
+          cpu: "32"
+          memory: 170Gi                  # param_offload CPU 副本（节点可分配边界内）
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory
+  restartPolicy: Never                  # 训完即停，不空烧

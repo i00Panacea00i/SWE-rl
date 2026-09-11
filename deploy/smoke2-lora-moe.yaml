@@ -1,0 +1,95 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-smoke2-lora
+spec:
+  restartPolicy: Never
+  containers:
+    - name: smoke
+      image: verlai/verl:vllm024.dev2
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          LOG_DIR=/mnt/cfs/swe-rl/logs/smoke2-7b-$(date -u +%Y%m%dT%H%M%SZ)
+          mkdir -p "$LOG_DIR" /mnt/cfs/swe-rl/checkpoints/smoke2
+          python -m pip install --no-cache-dir 'accelerate==1.15.0'
+          python -c 'import accelerate; print("accelerate", accelerate.__version__)'
+          export PYTHONPATH=/mnt/cfs/swe-rl/verl-src
+          export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+          export RAY_memory_monitor_refresh_ms=250
+          export HYDRA_FULL_ERROR=1
+          export VLLM_WORKER_MULTIPROC_METHOD=spawn
+          launch() {
+          python -u -m verl.trainer.main_ppo \
+            algorithm.adv_estimator=grpo \
+            data.train_files=/mnt/cfs/swe-rl/kit/data/train.parquet \
+            data.val_files=/mnt/cfs/swe-rl/kit/data/train.parquet \
+            data.train_batch_size=4 \
+            data.dataloader_num_workers=0 \
+            data.max_prompt_length=2048 \
+            data.max_response_length=512 \
+            actor_rollout_ref.model.path=/mnt/cfs/swe-rl/model/Qwen2.5-Coder-7B-Instruct \
+            actor_rollout_ref.model.lora_rank=32 \
+            actor_rollout_ref.model.lora_alpha=64 \
+            actor_rollout_ref.model.lora.merge=False \
+            'actor_rollout_ref.model.target_modules=[q_proj,k_proj,v_proj,o_proj,gate_proj,up_proj,down_proj]' \
+            actor_rollout_ref.actor.optim.lr=1e-5 \
+            actor_rollout_ref.actor.ppo_mini_batch_size=4 \
+            actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=1 \
+            actor_rollout_ref.actor.strategy=fsdp \
+            actor_rollout_ref.actor.fsdp_config.model_dtype=bf16 \
+            actor_rollout_ref.actor.fsdp_config.param_offload=True \
+            actor_rollout_ref.rollout.dtype=bfloat16 \
+            actor_rollout_ref.rollout.n=2 \
+            actor_rollout_ref.rollout.mode=async \
+            actor_rollout_ref.rollout.name=vllm \
+            actor_rollout_ref.rollout.load_format=safetensors \
+            actor_rollout_ref.rollout.layered_summon=True \
+            actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
+            actor_rollout_ref.rollout.gpu_memory_utilization=0.45 \
+            actor_rollout_ref.rollout.enforce_eager=True \
+            actor_rollout_ref.rollout.max_num_batched_tokens=8192 \
+            actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=1 \
+            reward.custom_reward_function.path=/mnt/cfs/swe-rl/kit/verl_plugin/mock_reward.py \
+            reward.custom_reward_function.name=mock_reward \
+            trainer.logger='["console"]' \
+            trainer.project_name=swe-rl-smoke \
+            trainer.experiment_name=smoke2-7b-mock \
+            trainer.total_training_steps=2 \
+            trainer.total_epochs=1 \
+            trainer.val_before_train=False \
+            trainer.test_freq=-1 \
+            trainer.save_freq=2 \
+            trainer.resume_mode=disable \
+            trainer.default_local_dir=/mnt/cfs/swe-rl/checkpoints/smoke2 \
+            trainer.n_gpus_per_node=2 \
+            trainer.nnodes=1 "$@"
+          }
+          launch --cfg job --resolve > "$LOG_DIR/resolved-config.yaml"
+          nvidia-smi --query-gpu=index,name,memory.used,memory.total --format=csv | tee "$LOG_DIR/gpu-before.csv"
+          set +e
+          launch 2>&1 | tee "$LOG_DIR/train.log"
+          codes=("${PIPESTATUS[@]}")
+          set -e
+          printf 'TRAIN_EXIT=%s LOG_EXIT=%s\n' "${codes[0]}" "${codes[1]}" | tee "$LOG_DIR/exit.txt"
+          if [ "${codes[0]}" -ne 0 ]; then exit "${codes[0]}"; fi
+          if [ "${codes[1]}" -ne 0 ]; then exit "${codes[1]}"; fi
+          echo SMOKE2_PROCESS_SUCCEEDED
+      resources:
+        limits:
+          nvidia.com/gpu: 2
+          cpu: "32"
+          memory: 170Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory

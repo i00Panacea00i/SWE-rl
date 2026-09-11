@@ -1,0 +1,21 @@
+# swe-ags 变体构建模板（与 swe-mirror 现有 10 题同配方，从官方镜像历史逆向还原）：
+#   AGS 基座（/init + s6 + envd） + 官方 sweb.eval 的 /testbed 与 conda env
+# 使用：docker build --build-arg OFFICIAL=swebench/sweb.eval.x86_64.<tag> -t <TCR>/swe-ags:<tag> .
+# 红线：不覆盖 WORKDIR / USER / ENTRYPOINT
+ARG OFFICIAL
+FROM ${OFFICIAL} AS src
+
+FROM ccr.ccs.tencentyun.com/ags-image/sandbox-code:benchmark-20260625
+COPY --from=src /testbed /testbed
+COPY --from=src /opt/miniconda3 /opt/miniconda3
+
+RUN apt-get update && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV PATH=/opt/miniconda3/envs/testbed/bin:/opt/miniconda3/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
+    GIT_CONFIG_GLOBAL=/tmp/gitconfig
+
+# 官方镜像内的构建期未提交修改（如 sed pyproject/tox.ini）随 /testbed 一并保留；
+# 此处仅设 git safe.directory 与权限
+RUN echo "[safe]\n\tdirectory = /testbed" > /tmp/gitconfig \
+    && chmod -R a+rX /testbed

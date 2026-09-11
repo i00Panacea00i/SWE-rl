@@ -1,0 +1,132 @@
+{
+  "dataset": "princeton-nlp/SWE-bench",
+  "source_split": "test",
+  "split_rule": "Preserved pre-training held-out IDs; failed training image replaced",
+  "train": [
+    "astropy__astropy-12907",
+    "django__django-11039",
+    "django__django-12286",
+    "matplotlib__matplotlib-13859",
+    "psf__requests-1327",
+    "scikit-learn__scikit-learn-10198"
+  ],
+  "eval": [
+    "astropy__astropy-12057",
+    "django__django-10939",
+    "sphinx-doc__sphinx-10021",
+    "sympy__sympy-11232"
+  ],
+  "instances": {
+    "astropy__astropy-12057": {
+      "base_commit": "b6769c18c0881b6d290e543e9334c25043018b3f",
+      "tool_name": "swe-astropy-12057",
+      "image": "tcr.example.com/swe-mirror/swe-ags:astropy_1776_astropy-12057",
+      "spec_sha256": {
+        "eval.sh": "f48304d539d9d69a7e9a1e3363f36d6c267e2553f98ce5d3c93b67342cd667fb",
+        "tests.json": "a5f7f7447c502fa1489cc7951e2bca2677b201ae88a0e1ae35a701d8f9c3f02f",
+        "test.patch": "cb9e234a3e11ca35683f52704830b1df62321764ba3a4bff0e7cba1e893e6558",
+        "task.yaml": "7ae68ad6e1f25f8230dca04682925778c6df966ef295cb0b6682e21a940ac7f8"
+      }
+    },
+    "astropy__astropy-12907": {
+      "base_commit": "d16bfe05a744909de4b27f5875fe0d4ed41ce607",
+      "tool_name": "swe-astropy-12907",
+      "image": "tcr.example.com/swe-mirror/swe-ags:astropy_1776_astropy-12907",
+      "spec_sha256": {
+        "eval.sh": "229f462fcbdcae232228507f9491b8538c5aeaeede709c5fc822b586245d9460",
+        "tests.json": "f9fc8709f82b482b517281f3390c7027154d8a4963f7424ee7c27da845d56928",
+        "test.patch": "5ef90b640ffce4590bb61ef2ea0e3256416dddf41b45bf4f2c3610a6e8c53718",
+        "task.yaml": "826c98b246e267afffb1bcc71d4de98932a468e775cfc1a5842528d557e7d3a7"
+      }
+    },
+    "django__django-10939": {
+      "base_commit": "1933e56eca1ad17de7dd133bfb7cbee9858a75a3",
+      "tool_name": "swe-django-10939",
+      "image": "tcr.example.com/swe-mirror/swe-ags:django_1776_django-10939",
+      "spec_sha256": {
+        "eval.sh": "a163b90d508f0924a9f0e3c135f596c15faa8fccca5922d47164ec901640deef",
+        "tests.json": "9017d97bc24b1907148af23fad667bc7e1c73d3e4fa32155ea4a7d933baf7685",
+        "test.patch": "5fb02507150a99702b3cfb89cec6b8f5ba52fc60776ca13cf46c3e4584718fec",
+        "task.yaml": "a63621d9c2dd2b229e1d5c638a556e43cb4b0ad24c2acb9faf4dd349eef30e22"
+      }
+    },
+    "django__django-11039": {
+      "base_commit": "d5276398046ce4a102776a1e67dcac2884d80dfe",
+      "tool_name": "swe-django-11039",
+      "image": "tcr.example.com/swe-mirror/swe-ags:django_1776_django-11039",
+      "spec_sha256": {
+        "eval.sh": "0682998296bdf9143354c1b5c053c82083e995d1abdbdec1b9e0b84e9032bda7",
+        "tests.json": "72d5d8ed80cab26cc400e86394752ec3abf34c8b8c679c0ac197c132743482d2",
+        "test.patch": "93935e3cf4926f4b87d62dadfe6f3eba8273181a879b18bd726c211a4b73ce82",
+        "task.yaml": "b98be331fe69c1f60c953733251caf84d51cf6a917fbeb3c17c7d9bfc1831a69"
+      }
+    },
+    "django__django-12286": {
+      "base_commit": "979f61abd322507aafced9627702362e541ec34e",
+      "tool_name": "swe-pylint-4551",
+      "image": "tcr.example.com/swe-mirror/swe-ags:django_1776_django-12286",
+      "spec_sha256": {
+        "eval.sh": "e3434e7bdfc05a6e0b3bf8859428dc053cc2fe8d0602ab52687129ad04f91229",
+        "tests.json": "4938cd2379bdbaf7ba16d1fbaf48872d8b849673ba5fe1b61ab210de917fe75f",
+        "test.patch": "3f38f47e871934665eb593cdad0cbf7bbfe573dc9e2334e601ae22a89eae572c",
+        "task.yaml": "a08c2d143896e8d2baab231a2f2ced7d4625b1e31c84bb948a7bd4e632b202da"
+      }
+    },
+    "matplotlib__matplotlib-13859": {
+      "base_commit": "acad890afb1da7d071049d44ec655e0ae5b79e53",
+      "tool_name": "swe-matplotlib-13859",
+      "image": "tcr.example.com/swe-mirror/swe-ags:matplotlib_1776_matplotlib-13859-r2",
+      "spec_sha256": {
+        "eval.sh": "5ac279026cb310fee77c63c3d016e2f67967b18fa100065adb41f50a975a2aef",
+        "tests.json": "139d1bafac5167fef2f7b7eb288f3346f5ea991c7d27e2350a64ff09e0a982bf",
+        "test.patch": "ca4c0ccb28d8c15e0f966be62d80d7ccc5a52ba4129065679a33ab7df8612e77",
+        "task.yaml": "9d257ca24ae36be78893b8e21fbf2dc8a9c0bcb8fb99691ec35b7d9edda3b689"
+      }
+    },
+    "psf__requests-1327": {
+      "base_commit": "e7786ec14fdf20e8c373eddc9ac0f67d211cb1b9",
+      "tool_name": "swe-requests-1327",
+      "image": "tcr.example.com/swe-mirror/swe-ags:psf_1776_requests-1327",
+      "spec_sha256": {
+        "eval.sh": "629339dcaef5dc0397993812f04d043b995999c804e8b7885125bbedf8fd8ed1",
+        "tests.json": "db9b556f39e9ff97153c637e9976d1de2c9a532e216efbce2025c63faeedc6df",
+        "test.patch": "a9580f4c6669ed986325f65f69d5dd905b4f3416db1ea54e95b6c1ec6f5956af",
+        "task.yaml": "1b36add3dd8ea3695b8621e2f7f10943eb3232f008b12010964db99db9101aca"
+      }
+    },
+    "scikit-learn__scikit-learn-10198": {
+      "base_commit": "726fa36f2556e0d604d85a1de48ba56a8b6550db",
+      "tool_name": "swe-scikit-learn-10198",
+      "image": "tcr.example.com/swe-mirror/swe-ags:scikit-learn_1776_scikit-learn-10198",
+      "spec_sha256": {
+        "eval.sh": "719b8c36dc6c407ac7c6367ec14e87cf7d16d9d5ff75a9a576a10204e300bcd5",
+        "tests.json": "5bc2d699b258b5b7c2652aafd5f77d49c2d5a9925aa825945bc12ca6c43cfa5c",
+        "test.patch": "74acbd6d2856413d6750f457afda43bc8ea67a7b99fc9113c65dae06608b921c",
+        "task.yaml": "d79af7fda6ebc1a2c37371ddc2128399798391d7306145584032e00ce3150a94"
+      }
+    },
+    "sphinx-doc__sphinx-10021": {
+      "base_commit": "8ddf3f09c62e2a4651458759fcc97e751ca63063",
+      "tool_name": "swe-sphinx-10021",
+      "image": "tcr.example.com/swe-mirror/swe-ags:sphinx-doc_1776_sphinx-10021",
+      "spec_sha256": {
+        "eval.sh": "9e7e7e49351925941fa4fdbe2f3d8015686407cfc2a369eddbed5fd2f7ded16b",
+        "tests.json": "0f98a1398a010e58e569e63da3a5041572accb6ae14beae93230df66ff1e47fd",
+        "test.patch": "61d4d98f935ef868069f3804e79c523469e337b57bc7f84b36c67e8ef6688b19",
+        "task.yaml": "ccde5c632b33520890154dfef43148d3ee658ee2abba0f670276f53c524f12f8"
+      }
+    },
+    "sympy__sympy-11232": {
+      "base_commit": "4c8a8590be682e74ec91ab217c646baa4686a255",
+      "tool_name": "swe-sympy-11232",
+      "image": "tcr.example.com/swe-mirror/swe-ags:sympy_1776_sympy-11232",
+      "spec_sha256": {
+        "eval.sh": "aab157af1bec7445ad4c079bc71a6f74e34feb0789df30e52c3c9f771f19ce09",
+        "tests.json": "d6fc253457cef843666b608cff44868a515f3de60954f2cb1a0755f5c7c143d4",
+        "test.patch": "b308e2fbab774bd2b8aee5dadf49442bfd1d94620b813d2adf35a4d8285f0e32",
+        "task.yaml": "252f9632db014fb0a091ddb54c5f085157d9de9e8c1d38196859f1beca78bb81"
+      }
+    }
+  },
+  "system_prompt_sha256": "8876812df10f0970aea6958798e1e316538b1ed5aed36a149b219c6a8278620a"
+}
