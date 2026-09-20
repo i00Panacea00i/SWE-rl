@@ -1,0 +1,35 @@
+diff --git a/tests/func/test_add.py b/tests/func/test_add.py
+--- a/tests/func/test_add.py
++++ b/tests/func/test_add.py
+@@ -268,6 +268,15 @@ def test(self):
+             self.assertEqual(ret, 0)
+             self.assertEqual(file_md5_counter.mock.call_count, 1)
+ 
++            os.rename(self.FOO, self.FOO + ".back")
++            ret = main(["checkout"])
++            self.assertEqual(ret, 0)
++            self.assertEqual(file_md5_counter.mock.call_count, 1)
++
++            ret = main(["status"])
++            self.assertEqual(ret, 0)
++            self.assertEqual(file_md5_counter.mock.call_count, 1)
++
+ 
+ class TestShouldUpdateStateEntryForDirectoryAfterAdd(TestDvc):
+     def test(self):
+@@ -291,6 +300,15 @@ def test(self):
+             self.assertEqual(ret, 0)
+             self.assertEqual(file_md5_counter.mock.call_count, 3)
+ 
++            os.rename(self.DATA_DIR, self.DATA_DIR + ".back")
++            ret = main(["checkout"])
++            self.assertEqual(ret, 0)
++            self.assertEqual(file_md5_counter.mock.call_count, 3)
++
++            ret = main(["status"])
++            self.assertEqual(ret, 0)
++            self.assertEqual(file_md5_counter.mock.call_count, 3)
++
+ 
+ class TestAddCommit(TestDvc):
+     def test(self):

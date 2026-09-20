@@ -1,0 +1,34 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_allow_agent[config3-False]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_allow_agent[config0-True]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_allow_agent[config2-True]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_allow_agent[config1-True]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config5-root]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_keyfile[config3-None]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_gss_auth[config1-False]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_host_override_from_config[config1-not_in_ssh_config.com]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_gss_auth[config0-True]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_keyfile[config0-dvc_config.key]",
+  "tests/unit/remote/ssh/test_ssh.py::test_url",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_host_override_from_config[config0-1.2.3.4]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_keyfile[config1-/root/.ssh/not_default.key]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config2-4321]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config4-2222]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config0-test1]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_gss_auth[config2-False]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config2-ubuntu]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config4-test2]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config5-4321]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config3-test1]",
+  "tests/unit/remote/ssh/test_ssh.py::test_no_path",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_user[config1-test2]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config3-22]",
+  "tests/unit/remote/ssh/test_ssh.py::test_hardlink_optimization",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_keyfile[config2-dvc_config.key]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config1-1234]",
+  "tests/unit/remote/ssh/test_ssh.py::test_ssh_port[config0-2222]"
+ ]
+}

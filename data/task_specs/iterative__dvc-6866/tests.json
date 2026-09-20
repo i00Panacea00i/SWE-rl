@@ -1,0 +1,37 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/render/test_vega.py::test_should_resolve_template[.dvc/plots/subdir/template.json-subdir/template.json]",
+  "tests/unit/render/test_vega.py::test_should_resolve_template[.dvc/plots/template.json-template]",
+  "tests/unit/render/test_vega.py::test_should_resolve_template[.dvc/plots/subdir/template.json-subdir/template]",
+  "tests/unit/render/test_vega.py::test_should_resolve_template[template.json-template.json]",
+  "tests/unit/render/test_vega.py::test_should_resolve_template[.dvc/plots/template.json-template.json]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/render/test_vega.py::test_group_plots_data",
+  "tests/unit/render/test_vega.py::test_matches[.csv-True]",
+  "tests/unit/render/test_vega.py::test_finding_lists[dictionary2-expected_result2]",
+  "tests/unit/render/test_vega.py::test_matches[.gif-False]",
+  "tests/unit/render/test_vega.py::test_multiple_columns",
+  "tests/unit/render/test_vega.py::test_metric_missing",
+  "tests/unit/render/test_vega.py::test_plot_choose_columns",
+  "tests/unit/render/test_vega.py::test_finding_lists[dictionary1-expected_result1]",
+  "tests/unit/render/test_vega.py::test_choose_axes",
+  "tests/unit/render/test_vega.py::test_raise_on_no_template",
+  "tests/unit/render/test_vega.py::test_finding_lists[dictionary0-expected_result0]",
+  "tests/unit/render/test_vega.py::test_find_data_in_dict",
+  "tests/unit/render/test_vega.py::test_find_vega",
+  "tests/unit/render/test_vega.py::test_multiple_revs_default",
+  "tests/unit/render/test_vega.py::test_bad_template",
+  "tests/unit/render/test_vega.py::test_matches[.tsv-True]",
+  "tests/unit/render/test_vega.py::test_plot_default_choose_column",
+  "tests/unit/render/test_vega.py::test_custom_template",
+  "tests/unit/render/test_vega.py::test_matches[.png-False]",
+  "tests/unit/render/test_vega.py::test_matches[.jpg-False]",
+  "tests/unit/render/test_vega.py::test_one_column",
+  "tests/unit/render/test_vega.py::test_matches[.json-True]",
+  "tests/unit/render/test_vega.py::test_matches[.jpeg-False]",
+  "tests/unit/render/test_vega.py::test_matches[.yaml-True]",
+  "tests/unit/render/test_vega.py::test_raise_on_wrong_field",
+  "tests/unit/render/test_vega.py::test_confusion"
+ ]
+}

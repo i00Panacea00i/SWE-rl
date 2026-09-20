@@ -1,0 +1,24 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_batch",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_differentiability"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_ill_opts",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_04",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_input_warnings",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_00",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_ill_shape",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_05",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_08",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_script",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_02",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_06",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_07",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_10",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_01",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_11",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_03",
+  "tests/test_generalized_dice_loss.py::TestGeneralizedDiceLoss::test_shape_09"
+ ]
+}

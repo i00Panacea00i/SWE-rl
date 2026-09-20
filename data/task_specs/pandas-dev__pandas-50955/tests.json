@@ -1,0 +1,37 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[float1-columns1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NaTType-columns1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[Decimal-columns1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NoneType-columns1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[float0-columns1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NAType-columns1]"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NAType-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[float1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[float0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[NAType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_unsorted",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[NAType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[float1-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_default",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[NoneType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_empty",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[float1]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_empty_normalize",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[NoneType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NaTType-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[Decimal-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[NaTType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[Decimal]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[NaTType]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_ascending",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_false[float0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_single_col_default",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[float0-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_normalize",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_subset[NoneType-columns0]",
+  "pandas/tests/frame/methods/test_value_counts.py::test_data_frame_value_counts_dropna_true[Decimal]"
+ ]
+}

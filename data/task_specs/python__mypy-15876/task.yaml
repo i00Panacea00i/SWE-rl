@@ -1,0 +1,5 @@
+base_commit: b49be105d2940e3a0607f5ec76f519931b0d0a08
+instance_id: python__mypy-15876
+log_parser: parse_log_pytest
+repo: python/mypy
+version: '1.6'

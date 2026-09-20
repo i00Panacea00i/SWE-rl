@@ -1,0 +1,40 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cross_arch",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cross_build"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cross_build_conf",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_test_package_layout",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_set_linker_scripts",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_recipe_build_folders_vars",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_no_cross_build",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_user_presets_custom_location[False]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_presets_singleconfig",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_presets_ninja_msvc[x86_64-x86_64]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_extra_flags_via_conf",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_user_presets_custom_location[subproject]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_c_library",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_layout_toolchain_folder",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cross_build_user_toolchain",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_build_folder_vars_editables",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_presets_ninja_msvc[x86-x86_64]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_presets_not_found_error_msg",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_presets_binary_dir_available",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_flag[True]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_find_builddirs",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_presets_shared_preset[CMakePresets.json]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_presets_multiconfig",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_no_cross_build_arch",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_flag[False]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_toolchain_cache_variables",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cross_build_linux_to_macos",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_flag[None]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_cmake_presets_shared_preset[CMakeUserPresets.json]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_with_compileflags[False]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_with_compileflags[None]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_set_cmake_lang_compilers_and_launchers",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_android_legacy_toolchain_with_compileflags[True]",
+  "conans/test/integration/toolchains/cmake/test_cmaketoolchain.py::test_pkg_config_block"
+ ]
+}

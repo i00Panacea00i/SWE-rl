@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-protocols.test::testProtocolWithClassGetItem",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-protocols.test::testProtocolSlotsAndRuntimeCheckable",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-protocols.test::testProtocolSlotsIsNotProtocolMember"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-protocols.test::testNoneVsProtocol"
+ ]
+}

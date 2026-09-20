@@ -1,0 +1,5 @@
+base_commit: a79f1aaade9fe150a4bc9bb1d5ad287824298f74
+instance_id: python__mypy-9380
+log_parser: parse_log_pytest
+repo: python/mypy
+version: '0.800'

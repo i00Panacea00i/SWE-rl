@@ -1,0 +1,5 @@
+base_commit: acd2f5f889df788be7c308bff7db282d71c80b3a
+instance_id: pandas-dev__pandas-50175
+log_parser: parse_log_pytest
+repo: pandas-dev/pandas
+version: '2.0'

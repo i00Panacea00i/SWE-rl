@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardAsFunctionArg",
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardSubtypingVariance",
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardAsOverloadedFunctionArg",
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardAsGenericFunctionArg"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardAsFunctionArgAsBoolSubtype"
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "FAIL_TO_PASS": [
+  "dask/bag/tests/test_random.py::test_choices_with_more_bag_partitons",
+  "dask/bag/tests/test_random.py::test_sample_with_more_bag_partitons"
+ ],
+ "PASS_TO_PASS": [
+  "dask/bag/tests/test_random.py::test_choices_empty_partition",
+  "dask/bag/tests/test_random.py::test_sample_size_exactly_k",
+  "dask/bag/tests/test_random.py::test_choices_size_exactly_k",
+  "dask/bag/tests/test_random.py::test_sample_k_bigger_than_bag_size",
+  "dask/bag/tests/test_random.py::test_sample_empty_partition",
+  "dask/bag/tests/test_random.py::test_choices_k_equal_bag_size_with_unbalanced_partitions",
+  "dask/bag/tests/test_random.py::test_sample_size_k_bigger_than_smallest_partition_size",
+  "dask/bag/tests/test_random.py::test_choices_k_bigger_than_smallest_partition_size",
+  "dask/bag/tests/test_random.py::test_partitions_are_coerced_to_lists",
+  "dask/bag/tests/test_random.py::test_reservoir_sample_map_partitions_correctness",
+  "dask/bag/tests/test_random.py::test_sample_k_equal_bag_size_with_unbalanced_partitions",
+  "dask/bag/tests/test_random.py::test_weighted_sampling_without_replacement",
+  "dask/bag/tests/test_random.py::test_reservoir_sample_with_replacement_map_partitions_correctness",
+  "dask/bag/tests/test_random.py::test_choices_k_bigger_than_bag_size",
+  "dask/bag/tests/test_random.py::test_sample_return_bag"
+ ]
+}

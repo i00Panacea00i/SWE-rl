@@ -1,0 +1,53 @@
+diff --git a/pandas/tests/indexing/test_partial.py b/pandas/tests/indexing/test_partial.py
+index 5d1d4ba6f638a..bc6e8aed449f3 100644
+--- a/pandas/tests/indexing/test_partial.py
++++ b/pandas/tests/indexing/test_partial.py
+@@ -664,5 +664,14 @@ def test_slice_irregular_datetime_index_with_nan(self):
+         index = pd.to_datetime(["2012-01-01", "2012-01-02", "2012-01-03", None])
+         df = DataFrame(range(len(index)), index=index)
+         expected = DataFrame(range(len(index[:3])), index=index[:3])
+-        result = df["2012-01-01":"2012-01-04"]
++        with pytest.raises(KeyError, match="non-existing keys is not allowed"):
++            # Upper bound is not in index (which is unordered)
++            # GH53983
++            # GH37819
++            df["2012-01-01":"2012-01-04"]
++        # Need this precision for right bound since the right slice
++        # bound is "rounded" up to the largest timepoint smaller than
++        # the next "resolution"-step of the provided point.
++        # e.g. 2012-01-03 is rounded up to 2012-01-04 - 1ns
++        result = df["2012-01-01":"2012-01-03 00:00:00.000000000"]
+         tm.assert_frame_equal(result, expected)
+diff --git a/pandas/tests/series/indexing/test_datetime.py b/pandas/tests/series/indexing/test_datetime.py
+index f47e344336a8b..072607c29fd4c 100644
+--- a/pandas/tests/series/indexing/test_datetime.py
++++ b/pandas/tests/series/indexing/test_datetime.py
+@@ -384,15 +384,19 @@ def compare(slobj):
+         expected.index = expected.index._with_freq(None)
+         tm.assert_series_equal(result, expected)
+ 
+-    compare(slice("2011-01-01", "2011-01-15"))
+-    with pytest.raises(KeyError, match="Value based partial slicing on non-monotonic"):
+-        compare(slice("2010-12-30", "2011-01-15"))
+-    compare(slice("2011-01-01", "2011-01-16"))
+-
+-    # partial ranges
+-    compare(slice("2011-01-01", "2011-01-6"))
+-    compare(slice("2011-01-06", "2011-01-8"))
+-    compare(slice("2011-01-06", "2011-01-12"))
++    for key in [
++        slice("2011-01-01", "2011-01-15"),
++        slice("2010-12-30", "2011-01-15"),
++        slice("2011-01-01", "2011-01-16"),
++        # partial ranges
++        slice("2011-01-01", "2011-01-6"),
++        slice("2011-01-06", "2011-01-8"),
++        slice("2011-01-06", "2011-01-12"),
++    ]:
++        with pytest.raises(
++            KeyError, match="Value based partial slicing on non-monotonic"
++        ):
++            compare(key)
+ 
+     # single values
+     result = ts2["2011"].sort_index()

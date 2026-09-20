@@ -1,0 +1,18 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testCachedProperty",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testFunctoolsCachedPropertyAlias",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testCachedPropertyAlias",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testFunctoolsCachedProperty"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalSuite::semanal-classes.test::testStaticMethodWithNoArgs",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-functools.test::testCachedProperty",
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::semanal-errors.test::testStaticmethodAndNonMethod",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testStaticMethod",
+  "mypy/test/testtransform.py::TransformSuite::semanal-classes.test::testStaticMethod",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-typeguard.test::testStaticMethodTypeGuard",
+  "mypy/test/testsemanal.py::SemAnalSuite::semanal-classes.test::testStaticMethod",
+  "mypy/test/testtransform.py::TransformSuite::semanal-classes.test::testStaticMethodWithNoArgs"
+ ]
+}

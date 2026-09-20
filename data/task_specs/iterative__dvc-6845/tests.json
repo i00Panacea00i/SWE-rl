@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_plots.py::test_plots_diff_open_WSL",
+  "tests/unit/command/test_plots.py::test_plots_diff_open_failed",
+  "tests/unit/command/test_plots.py::test_plots_diff_open"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/command/test_plots.py::test_plots_path_is_quoted_and_resolved_properly[quote]",
+  "tests/unit/command/test_plots.py::test_plots_show_vega",
+  "tests/unit/command/test_plots.py::test_should_call_render[some_out]",
+  "tests/unit/command/test_plots.py::test_should_call_render[to/subdir]",
+  "tests/unit/command/test_plots.py::test_plots_diff",
+  "tests/unit/command/test_plots.py::test_plots_path_is_quoted_and_resolved_properly[resolve]",
+  "tests/unit/command/test_plots.py::test_plots_diff_vega",
+  "tests/unit/command/test_plots.py::test_should_call_render[None]"
+ ]
+}

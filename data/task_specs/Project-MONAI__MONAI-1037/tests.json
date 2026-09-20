@@ -1,0 +1,20 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_load_image.py::TestLoadImage::test_register",
+  "tests/test_load_imaged.py::TestLoadImaged::test_register"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_2",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_3",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_1",
+  "tests/test_load_imaged.py::TestLoadImaged::test_shape_0",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_0",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_1",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_3",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_4",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_2",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_0",
+  "tests/test_load_image.py::TestLoadImage::test_kwargs",
+  "tests/test_load_image.py::TestLoadImage::test_load_png"
+ ]
+}

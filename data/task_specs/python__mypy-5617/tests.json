@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyBogus",
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyPy36"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::testInvalidLvalues6",
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyPy27"
+ ]
+}

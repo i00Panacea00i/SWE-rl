@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-formatting.test::testNonStringEnumToFormatValue",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-formatting.test::testStrEnumWithStringToFormatValue",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-formatting.test::testEnumWithStringToFormatValue"
+ ],
+ "PASS_TO_PASS": []
+}

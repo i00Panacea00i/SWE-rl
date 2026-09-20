@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_batch/test_batch_task_definition.py::test_delete_task_definition_by_name[True]",
+  "tests/test_batch/test_batch_task_definition.py::test_describe_task_definition[True]",
+  "tests/test_batch/test_batch_task_definition.py::test_register_task_definition[True]",
+  "tests/test_batch/test_batch_task_definition.py::test_delete_task_definition[True]",
+  "tests/test_batch/test_batch_task_definition.py::test_reregister_task_definition[True]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_batch/test_batch_task_definition.py::test_register_task_definition_with_tags",
+  "tests/test_batch/test_batch_task_definition.py::test_reregister_task_definition[False]",
+  "tests/test_batch/test_batch_task_definition.py::test_describe_task_definition[False]",
+  "tests/test_batch/test_batch_task_definition.py::test_register_task_definition[False]",
+  "tests/test_batch/test_batch_task_definition.py::test_delete_task_definition_by_name[False]",
+  "tests/test_batch/test_batch_task_definition.py::test_delete_task_definition[False]"
+ ]
+}

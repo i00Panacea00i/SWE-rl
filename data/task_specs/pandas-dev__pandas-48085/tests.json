@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/frame/methods/test_add_prefix_suffix.py::test_add_prefix_suffix_axis",
+  "pandas/tests/series/methods/test_add_prefix_suffix.py::test_add_prefix_suffix_axis",
+  "pandas/tests/frame/methods/test_add_prefix_suffix.py::test_add_prefix_suffix_invalid_axis",
+  "pandas/tests/series/methods/test_add_prefix_suffix.py::test_add_prefix_suffix_invalid_axis"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/frame/methods/test_add_prefix_suffix.py::test_add_prefix_suffix",
+  "pandas/tests/series/methods/test_add_prefix_suffix.py::test_add_prefix_suffix"
+ ]
+}

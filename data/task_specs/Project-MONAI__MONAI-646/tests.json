@@ -1,0 +1,32 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_9",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_9"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_7",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_4",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_2",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_1",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_6",
+  "tests/test_dice_loss.py::TestDiceLoss::test_input_warnings",
+  "tests/test_dice_loss.py::TestDiceLoss::test_ill_shape",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_0",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_3",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_5",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_ill_shape",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_2",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_7",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_3",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_5",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_8",
+  "tests/test_dice_loss.py::TestDiceLoss::test_ill_opts",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_ill_opts",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_input_warnings",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_4",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_8",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_1",
+  "tests/test_dice_loss.py::TestDiceLoss::test_shape_6",
+  "tests/test_masked_dice_loss.py::TestDiceLoss::test_shape_0"
+ ]
+}

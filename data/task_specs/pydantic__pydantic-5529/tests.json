@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_model_validator.py::test_model_validator_before[<lambda>]",
+  "tests/test_model_validator.py::test_subclass"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_model_validator.py::test_model_validator_after",
+  "tests/test_model_validator.py::test_model_validator_wrap",
+  "tests/test_model_validator.py::test_model_validator_before[classmethod]"
+ ]
+}

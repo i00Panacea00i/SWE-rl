@@ -1,0 +1,20 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_squeezedim.py::TestSqueezeDim::test_shape_4",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_invalid_inputs_1",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_invalid_inputs_0",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_shape_3",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_invalid_inputs_1",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_invalid_inputs_0",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_shape_3"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_shape_1",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_shape_4",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_shape_1",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_shape_2",
+  "tests/test_squeezedimd.py::TestSqueezeDim::test_shape_0",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_shape_0",
+  "tests/test_squeezedim.py::TestSqueezeDim::test_shape_2"
+ ]
+}

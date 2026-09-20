@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_loading_dict",
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_loading_array"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_shape"
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_numpy_reader.py::TestNumpyReader::test_channel_dim",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_dataloader"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_numpy_reader.py::TestNumpyReader::test_npy_pickle",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_npz3",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_kwargs",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_npz1",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_npy",
+  "tests/test_numpy_reader.py::TestNumpyReader::test_npz2"
+ ]
+}

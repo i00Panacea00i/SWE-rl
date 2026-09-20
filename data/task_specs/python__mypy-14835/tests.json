@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testUnusedTypeIgnorePreservedOnRerun",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testTypeIgnoreWithoutCodePreservedOnRerun",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testTypeIgnoreWithoutCodePreservedAfterChange",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testUnusedTypeIgnorePreservedAfterChange",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testPossiblyUndefinedVarsPreservedAfterUpdate"
+ ],
+ "PASS_TO_PASS": []
+}

@@ -1,0 +1,24 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromFuncLambdaStack",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromFunc"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromClassLambdaStackForce",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromModuleForce",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromFuncLambdaStackForce",
+  "mypy/test/testcheck.py::TypeCheckSuite::testLambdaTypedContext",
+  "mypy/test/testcheck.py::TypeCheckSuite::testEqNone",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromModule",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromTypedFunc",
+  "mypy/test/testcheck.py::TypeCheckSuite::testLambdaUnypedContext",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromTypedFuncForced",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromModuleLambdaStackForce",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromFuncForced",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromModuleLambdaStack",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromTypedFuncLambdaStackForce",
+  "mypy/test/testcheck.py::TypeCheckSuite::testLambdaCheckUnypedContext",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromClassLambdaStack",
+  "mypy/test/testsemanal.py::SemAnalSuite::testLambdaInheritsCheckedContextFromTypedFuncLambdaStack"
+ ]
+}

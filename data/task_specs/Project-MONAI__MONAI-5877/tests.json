@@ -1,0 +1,19 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_warn_2",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_warn_0",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_warn_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_7",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_2",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_4",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_5",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_0",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_8",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_6",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_1",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_rand_histogram_shift_3",
+  "tests/test_rand_histogram_shift.py::TestRandHistogramShift::test_interp"
+ ]
+}

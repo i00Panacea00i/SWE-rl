@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-python310.test::testMatchNarrowUsingPatternGuardSpecialCase",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-python310.test::testMatchGuardReachability"
+ ],
+ "PASS_TO_PASS": []
+}

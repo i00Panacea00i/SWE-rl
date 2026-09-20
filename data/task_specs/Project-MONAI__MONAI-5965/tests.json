@@ -1,0 +1,15 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_handler_stats.py::TestHandlerStats::test_metrics_print_1",
+  "tests/test_handler_stats.py::TestHandlerStats::test_loss_print_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_handler_stats.py::TestHandlerStats::test_loss_dict",
+  "tests/test_handler_stats.py::TestHandlerStats::test_metrics_print_0",
+  "tests/test_handler_stats.py::TestHandlerStats::test_exception",
+  "tests/test_handler_stats.py::TestHandlerStats::test_attributes_print",
+  "tests/test_handler_stats.py::TestHandlerStats::test_loss_file",
+  "tests/test_handler_stats.py::TestHandlerStats::test_default_logger",
+  "tests/test_handler_stats.py::TestHandlerStats::test_loss_print_0"
+ ]
+}

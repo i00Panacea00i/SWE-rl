@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/remote/test_webhdfs.py::test_init",
+  "tests/unit/remote/test_webhdfs.py::test_verify_ssl"
+ ],
+ "PASS_TO_PASS": []
+}

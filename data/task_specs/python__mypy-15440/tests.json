@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testfinegrained.py::FineGrainedSuite::fine-grained.test::testErrorInReAddedModule",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunMultipleStrict"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartPretty",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestart",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartGlobs",
+  "mypy/test/testdaemon.py::DaemonSuite::daemon.test::testDaemonRunRestartPluginVersion"
+ ]
+}

@@ -1,0 +1,42 @@
+diff --git a/tests/func/test_stage_resolver.py b/tests/func/test_stage_resolver.py
+--- a/tests/func/test_stage_resolver.py
++++ b/tests/func/test_stage_resolver.py
+@@ -337,12 +337,16 @@ def test_set(tmp_dir, dvc, value):
+         }
+     }
+     resolver = DataResolver(dvc, PathInfo(str(tmp_dir)), d)
++    if isinstance(value, bool):
++        stringified_value = "true" if value else "false"
++    else:
++        stringified_value = str(value)
+     assert_stage_equal(
+         resolver.resolve(),
+         {
+             "stages": {
+                 "build": {
+-                    "cmd": f"python script.py --thresh {value}",
++                    "cmd": f"python script.py --thresh {stringified_value}",
+                     "always_changed": value,
+                 }
+             }
+diff --git a/tests/unit/test_context.py b/tests/unit/test_context.py
+--- a/tests/unit/test_context.py
++++ b/tests/unit/test_context.py
+@@ -411,6 +411,17 @@ def test_resolve_resolves_dict_keys():
+     }
+ 
+ 
++def test_resolve_resolves_boolean_value():
++    d = {"enabled": True, "disabled": False}
++    context = Context(d)
++
++    assert context.resolve_str("${enabled}") is True
++    assert context.resolve_str("${disabled}") is False
++
++    assert context.resolve_str("--flag ${enabled}") == "--flag true"
++    assert context.resolve_str("--flag ${disabled}") == "--flag false"
++
++
+ def test_merge_from_raises_if_file_not_exist(tmp_dir, dvc):
+     context = Context(foo="bar")
+     with pytest.raises(ParamsFileNotFound):

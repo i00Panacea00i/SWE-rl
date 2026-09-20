@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_shape_1",
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_patch_merging",
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_shape_3"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_shape_2",
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_ill_arg",
+  "tests/test_swin_unetr.py::TestSWINUNETR::test_shape_0"
+ ]
+}

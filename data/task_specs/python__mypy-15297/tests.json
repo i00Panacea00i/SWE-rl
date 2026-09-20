@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testTypingSelfRedundantWarning_pep585",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testTypingSelfRedundantAllowed_pep585"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testTypingSelfRedundantWarning",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testTypingSelfAssertType"
+ ]
+}

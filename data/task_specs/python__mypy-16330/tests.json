@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testNarrowingIsInstanceFinalSubclass",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testNarrowingIsInstanceFinalSubclassWithUnions",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testNarrowingIsSubclassFinalSubclassWithTypeVar"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testNarrowingLiteralIdentityCheck"
+ ]
+}

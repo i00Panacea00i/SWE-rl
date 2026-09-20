@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_status.py::test_status_quiet[status0-0]",
+  "tests/unit/command/test_status.py::test_status_show_json[status1]",
+  "tests/unit/command/test_status.py::test_status_show_json[status0]",
+  "tests/unit/command/test_status.py::test_status_show_json[status2]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/command/test_status.py::test_status_quiet[status2-1]",
+  "tests/unit/command/test_status.py::test_cloud_status",
+  "tests/unit/command/test_status.py::test_status_quiet[status1-1]"
+ ]
+}

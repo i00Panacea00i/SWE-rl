@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_bundle_ckpt_export.py::TestCKPTExport::test_export_1_model",
+  "tests/test_bundle_ckpt_export.py::TestCKPTExport::test_export_0_"
+ ],
+ "PASS_TO_PASS": []
+}

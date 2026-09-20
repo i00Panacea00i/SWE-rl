@@ -1,0 +1,14 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_to_tensor.py::TestToTensor::test_single_input_2",
+  "tests/test_to_tensor.py::TestToTensor::test_single_input_0",
+  "tests/test_to_tensor.py::TestToTensor::test_single_input_1",
+  "tests/test_to_tensor.py::TestToTensor::test_single_input_3"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_to_tensor.py::TestToTensor::test_array_input_0",
+  "tests/test_to_tensor.py::TestToTensor::test_array_input_1",
+  "tests/test_to_tensor.py::TestToTensor::test_array_input_3",
+  "tests/test_to_tensor.py::TestToTensor::test_array_input_2"
+ ]
+}

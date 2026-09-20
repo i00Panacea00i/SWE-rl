@@ -1,0 +1,31 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_data_sync.py::test_pull",
+  "tests/func/test_data_cloud.py::test_pull_allow_missing"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/test_data_cloud.py::test_push_stats[fs0-2",
+  "tests/func/test_data_cloud.py::test_target_remote",
+  "tests/func/test_data_cloud.py::test_hash_recalculation",
+  "tests/func/test_data_cloud.py::test_warn_on_outdated_stage",
+  "tests/func/test_data_cloud.py::test_push_pull_fetch_pipeline_stages",
+  "tests/func/test_data_cloud.py::test_pull_partial",
+  "tests/func/test_data_cloud.py::test_dvc_pull_pipeline_stages",
+  "tests/func/test_data_cloud.py::test_fetch_stats[fs2-Everything",
+  "tests/func/test_data_cloud.py::test_fetch_stats[fs0-2",
+  "tests/unit/command/test_data_sync.py::test_fetch",
+  "tests/func/test_data_cloud.py::TestRemote::test",
+  "tests/unit/command/test_data_sync.py::test_push",
+  "tests/func/test_data_cloud.py::test_push_stats[fs2-Everything",
+  "tests/func/test_data_cloud.py::test_push_stats[fs1-1",
+  "tests/func/test_data_cloud.py::test_missing_cache",
+  "tests/func/test_data_cloud.py::test_fetch_stats[fs1-1",
+  "tests/func/test_data_cloud.py::test_output_remote",
+  "tests/func/test_data_cloud.py::test_pull_partial_import",
+  "tests/func/test_data_cloud.py::test_verify_hashes",
+  "tests/func/test_data_cloud.py::test_cloud_cli",
+  "tests/func/test_data_cloud.py::test_data_cloud_error_cli",
+  "tests/func/test_data_cloud.py::test_pull_stats",
+  "tests/func/test_data_cloud.py::test_pipeline_file_target_ops"
+ ]
+}

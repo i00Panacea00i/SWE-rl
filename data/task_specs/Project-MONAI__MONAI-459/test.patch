@@ -1,0 +1,117 @@
+diff --git a/tests/test_activationsd.py b/tests/test_activationsd.py
+--- a/tests/test_activationsd.py
++++ b/tests/test_activationsd.py
+@@ -40,10 +40,24 @@
+     (1, 1, 2, 2),
+ ]
+ 
++TEST_CASE_3 = [
++    {"keys": "pred", "output_postfix": "act", "sigmoid": False, "softmax": False, "other": lambda x: torch.tanh(x)},
++    {"pred": torch.tensor([[[[0.0, 1.0], [2.0, 3.0]]]])},
++    {"pred_act": torch.tensor([[[[0.0000, 0.7616], [0.9640, 0.9951]]]])},
++    (1, 1, 2, 2),
++]
++
++TEST_CASE_4 = [
++    {"keys": "pred", "output_postfix": None, "sigmoid": False, "softmax": False, "other": lambda x: torch.tanh(x)},
++    {"pred": torch.tensor([[[[0.0, 1.0], [2.0, 3.0]]]])},
++    {"pred": torch.tensor([[[[0.0000, 0.7616], [0.9640, 0.9951]]]])},
++    (1, 1, 2, 2),
++]
++
+ 
+ class TestActivationsd(unittest.TestCase):
+-    @parameterized.expand([TEST_CASE_1, TEST_CASE_2])
+-    def test_shape(self, input_param, test_input, output, expected_shape):
++    @parameterized.expand([TEST_CASE_1, TEST_CASE_2, TEST_CASE_3])
++    def test_value_shape(self, input_param, test_input, output, expected_shape):
+         result = Activationsd(**input_param)(test_input)
+         torch.testing.assert_allclose(result["pred_act"], output["pred_act"])
+         self.assertTupleEqual(result["pred_act"].shape, expected_shape)
+@@ -51,6 +65,12 @@ def test_shape(self, input_param, test_input, output, expected_shape):
+             torch.testing.assert_allclose(result["label_act"], output["label_act"])
+             self.assertTupleEqual(result["label_act"].shape, expected_shape)
+ 
++    @parameterized.expand([TEST_CASE_4])
++    def test_none_postfix(self, input_param, test_input, output, expected_shape):
++        result = Activationsd(**input_param)(test_input)
++        torch.testing.assert_allclose(result["pred"], output["pred"])
++        self.assertTupleEqual(result["pred"].shape, expected_shape)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tests/test_as_discreted.py b/tests/test_as_discreted.py
+--- a/tests/test_as_discreted.py
++++ b/tests/test_as_discreted.py
+@@ -65,10 +65,25 @@
+     (1, 2, 1, 2),
+ ]
+ 
++TEST_CASE_4 = [
++    {
++        "keys": "pred",
++        "output_postfix": None,
++        "argmax": True,
++        "to_onehot": True,
++        "n_classes": 2,
++        "threshold_values": False,
++        "logit_thresh": 0.5,
++    },
++    {"pred": torch.tensor([[[[0.0, 1.0]], [[2.0, 3.0]]]])},
++    {"pred": torch.tensor([[[[0.0, 0.0]], [[1.0, 1.0]]]])},
++    (1, 2, 1, 2),
++]
++
+ 
+ class TestAsDiscreted(unittest.TestCase):
+     @parameterized.expand([TEST_CASE_1, TEST_CASE_2, TEST_CASE_3])
+-    def test_shape(self, input_param, test_input, output, expected_shape):
++    def test_value_shape(self, input_param, test_input, output, expected_shape):
+         result = AsDiscreted(**input_param)(test_input)
+         torch.testing.assert_allclose(result["pred_discrete"], output["pred_discrete"])
+         self.assertTupleEqual(result["pred_discrete"].shape, expected_shape)
+@@ -76,6 +91,12 @@ def test_shape(self, input_param, test_input, output, expected_shape):
+             torch.testing.assert_allclose(result["label_discrete"], output["label_discrete"])
+             self.assertTupleEqual(result["label_discrete"].shape, expected_shape)
+ 
++    @parameterized.expand([TEST_CASE_4])
++    def test_none_postfix(self, input_param, test_input, output, expected_shape):
++        result = AsDiscreted(**input_param)(test_input)
++        torch.testing.assert_allclose(result["pred"], output["pred"])
++        self.assertTupleEqual(result["pred"].shape, expected_shape)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tests/test_keep_largest_connected_componentd.py b/tests/test_keep_largest_connected_componentd.py
+--- a/tests/test_keep_largest_connected_componentd.py
++++ b/tests/test_keep_largest_connected_componentd.py
+@@ -119,6 +119,13 @@
+     ),
+ ]
+ 
++TEST_CASE_13 = [
++    "none_postfix",
++    {"keys": ["img"], "output_postfix": None, "independent": False, "applied_values": [1]},
++    grid_1,
++    torch.tensor([[[[0, 0, 1, 0, 0], [0, 2, 1, 1, 1], [0, 2, 1, 0, 0], [0, 2, 0, 1, 0], [2, 2, 0, 0, 2]]]]),
++]
++
+ VALID_CASES = [
+     TEST_CASE_1,
+     TEST_CASE_2,
+@@ -147,6 +154,13 @@ def test_correct_results(self, _, args, input_dict, expected):
+             result = converter(input_dict)
+             torch.allclose(result["img_largestcc"], expected)
+ 
++    @parameterized.expand([TEST_CASE_13])
++    def test_none_postfix(self, _, args, input_dict, expected):
++        converter = KeepLargestConnectedComponentd(**args)
++        input_dict["img"] = input_dict["img"].cpu()
++        result = converter(input_dict)
++        torch.allclose(result["img"], expected)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()

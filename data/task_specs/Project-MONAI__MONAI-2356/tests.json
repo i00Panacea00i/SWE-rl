@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_3",
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_5"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_2",
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_wrong",
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_1",
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_4",
+  "tests/test_generate_param_groups.py::TestGenerateParamGroups::test_lr_values_0"
+ ]
+}

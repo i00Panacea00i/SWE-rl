@@ -1,0 +1,5 @@
+base_commit: 090a414ba022f600bd65e7611fa3691903fd5a74
+instance_id: python__mypy-16330
+log_parser: parse_log_pytest
+repo: python/mypy
+version: '1.7'

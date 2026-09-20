@@ -1,0 +1,25 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_load_image.py::TestLoadImage::test_channel_dim_0",
+  "tests/test_load_image.py::TestLoadImage::test_channel_dim_2",
+  "tests/test_load_image.py::TestLoadImage::test_channel_dim_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_load_image.py::TestLoadImage::test_my_reader",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_2",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_6",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_1",
+  "tests/test_load_image.py::TestLoadImage::test_itk_dicom_series_reader_1",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_0",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_3",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_4",
+  "tests/test_load_image.py::TestLoadImage::test_itk_dicom_series_reader_0",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_2",
+  "tests/test_load_image.py::TestLoadImage::test_itk_dicom_series_reader_2",
+  "tests/test_load_image.py::TestLoadImage::test_nibabel_reader_5",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_0",
+  "tests/test_load_image.py::TestLoadImage::test_itk_reader_multichannel",
+  "tests/test_load_image.py::TestLoadImage::test_itk_meta",
+  "tests/test_load_image.py::TestLoadImage::test_load_png"
+ ]
+}

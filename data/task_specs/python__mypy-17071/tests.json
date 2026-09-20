@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-typeguard.test::testTypeGuardTypeVarReturn",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-typeis.test::testTypeIsTypeVarReturn"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-typeis.test::testTypeIsUnionIn",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-typeguard.test::testTypeGuardIsBool"
+ ]
+}

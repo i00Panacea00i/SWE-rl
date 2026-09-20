@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_version.py::test_info_outside_of_repo",
+  "tests/func/test_version.py::test_info_in_repo"
+ ],
+ "PASS_TO_PASS": []
+}

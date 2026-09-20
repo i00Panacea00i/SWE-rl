@@ -1,0 +1,27 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_activationsd.py::TestActivationsd::test_none_postfix_0",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_none_postfix_0_none_postfix",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_none_postfix_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_03_dependent_value_1_2",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_00_value_1",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_10_value_0_background_3",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_05_independent_value_1_2",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_08_independent_value_1_2_connect_1",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_1",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_06_dependent_value_1_2",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_02_independent_value_1_2",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_07_value_1_connect_1",
+  "tests/test_activationsd.py::TestActivationsd::test_value_shape_1",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_11_all_0_batch_2",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_04_value_1",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_01_value_2",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_0",
+  "tests/test_activationsd.py::TestActivationsd::test_value_shape_0",
+  "tests/test_keep_largest_connected_componentd.py::TestKeepLargestConnectedComponentd::test_correct_results_09_dependent_value_1_2_connect_1",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_2",
+  "tests/test_activationsd.py::TestActivationsd::test_value_shape_2"
+ ]
+}

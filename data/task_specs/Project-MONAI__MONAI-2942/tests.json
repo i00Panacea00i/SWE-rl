@@ -1,0 +1,16 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_ensure_type.py::TestEnsureType::test_single_input",
+  "tests/test_ensure_typed.py::TestEnsureTyped::test_dict"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_ensure_type.py::TestEnsureType::test_dict",
+  "tests/test_ensure_type.py::TestEnsureType::test_array_input",
+  "tests/test_ensure_typed.py::TestEnsureTyped::test_array_input",
+  "tests/test_ensure_typed.py::TestEnsureTyped::test_string",
+  "tests/test_ensure_type.py::TestEnsureType::test_list_tuple",
+  "tests/test_ensure_typed.py::TestEnsureTyped::test_single_input",
+  "tests/test_ensure_typed.py::TestEnsureTyped::test_list_tuple",
+  "tests/test_ensure_type.py::TestEnsureType::test_string"
+ ]
+}

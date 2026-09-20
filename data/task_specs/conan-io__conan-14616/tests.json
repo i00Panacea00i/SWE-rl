@@ -1,0 +1,42 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/integration/conanfile/required_conan_version_test.py::test_required_conan_version_invalid_syntax",
+  "conans/test/unittests/model/version/test_version_range.py::test_wrong_range_syntax[>=0.0.1"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/unittests/model/version/test_version_range.py::test_range[*-conditions11-versions_in11-versions_out11]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[^1.2.3-conditions7-versions_in7-versions_out7]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*--False-versions_in4-versions_out4]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*--True-versions_in3-versions_out3]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[-conditions12-versions_in12-versions_out12]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[~1-conditions5-versions_in5-versions_out5]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[*--conditions17-versions_in17-versions_out17]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[>1",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[^1.2-conditions6-versions_in6-versions_out6]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*--None-versions_in5-versions_out5]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*-True-versions_in0-versions_out0]",
+  "conans/test/integration/conanfile/required_conan_version_test.py::test_required_conan_version_with_loading_issues",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[>1",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[~1.1.2--conditions21-versions_in21-versions_out21]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[=1.0.0-conditions10-versions_in10-versions_out10]",
+  "conans/test/integration/conanfile/required_conan_version_test.py::test_required_conan_version",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*,",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[^1.1.2--conditions20-versions_in20-versions_out20]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[~2.5.1-conditions4-versions_in4-versions_out4]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*-False-versions_in1-versions_out1]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[*-None-versions_in2-versions_out2]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[-conditions15-versions_in15-versions_out15]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[*,",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[1.0.0",
+  "conans/test/unittests/model/version/test_version_range.py::test_range_prereleases_conf[>1-",
+  "conans/test/integration/conanfile/required_conan_version_test.py::test_commented_out_required_conan_version",
+  "conans/test/integration/conanfile/required_conan_version_test.py::test_comment_after_required_conan_version",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[^0.1.2-conditions8-versions_in8-versions_out8]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[<2.0-conditions1-versions_in1-versions_out1]",
+  "conans/test/unittests/model/version/test_version_range.py::test_wrong_range_syntax[>=",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[>1.0.0-conditions0-versions_in0-versions_out0]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[~2.5-conditions3-versions_in3-versions_out3]",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[>1-",
+  "conans/test/unittests/model/version/test_version_range.py::test_range[1.0.0-conditions9-versions_in9-versions_out9]"
+ ]
+}

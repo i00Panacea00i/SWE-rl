@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_imp_url.py::test_import_url_no_exec",
+  "tests/unit/command/test_imp_url.py::test_import_url"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/command/test_imp_url.py::test_failed_import_url",
+  "tests/func/test_import_url.py::TestCmdImport::test_unsupported"
+ ]
+}

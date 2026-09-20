@@ -1,0 +1,5 @@
+base_commit: 0711e0421afc16da378ffe7e348578ff2b3881f2
+instance_id: Project-MONAI__MONAI-2513
+log_parser: parse_log_pytest
+repo: Project-MONAI/MONAI
+version: '0.6'

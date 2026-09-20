@@ -1,0 +1,31 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/frame/methods/test_compare.py::test_compare_ea_and_np_dtype[4-val20]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_nullable_int64_dtype[4-df2_val2-4-diff_other2]"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/frame/methods/test_compare.py::test_compare_multi_index[0]",
+  "pandas/tests/frame/methods/test_compare.py::test_invalid_input_result_names[HK]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_ea_and_np_dtype[val11-val21]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_multi_index[1]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_nullable_int64_dtype[4-4-diff_self1-diff_other1]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_axis[index]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_with_equal_nulls",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_nullable_int64_dtype[4-3-4-3]",
+  "pandas/tests/frame/methods/test_compare.py::test_invalid_input_result_names[3.0]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_axis[1]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_axis[0]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_various_formats[False-True]",
+  "pandas/tests/frame/methods/test_compare.py::test_invalid_input_result_names[result_names0]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_ea_and_np_dtype[val12-4]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_nullable_int64_dtype[df1_val3-df2_val3-diff_self3-diff_other3]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_unaligned_objects",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_axis[columns]",
+  "pandas/tests/frame/methods/test_compare.py::test_invalid_input_result_names[result_names2]",
+  "pandas/tests/frame/methods/test_compare.py::test_invalid_input_result_names[3]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_various_formats[True-False]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_various_formats[True-True]",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_result_names",
+  "pandas/tests/frame/methods/test_compare.py::test_compare_with_non_equal_nulls"
+ ]
+}

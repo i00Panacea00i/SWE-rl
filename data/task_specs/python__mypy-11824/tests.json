@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses4",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses1"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses2",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses3"
+ ]
+}

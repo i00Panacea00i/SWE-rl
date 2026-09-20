@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testDataclassUntypedGenericInheritance",
+  "mypy/test/testcheck.py::TypeCheckSuite::testDataclassMultiGenericInheritance",
+  "mypy/test/testcheck.py::TypeCheckSuite::testDataclassGenericInheritance"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testDataclassGenericSubtype",
+  "mypy/test/testcheck.py::TypeCheckSuite::testDataclassGenericsClassmethod"
+ ]
+}

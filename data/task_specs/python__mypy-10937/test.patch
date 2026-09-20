@@ -1,0 +1,44 @@
+diff --git a/test-data/unit/check-incremental.test b/test-data/unit/check-incremental.test
+--- a/test-data/unit/check-incremental.test
++++ b/test-data/unit/check-incremental.test
+@@ -5563,3 +5563,25 @@ class D:
+ [out2]
+ tmp/a.py:2: note: Revealed type is "builtins.list[builtins.int]"
+ tmp/a.py:3: note: Revealed type is "builtins.list[builtins.str]"
++
++[case testIncrementalNamespacePackage1]
++# flags: --namespace-packages
++import m
++[file m.py]
++from foo.bar import x
++x + 0
++[file foo/bar.py]
++x = 0
++[rechecked]
++[stale]
++
++[case testIncrementalNamespacePackage2]
++# flags: --namespace-packages
++import m
++[file m.py]
++from foo import bar
++bar.x + 0
++[file foo/bar.py]
++x = 0
++[rechecked]
++[stale]
+diff --git a/test-data/unit/pep561.test b/test-data/unit/pep561.test
+--- a/test-data/unit/pep561.test
++++ b/test-data/unit/pep561.test
+@@ -187,9 +187,8 @@ import a
+ [out2]
+ a.py:1: error: Unsupported operand types for + ("int" and "str")
+ 
+--- Test for issue #9852, among others
+-[case testTypedPkgNamespaceRegFromImportTwice-xfail]
+-# pkgs: typedpkg, typedpkg_ns
++[case testTypedPkgNamespaceRegFromImportTwice]
++# pkgs: typedpkg_ns
+ from typedpkg_ns import ns
+ -- dummy should trigger a second iteration
+ [file dummy.py.2]

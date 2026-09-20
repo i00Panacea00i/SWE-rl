@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/fs/test_s3.py::test_verify_ssl_default_param",
+  "tests/unit/fs/test_s3.py::test_ssl_verify_bool_param"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/fs/test_s3.py::test_get_s3_connection_error",
+  "tests/unit/fs/test_s3.py::test_grants_mutually_exclusive_acl_error",
+  "tests/unit/fs/test_s3.py::test_get_bucket",
+  "tests/unit/fs/test_s3.py::test_get_s3_no_credentials",
+  "tests/unit/fs/test_s3.py::test_grants",
+  "tests/unit/fs/test_s3.py::test_sse_kms_key_id",
+  "tests/unit/fs/test_s3.py::test_key_id_and_secret",
+  "tests/unit/fs/test_s3.py::test_init",
+  "tests/unit/fs/test_s3.py::test_get_s3_connection_error_endpoint"
+ ]
+}

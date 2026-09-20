@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_concat_itemsd.py::TestConcatItemsd::test_single_numpy",
+  "tests/test_concat_itemsd.py::TestConcatItemsd::test_single_tensor"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_concat_itemsd.py::TestConcatItemsd::test_tensor_values",
+  "tests/test_concat_itemsd.py::TestConcatItemsd::test_numpy_values"
+ ]
+}

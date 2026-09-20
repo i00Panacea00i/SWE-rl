@@ -1,0 +1,36 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicClone::test_clone_url_not_hidden",
+  "conans/test/functional/tools/scm/test_git.py::TestGitShallowClone::test_clone_url_not_hidden"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicSCMFlow::test_branch_flow[True]",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicSCMFlow::test_full_scm[True]",
+  "conans/test/functional/tools/scm/test_git.py::test_capture_git_tag",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCloneWithArgs::test_clone_invalid_branch_argument",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicClone::test_clone_checkout",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicCapture::test_capture_remote_url",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCaptureSCM::test_capture_commit_modified_config",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicSCMFlowSubfolder::test_full_scm",
+  "conans/test/functional/tools/scm/test_git.py::TestConanFileSubfolder::test_conanfile_subfolder",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCaptureSCM::test_capture_remote_url",
+  "conans/test/functional/tools/scm/test_git.py::TestGitShallowTagClone::test_find_tag_in_remote",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicCapture::test_git_excluded",
+  "conans/test/functional/tools/scm/test_git.py::TestGitIncluded::test_git_included",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicClone::test_clone_target",
+  "conans/test/functional/tools/scm/test_git.py::TestGitIncluded::test_git_included_subfolder",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicSCMFlow::test_branch_flow[False]",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicCapture::test_capture_commit_local",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicSCMFlow::test_full_scm[False]",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCaptureSCM::test_capture_commit_local",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCloneWithArgs::test_clone_specify_branch_or_tag",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCaptureSCM::test_capture_commit_modified_config_untracked",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicCapture::test_capture_remote_pushed_commit",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicCapture::test_capture_commit_local_subfolder",
+  "conans/test/functional/tools/scm/test_git.py::TestGitMonorepoSCMFlow::test_full_scm",
+  "conans/test/functional/tools/scm/test_git.py::TestGitBasicClone::test_clone_msys2_win_bash",
+  "conans/test/functional/tools/scm/test_git.py::TestConanFileSubfolder::test_git_run",
+  "conans/test/functional/tools/scm/test_git.py::TestGitCaptureSCM::test_capture_remote_pushed_commit",
+  "conans/test/functional/tools/scm/test_git.py::TestGitShallowTagClone::test_detect_commit_not_in_remote"
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_repro_multistage.py::test_repro_pulls_continue_without_run_cache",
+  "tests/func/test_repro_multistage.py::test_repro_skip_pull_if_no_run_cache_is_passed"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/test_repro_multistage.py::test_repro_when_new_out_overlaps_others_stage_outs",
+  "tests/func/test_repro_multistage.py::test_repro_frozen",
+  "tests/func/test_repro_multistage.py::test_repro_list_of_commands_in_order[True]",
+  "tests/func/test_repro_multistage.py::test_repro_list_of_commands_raise_and_stops_after_failure[True]",
+  "tests/func/test_repro_multistage.py::test_downstream",
+  "tests/func/test_repro_multistage.py::test_repro_allow_missing_and_pull",
+  "tests/func/test_repro_multistage.py::test_repro_when_new_outs_added_does_not_exist",
+  "tests/func/test_repro_multistage.py::test_repro_when_new_deps_is_moved",
+  "tests/func/test_repro_multistage.py::test_repro_list_of_commands_raise_and_stops_after_failure[False]",
+  "tests/func/test_repro_multistage.py::test_repro_when_lockfile_gets_deleted",
+  "tests/func/test_repro_multistage.py::test_repro_when_new_deps_added_does_not_exist",
+  "tests/func/test_repro_multistage.py::test_repro_when_new_outs_is_added_in_dvcfile",
+  "tests/func/test_repro_multistage.py::test_repro_list_of_commands_in_order[False]",
+  "tests/func/test_repro_multistage.py::test_repro_allow_missing",
+  "tests/func/test_repro_multistage.py::test_non_existing_stage_name",
+  "tests/func/test_repro_multistage.py::test_cyclic_graph_error",
+  "tests/func/test_repro_multistage.py::test_repro_when_cmd_changes",
+  "tests/func/test_repro_multistage.py::test_repro_multiple_params",
+  "tests/func/test_repro_multistage.py::test_repro_pulls_mising_data_source",
+  "tests/func/test_repro_multistage.py::test_repro_when_new_deps_is_added_in_dvcfile"
+ ]
+}

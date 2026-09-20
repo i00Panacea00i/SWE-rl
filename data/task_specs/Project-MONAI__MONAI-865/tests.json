@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_zipdataset.py::TestZipDataset::test_value_2",
+  "tests/test_zipdataset.py::TestZipDataset::test_value_1",
+  "tests/test_zipdataset.py::TestZipDataset::test_value_3",
+  "tests/test_zipdataset.py::TestZipDataset::test_value_0"
+ ],
+ "PASS_TO_PASS": []
+}

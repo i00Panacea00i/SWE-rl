@@ -1,0 +1,22 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/exchange/test_spec_conformance.py::test_only_one_dtype[float_data]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_mixed_dtypes",
+  "pandas/tests/exchange/test_spec_conformance.py::test_na_float",
+  "pandas/tests/exchange/test_spec_conformance.py::test_only_one_dtype[int_data]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_only_one_dtype[str_data]"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/exchange/test_spec_conformance.py::test_column_get_chunks[10-3]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_column_get_chunks[12-5]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_df_get_chunks[10-3]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_dataframe",
+  "pandas/tests/exchange/test_spec_conformance.py::test_buffer",
+  "pandas/tests/exchange/test_spec_conformance.py::test_noncategorical",
+  "pandas/tests/exchange/test_spec_conformance.py::test_get_columns",
+  "pandas/tests/exchange/test_spec_conformance.py::test_column_get_chunks[12-3]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_categorical",
+  "pandas/tests/exchange/test_spec_conformance.py::test_df_get_chunks[12-5]",
+  "pandas/tests/exchange/test_spec_conformance.py::test_df_get_chunks[12-3]"
+ ]
+}

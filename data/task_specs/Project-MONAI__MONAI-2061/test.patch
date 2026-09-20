@@ -1,0 +1,12 @@
+diff --git a/tests/test_handler_mean_dice.py b/tests/test_handler_mean_dice.py
+--- a/tests/test_handler_mean_dice.py
++++ b/tests/test_handler_mean_dice.py
+@@ -40,7 +40,7 @@ def _val_func(engine, batch):
+         dice_metric.update([y_pred, y])
+ 
+         y_pred = [torch.Tensor([[0], [1]]), torch.Tensor([[1], [0]])]
+-        y = [torch.Tensor([[0], [1]]), torch.Tensor([[1], [0]])]
++        y = torch.Tensor([[[0], [1]], [[1], [0]]])
+         dice_metric.update([y_pred, y])
+ 
+         avg_dice = dice_metric.compute()

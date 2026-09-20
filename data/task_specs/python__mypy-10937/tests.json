@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testIncrementalNamespacePackage2",
+  "mypy/test/testcheck.py::TypeCheckSuite::testIncrementalNamespacePackage1"
+ ],
+ "PASS_TO_PASS": []
+}

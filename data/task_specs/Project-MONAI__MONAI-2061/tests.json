@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_handler_mean_dice.py::TestHandlerMeanDice::test_compute_0",
+  "tests/test_handler_mean_dice.py::TestHandlerMeanDice::test_compute_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_handler_mean_dice.py::TestHandlerMeanDice::test_shape_mismatch_0",
+  "tests/test_handler_mean_dice.py::TestHandlerMeanDice::test_shape_mismatch_1"
+ ]
+}

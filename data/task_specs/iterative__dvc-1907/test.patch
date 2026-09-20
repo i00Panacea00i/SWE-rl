@@ -1,0 +1,146 @@
+diff --git a/tests/func/test_metrics.py b/tests/func/test_metrics.py
+--- a/tests/func/test_metrics.py
++++ b/tests/func/test_metrics.py
+@@ -279,6 +279,33 @@ def test_formatted_output(self):
+         assert expected_txt in stdout
+         assert expected_json in stdout
+ 
++    def test_show_all_should_be_current_dir_agnostic(self):
++        os.chdir(self.DATA_DIR)
++
++        metrics = self.dvc.metrics.show(all_branches=True)
++        self.assertMetricsHaveRelativePaths(metrics)
++
++    def assertMetricsHaveRelativePaths(self, metrics):
++        root_relpath = os.path.relpath(self.dvc.root_dir)
++        metric_path = os.path.join(root_relpath, "metric")
++        metric_json_path = os.path.join(root_relpath, "metric_json")
++        metric_tsv_path = os.path.join(root_relpath, "metric_tsv")
++        metric_htsv_path = os.path.join(root_relpath, "metric_htsv")
++        metric_csv_path = os.path.join(root_relpath, "metric_csv")
++        metric_hcsv_path = os.path.join(root_relpath, "metric_hcsv")
++        for branch in ["bar", "baz", "foo"]:
++            self.assertEqual(
++                set(metrics[branch].keys()),
++                {
++                    metric_path,
++                    metric_json_path,
++                    metric_tsv_path,
++                    metric_htsv_path,
++                    metric_csv_path,
++                    metric_hcsv_path,
++                },
++            )
++
+ 
+ class TestMetricsRecursive(TestDvc):
+     def setUp(self):
+diff --git a/tests/func/test_tree.py b/tests/func/test_tree.py
+--- a/tests/func/test_tree.py
++++ b/tests/func/test_tree.py
+@@ -97,38 +97,66 @@ def convert_to_sets(walk_results):
+ 
+ class TestWalkInNoSCM(AssertWalkEqualMixin, TestDir):
+     def test(self):
+-        tree = WorkingTree()
++        tree = WorkingTree(self._root_dir)
+         self.assertWalkEqual(
+-            tree.walk("."),
++            tree.walk(self._root_dir),
+             [
+-                (".", ["data_dir"], ["code.py", "bar", "тест", "foo"]),
+-                (join("data_dir"), ["data_sub_dir"], ["data"]),
+-                (join("data_dir", "data_sub_dir"), [], ["data_sub"]),
++                (
++                    self._root_dir,
++                    ["data_dir"],
++                    ["code.py", "bar", "тест", "foo"],
++                ),
++                (join(self._root_dir, "data_dir"), ["data_sub_dir"], ["data"]),
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                ),
+             ],
+         )
+ 
+     def test_subdir(self):
+-        tree = WorkingTree()
++        tree = WorkingTree(self._root_dir)
+         self.assertWalkEqual(
+             tree.walk(join("data_dir", "data_sub_dir")),
+-            [(join("data_dir", "data_sub_dir"), [], ["data_sub"])],
++            [
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                )
++            ],
+         )
+ 
+ 
+ class TestWalkInGit(AssertWalkEqualMixin, TestGit):
+     def test_nobranch(self):
+-        tree = WorkingTree()
++        tree = WorkingTree(self._root_dir)
+         self.assertWalkEqual(
+             tree.walk("."),
+             [
+-                (".", ["data_dir"], ["bar", "тест", "code.py", "foo"]),
+-                ("data_dir", ["data_sub_dir"], ["data"]),
+-                (join("data_dir", "data_sub_dir"), [], ["data_sub"]),
++                (
++                    self._root_dir,
++                    ["data_dir"],
++                    ["bar", "тест", "code.py", "foo"],
++                ),
++                (join(self._root_dir, "data_dir"), ["data_sub_dir"], ["data"]),
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                ),
+             ],
+         )
+         self.assertWalkEqual(
+             tree.walk(join("data_dir", "data_sub_dir")),
+-            [(join("data_dir", "data_sub_dir"), [], ["data_sub"])],
++            [
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                )
++            ],
+         )
+ 
+     def test_branch(self):
+@@ -139,12 +167,22 @@ def test_branch(self):
+         self.assertWalkEqual(
+             tree.walk("."),
+             [
+-                (".", ["data_dir"], ["code.py"]),
+-                ("data_dir", ["data_sub_dir"], []),
+-                (join("data_dir", "data_sub_dir"), [], ["data_sub"]),
++                (self._root_dir, ["data_dir"], ["code.py"]),
++                (join(self._root_dir, "data_dir"), ["data_sub_dir"], []),
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                ),
+             ],
+         )
+         self.assertWalkEqual(
+             tree.walk(join("data_dir", "data_sub_dir")),
+-            [(join("data_dir", "data_sub_dir"), [], ["data_sub"])],
++            [
++                (
++                    join(self._root_dir, "data_dir", "data_sub_dir"),
++                    [],
++                    ["data_sub"],
++                )
++            ],
+         )

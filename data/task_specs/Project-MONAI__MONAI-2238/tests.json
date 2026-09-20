@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_numpy_values_1",
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_numpy_values_3"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_tensor_values",
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_numpy_values_2_img",
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_numpy_values_0_img",
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_graph_tensor_values",
+  "tests/test_copy_itemsd.py::TestCopyItemsd::test_array_values"
+ ]
+}

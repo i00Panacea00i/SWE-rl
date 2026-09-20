@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_add.py::test_add_symlink_dir[True]",
+  "tests/func/test_add.py::test_add_file_in_symlink_dir[False]",
+  "tests/func/test_add.py::test_add_symlink_dir[False]",
+  "tests/func/test_add.py::test_add_file_in_symlink_dir[True]"
+ ],
+ "PASS_TO_PASS": []
+}

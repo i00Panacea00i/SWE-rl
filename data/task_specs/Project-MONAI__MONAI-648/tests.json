@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_3",
+  "tests/test_rand_elastic_2d.py::TestRand2DElastic::test_rand_2d_elastic_3"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_2",
+  "tests/test_rand_elastic_2d.py::TestRand2DElastic::test_rand_2d_elastic_2",
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_0",
+  "tests/test_rand_elastic_2d.py::TestRand2DElastic::test_rand_2d_elastic_1",
+  "tests/test_rand_elastic_2d.py::TestRand2DElastic::test_rand_2d_elastic_4",
+  "tests/test_rand_elastic_2d.py::TestRand2DElastic::test_rand_2d_elastic_0",
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_1",
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_4",
+  "tests/test_rand_elasticd_2d.py::TestRand2DElasticd::test_rand_2d_elasticd_5"
+ ]
+}

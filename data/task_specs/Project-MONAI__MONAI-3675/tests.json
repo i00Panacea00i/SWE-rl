@@ -1,0 +1,22 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_7",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_7"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_5",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_4",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_1",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_3",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_5",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_0",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_2",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_6",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_4",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_1",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_6",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_3",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_class_value_0",
+  "tests/test_compute_roc_auc.py::TestComputeROCAUC::test_value_2"
+ ]
+}

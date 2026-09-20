@@ -1,0 +1,28 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_categorical[min]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_categorical[last]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_categorical[first]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_categorical[max]"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/groupby/test_min_max.py::test_max_min_object_multiple_columns",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_nullable[Float32]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_nullable[Float64]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_nullable[Int32]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_nullable[boolean]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_aggregate_period_frame[min]",
+  "pandas/tests/groupby/test_min_max.py::test_aggregate_categorical_lost_index[min]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_aggregate_period_frame[max]",
+  "pandas/tests/groupby/test_min_max.py::test_max_min_non_numeric",
+  "pandas/tests/groupby/test_min_max.py::test_max_inat_not_all_na",
+  "pandas/tests/groupby/test_min_max.py::test_aggregate_categorical_lost_index[max]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_min_max_nullable[Int64]",
+  "pandas/tests/groupby/test_min_max.py::test_min_max_nullable_uint64_empty_group",
+  "pandas/tests/groupby/test_min_max.py::test_min_date_with_nans",
+  "pandas/tests/groupby/test_min_max.py::test_max_inat",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_aggregate_period_column[max]",
+  "pandas/tests/groupby/test_min_max.py::test_groupby_aggregate_period_column[min]",
+  "pandas/tests/groupby/test_min_max.py::test_aggregate_numeric_object_dtype"
+ ]
+}

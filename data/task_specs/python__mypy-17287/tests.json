@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-unreachable-code.test::testLambdaNoReturn",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-unreachable-code.test::testLambdaNoReturnAnnotated"
+ ],
+ "PASS_TO_PASS": []
+}

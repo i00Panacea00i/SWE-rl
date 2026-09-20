@@ -1,0 +1,40 @@
+diff --git a/tests/test_as_discrete.py b/tests/test_as_discrete.py
+--- a/tests/test_as_discrete.py
++++ b/tests/test_as_discrete.py
+@@ -45,6 +45,16 @@
+         ]
+     )
+ 
++    # test threshold = 0.0
++    TEST_CASES.append(
++        [
++            {"argmax": False, "to_onehot": None, "threshold": 0.0},
++            p([[[0.0, -1.0], [-2.0, 3.0]]]),
++            p([[[1.0, 0.0], [0.0, 1.0]]]),
++            (1, 2, 2),
++        ]
++    )
++
+     TEST_CASES.append([{"argmax": False, "to_onehot": 3}, p(1), p([0.0, 1.0, 0.0]), (3,)])
+ 
+     TEST_CASES.append(
+diff --git a/tests/test_as_discreted.py b/tests/test_as_discreted.py
+--- a/tests/test_as_discreted.py
++++ b/tests/test_as_discreted.py
+@@ -70,6 +70,16 @@
+         ]
+     )
+ 
++    # test threshold = 0.0
++    TEST_CASES.append(
++        [
++            {"keys": ["pred", "label"], "argmax": False, "to_onehot": None, "threshold": [0.0, None]},
++            {"pred": p([[[0.0, -1.0], [-2.0, 3.0]]]), "label": p([[[0, 1], [1, 1]]])},
++            {"pred": p([[[1.0, 0.0], [0.0, 1.0]]]), "label": p([[[0.0, 1.0], [1.0, 1.0]]])},
++            (1, 2, 2),
++        ]
++    )
++
+ 
+ class TestAsDiscreted(unittest.TestCase):
+     @parameterized.expand(TEST_CASES)

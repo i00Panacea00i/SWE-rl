@@ -1,0 +1,31 @@
+diff --git a/tests/test_pad_collation.py b/tests/test_pad_collation.py
+--- a/tests/test_pad_collation.py
++++ b/tests/test_pad_collation.py
+@@ -98,9 +98,12 @@ def test_pad_collation(self, t_type, collate_method, transform):
+         # check collation in forward direction
+         for data in loader:
+             if t_type == dict:
++                shapes = []
+                 decollated_data = decollate_batch(data)
+                 for d in decollated_data:
+-                    PadListDataCollate.inverse(d)
++                    output = PadListDataCollate.inverse(d)
++                    shapes.append(output["image"].shape)
++                self.assertTrue(len(set(shapes)) > 1)  # inverted shapes must be different because of random xforms
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tests/test_testtimeaugmentation.py b/tests/test_testtimeaugmentation.py
+--- a/tests/test_testtimeaugmentation.py
++++ b/tests/test_testtimeaugmentation.py
+@@ -58,9 +58,7 @@ def get_data(num_examples, input_size, data_type=np.asarray, include_label=True)
+         data = []
+         for i in range(num_examples):
+             im, label = custom_create_test_image_2d()
+-            d = {}
+-            d["image"] = data_type(im[:, i:])
+-            d[PostFix.meta("image")] = {"affine": np.eye(4)}
++            d = {"image": data_type(im[:, i:])}
+             if include_label:
+                 d["label"] = data_type(label[:, i:])
+                 d[PostFix.meta("label")] = {"affine": np.eye(4)}

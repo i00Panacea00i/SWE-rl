@@ -1,0 +1,5 @@
+base_commit: 44925f4b121392135440f53d7c8a3fb30593d6cc
+instance_id: python__mypy-10401
+log_parser: parse_log_pytest
+repo: python/mypy
+version: '0.820'

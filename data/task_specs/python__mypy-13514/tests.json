@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-python310.test::testMatchUnionTwoTuplesNoCrash",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-python310.test::testMatchTupleInstanceUnionNoCrash",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-python310.test::testMatchTupleOptionalNoCrash"
+ ],
+ "PASS_TO_PASS": []
+}

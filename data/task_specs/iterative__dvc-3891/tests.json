@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_plots.py::test_metrics_diff",
+  "tests/unit/command/test_plots.py::test_plots_show_vega",
+  "tests/unit/command/test_plots.py::test_metrics_show"
+ ],
+ "PASS_TO_PASS": []
+}

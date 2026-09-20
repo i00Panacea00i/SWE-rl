@@ -1,0 +1,20 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_3",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_4"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_0",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_class_1",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_class_0",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_class_2",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_class_2",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_0",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_1",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_class_0",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_value_2",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_class_3",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_class_4",
+  "tests/test_compute_meandice.py::TestComputeMeanDice::test_nans_class_1"
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_09",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_00",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_03",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_01",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_08",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_10",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_11",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_02"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_15",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_test_time_augmentation",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_warn_random_but_has_no_invertible",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_14",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_07",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_image_no_label",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_04",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_06",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_warn_random_but_all_not_invertible",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_12",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_13",
+  "tests/test_pad_collation.py::TestPadCollation::test_pad_collation_05",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_single_transform",
+  "tests/test_testtimeaugmentation.py::TestTestTimeAugmentation::test_warn_non_random"
+ ]
+}

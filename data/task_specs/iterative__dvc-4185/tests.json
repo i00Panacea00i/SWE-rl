@@ -1,0 +1,35 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[{}]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[no]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[[]]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[false]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[off]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[]",
+  "tests/unit/dependency/test_params.py::test_params_with_false_values[null]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/dependency/test_params.py::test_save_info_missing_config",
+  "tests/unit/dependency/test_params.py::test_read_params_unsupported_format",
+  "tests/unit/dependency/test_params.py::test_save_info_missing_param",
+  "tests/func/test_run_multistage.py::test_run_without_cmd[kwargs1]",
+  "tests/unit/dependency/test_params.py::test_dumpd_with_info",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[,]",
+  "tests/unit/dependency/test_params.py::test_loads_params",
+  "tests/unit/dependency/test_params.py::test_params_error[params1]",
+  "tests/unit/dependency/test_params.py::test_read_params_nonexistent_file",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[#]",
+  "tests/func/test_run_multistage.py::test_run_without_cmd[kwargs0]",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[\\]",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[$]",
+  "tests/unit/dependency/test_params.py::test_dumpd_without_info",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[:]",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[@:]",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[;]",
+  "tests/unit/dependency/test_params.py::test_params_error[params0]",
+  "tests/unit/dependency/test_params.py::test_read_params_nested",
+  "tests/unit/dependency/test_params.py::test_loadd_from",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[.]",
+  "tests/func/test_run_multistage.py::test_run_with_invalid_stage_name[/]"
+ ]
+}

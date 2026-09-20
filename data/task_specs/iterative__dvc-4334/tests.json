@@ -1,0 +1,18 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/test_updater.py::test_is_enabled[core2-False]",
+  "tests/unit/test_updater.py::test_check_update_respect_config[False]",
+  "tests/unit/test_updater.py::test_is_enabled[core1-True]",
+  "tests/unit/test_updater.py::test_is_enabled[core0-True]",
+  "tests/unit/test_updater.py::test_check_update_respect_config[True]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/test_updater.py::test_fetch",
+  "tests/unit/test_updater.py::test_check_updates[uptodate]",
+  "tests/unit/test_updater.py::test_check_updates[ahead]",
+  "tests/unit/test_updater.py::test_check",
+  "tests/unit/test_updater.py::test_check_fetches_on_invalid_data_format",
+  "tests/unit/test_updater.py::test_check_updates[behind]",
+  "tests/unit/test_updater.py::test_check_refetches_each_day"
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_mednistdataset.py::TestMedNISTDataset::test_values",
+  "tests/test_decathlondataset.py::TestDecathlonDataset::test_values"
+ ],
+ "PASS_TO_PASS": []
+}

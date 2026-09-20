@@ -1,0 +1,35 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_ec2/test_subnets.py::test_describe_subnet_response_fields",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_response_fields"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_ec2/test_subnets.py::test_describe_subnets_dryrun",
+  "tests/test_ec2/test_subnets.py::test_subnet_should_have_proper_availability_zone_set",
+  "tests/test_ec2/test_subnets.py::test_available_ip_addresses_in_subnet_with_enis",
+  "tests/test_ec2/test_subnets.py::test_availability_zone_in_create_subnet",
+  "tests/test_ec2/test_subnets.py::test_modify_subnet_attribute_validation",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_with_invalid_cidr_block_parameter",
+  "tests/test_ec2/test_subnets.py::test_non_default_subnet",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_with_invalid_cidr_range",
+  "tests/test_ec2/test_subnets.py::test_subnet_create_vpc_validation",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_with_invalid_availability_zone",
+  "tests/test_ec2/test_subnets.py::test_subnets",
+  "tests/test_ec2/test_subnets.py::test_default_subnet",
+  "tests/test_ec2/test_subnets.py::test_get_subnets_filtering",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_with_tags",
+  "tests/test_ec2/test_subnets.py::test_describe_subnets_by_vpc_id",
+  "tests/test_ec2/test_subnets.py::test_create_subnets_with_multiple_vpc_cidr_blocks",
+  "tests/test_ec2/test_subnets.py::test_associate_subnet_cidr_block",
+  "tests/test_ec2/test_subnets.py::test_run_instances_should_attach_to_default_subnet",
+  "tests/test_ec2/test_subnets.py::test_disassociate_subnet_cidr_block",
+  "tests/test_ec2/test_subnets.py::test_describe_subnets_by_state",
+  "tests/test_ec2/test_subnets.py::test_subnet_tagging",
+  "tests/test_ec2/test_subnets.py::test_subnet_get_by_id",
+  "tests/test_ec2/test_subnets.py::test_available_ip_addresses_in_subnet",
+  "tests/test_ec2/test_subnets.py::test_create_subnets_with_overlapping_cidr_blocks",
+  "tests/test_ec2/test_subnets.py::test_create_subnet_with_invalid_cidr_range_multiple_vpc_cidr_blocks",
+  "tests/test_ec2/test_subnets.py::test_modify_subnet_attribute_assign_ipv6_address_on_creation",
+  "tests/test_ec2/test_subnets.py::test_modify_subnet_attribute_public_ip_on_launch"
+ ]
+}

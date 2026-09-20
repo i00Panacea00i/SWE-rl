@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_resized.py::TestResized::test_correct_results_0",
+  "tests/test_resized.py::TestResized::test_longest_shape_2",
+  "tests/test_resized.py::TestResized::test_correct_results_3",
+  "tests/test_resized.py::TestResized::test_correct_results_1",
+  "tests/test_resized.py::TestResized::test_longest_shape_3",
+  "tests/test_resized.py::TestResized::test_longest_shape_1",
+  "tests/test_resized.py::TestResized::test_correct_results_2",
+  "tests/test_resized.py::TestResized::test_consistent_resize"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_resized.py::TestResized::test_identical_spatial",
+  "tests/test_resized.py::TestResized::test_invalid_inputs",
+  "tests/test_resized.py::TestResized::test_longest_shape_0"
+ ]
+}

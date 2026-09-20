@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/integration/configuration/requester_test.py::ConanRequesterCacertPathTests::test_cache_config",
+  "conans/test/integration/configuration/requester_test.py::ConanRequesterCacertPathTests::test_default_verify",
+  "conans/test/integration/configuration/requester_test.py::ConanRequesterCacertPathTests::test_default_no_verify",
+  "conans/test/integration/configuration/requester_test.py::ConanRequesterHeadersTests::test_user_agent"
+ ],
+ "PASS_TO_PASS": []
+}

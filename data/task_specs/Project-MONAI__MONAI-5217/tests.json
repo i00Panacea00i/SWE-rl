@@ -1,0 +1,17 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_one_of.py::TestOneOf::test_inverse_metatensor",
+  "tests/test_one_of.py::TestOneOf::test_inverse_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_one_of.py::TestOneOf::test_inverse_2",
+  "tests/test_one_of.py::TestOneOf::test_normalize_weights_0",
+  "tests/test_one_of.py::TestOneOf::test_inverse_3",
+  "tests/test_one_of.py::TestOneOf::test_inverse_1",
+  "tests/test_one_of.py::TestOneOf::test_inverse_compose",
+  "tests/test_one_of.py::TestOneOf::test_no_weights_arg",
+  "tests/test_one_of.py::TestOneOf::test_compose_flatten_does_not_affect_one_of",
+  "tests/test_one_of.py::TestOneOf::test_len_and_flatten",
+  "tests/test_one_of.py::TestOneOf::test_one_of"
+ ]
+}

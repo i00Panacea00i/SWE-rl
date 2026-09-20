@@ -1,0 +1,18 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop3D::test_rand_weighted_crop_patch_index",
+  "tests/test_rand_crop_by_pos_neg_labeld.py::TestRandCropByPosNegLabeld::test_type_shape_2",
+  "tests/test_rand_crop_by_pos_neg_labeld.py::TestRandCropByPosNegLabeld::test_type_shape_1",
+  "tests/test_rand_crop_by_pos_neg_labeld.py::TestRandCropByPosNegLabeld::test_type_shape_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop::test_rand_weighted_crop_large_roi",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop::test_rand_weighted_crop_bad_w",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop::test_rand_weighted_crop_default_roi",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop3D::test_rand_weighted_crop_large_roi",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop3D::test_rand_weighted_crop_bad_w",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop3D::test_rand_weighted_crop_small_roi",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop::test_rand_weighted_crop_small_roi",
+  "tests/test_rand_weighted_cropd.py::TestRandWeightedCrop3D::test_rand_weighted_crop_default_roi"
+ ]
+}

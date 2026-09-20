@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testNestedFromImports",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testNestedImports",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testNestedImportsAliased"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testOverload_fromTypingImport"
+ ]
+}

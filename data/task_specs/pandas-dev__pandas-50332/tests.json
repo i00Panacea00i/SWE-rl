@@ -1,0 +1,27 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_json_ext_dtype_reading",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_json_ext_dtype_reading_roundtrip"
+ ],
+ "PASS_TO_PASS": [
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_date_array_dtype[date_data0]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_date_dtype",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_decimal_array_dtype[decimal_data0]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_date_array_dtype[date_data1]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_string_array_dtype[string_data1]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_date_array_dtype[date_data2]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_string_dtype",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_build_int64_series",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestBuildSchema::test_build_table_schema",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_string_array_dtype[string_data0]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_build_string_series",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_decimal_array_dtype[decimal_data1]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_decimal_dtype",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_build_date_series",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_integer_dtype",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_build_decimal_series",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_integer_array_dtype[integer_data1]",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableOrient::test_to_json",
+  "pandas/tests/io/json/test_json_table_schema_ext_dtype.py::TestTableSchemaType::test_as_json_table_type_ext_integer_array_dtype[integer_data0]"
+ ]
+}

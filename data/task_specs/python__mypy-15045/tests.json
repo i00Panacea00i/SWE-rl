@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testSelfTypeOverrideCompatibilityTypeVar",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testSelfTypeOverrideCompatibilitySelfTypeVar"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-selftype.test::testSelfTypeSuper"
+ ]
+}

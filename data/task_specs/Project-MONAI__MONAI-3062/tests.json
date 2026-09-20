@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_scale_intensity.py::TestScaleIntensity::test_channel_wise",
+  "tests/test_scale_intensityd.py::TestScaleIntensityd::test_channel_wise"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_scale_intensityd.py::TestScaleIntensityd::test_factor_scale",
+  "tests/test_scale_intensity.py::TestScaleIntensity::test_range_scale",
+  "tests/test_scale_intensity.py::TestScaleIntensity::test_factor_scale",
+  "tests/test_scale_intensityd.py::TestScaleIntensityd::test_range_scale"
+ ]
+}

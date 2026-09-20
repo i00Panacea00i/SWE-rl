@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_result_1",
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_result_2"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_result_0",
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_with_cuda",
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_result_4",
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_result_3",
+  "tests/test_contrastive_loss.py::TestContrastiveLoss::test_ill_shape"
+ ]
+}

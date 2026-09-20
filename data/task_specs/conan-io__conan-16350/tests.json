@@ -1,0 +1,16 @@
+{
+ "FAIL_TO_PASS": [
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results3-True]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results0-True]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results0-False]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results1-False]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results2-False]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results1-True]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results2-True]",
+  "test/unittests/tools/files/test_rm.py::test_exclude_pattern_from_remove_list[results3-False]"
+ ],
+ "PASS_TO_PASS": [
+  "test/unittests/tools/files/test_rm.py::test_remove_files_by_mask_non_recursively",
+  "test/unittests/tools/files/test_rm.py::test_remove_files_by_mask_recursively"
+ ]
+}

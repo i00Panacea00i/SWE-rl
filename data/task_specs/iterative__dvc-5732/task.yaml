@@ -1,0 +1,5 @@
+base_commit: 4d4f9427d1e57fd7c3db68965e41d95d2b197339
+instance_id: iterative__dvc-5732
+log_parser: parse_log_pytest
+repo: iterative/dvc
+version: '2.0'

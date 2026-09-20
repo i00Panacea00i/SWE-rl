@@ -1,0 +1,24 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_resize.py::TestResize::test_longest_shape_1",
+  "tests/test_resized.py::TestResized::test_longest_shape_2",
+  "tests/test_resized.py::TestResized::test_longest_shape_0",
+  "tests/test_resize.py::TestResize::test_longest_shape_2",
+  "tests/test_resized.py::TestResized::test_longest_shape_3",
+  "tests/test_resized.py::TestResized::test_longest_shape_1",
+  "tests/test_resize.py::TestResize::test_longest_infinite_decimals",
+  "tests/test_resize.py::TestResize::test_longest_shape_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_resized.py::TestResized::test_correct_results_0",
+  "tests/test_resize.py::TestResize::test_invalid_inputs",
+  "tests/test_resize.py::TestResize::test_correct_results_0",
+  "tests/test_resized.py::TestResized::test_correct_results_3",
+  "tests/test_resized.py::TestResized::test_correct_results_1",
+  "tests/test_resize.py::TestResize::test_correct_results_3",
+  "tests/test_resized.py::TestResized::test_invalid_inputs",
+  "tests/test_resize.py::TestResize::test_correct_results_2",
+  "tests/test_resize.py::TestResize::test_correct_results_1",
+  "tests/test_resized.py::TestResized::test_correct_results_2"
+ ]
+}

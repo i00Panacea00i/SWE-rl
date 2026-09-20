@@ -1,0 +1,48 @@
+diff --git a/tests/func/test_data_cloud.py b/tests/func/test_data_cloud.py
+--- a/tests/func/test_data_cloud.py
++++ b/tests/func/test_data_cloud.py
+@@ -7,6 +7,7 @@
+ 
+ import dvc_data
+ from dvc.cli import main
++from dvc.exceptions import CheckoutError
+ from dvc.external_repo import clean_repos
+ from dvc.stage.exceptions import StageNotFound
+ from dvc.testing.remote_tests import TestRemote  # noqa, pylint: disable=unused-import
+@@ -561,3 +562,17 @@ def test_target_remote(tmp_dir, dvc, make_remote):
+         "6b18131dc289fd37006705affe961ef8.dir",
+         "b8a9f715dbb64fd5c56e7783c6820a61",
+     }
++
++
++def test_pull_allow_missing(tmp_dir, dvc, local_remote):
++    dvc.stage.add(name="bar", outs=["bar"], cmd="echo bar > bar")
++
++    with pytest.raises(CheckoutError):
++        dvc.pull()
++
++    tmp_dir.dvc_gen("foo", "foo")
++    dvc.push()
++    clean(["foo"], dvc)
++
++    stats = dvc.pull(allow_missing=True)
++    assert stats["fetched"] == 1
+diff --git a/tests/unit/command/test_data_sync.py b/tests/unit/command/test_data_sync.py
+--- a/tests/unit/command/test_data_sync.py
++++ b/tests/unit/command/test_data_sync.py
+@@ -58,6 +58,7 @@ def test_pull(mocker):
+             "--recursive",
+             "--run-cache",
+             "--glob",
++            "--allow-missing",
+         ]
+     )
+     assert cli_args.func == CmdDataPull
+@@ -79,6 +80,7 @@ def test_pull(mocker):
+         recursive=True,
+         run_cache=True,
+         glob=True,
++        allow_missing=True,
+     )
+ 
+ 

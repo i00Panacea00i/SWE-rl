@@ -1,0 +1,87 @@
+#!/bin/bash
+set -uxo pipefail
+source /opt/miniconda3/bin/activate
+conda activate testbed
+cd /testbed
+git config --global --add safe.directory /testbed
+git config --global http.sslVerify false
+git config --global user.email none@none.com
+git config --global user.name SWE-Gym
+git checkout 1455e9551ec2b6e142a45360ad1270a772cb1ca4 -- tests/func/test_s3.py tests/unit/remote/test_remote.py 2>/dev/null || true
+git apply -v - <<'EOF_SWEGYM'
+diff --git a/tests/func/test_s3.py b/tests/func/test_s3.py
+--- a/tests/func/test_s3.py
++++ b/tests/func/test_s3.py
+@@ -2,6 +2,7 @@
+ 
+ import boto3
+ import moto.s3.models as s3model
++import pytest
+ from moto import mock_s3
+ 
+ from dvc.remote.s3 import RemoteS3
+@@ -45,6 +46,30 @@ def test_copy_singlepart_preserve_etag():
+     RemoteS3._copy(s3, from_info, to_info, {})
+ 
+ 
++@mock_s3
++@pytest.mark.parametrize(
++    "base_info",
++    [RemoteS3.path_cls("s3://bucket/"), RemoteS3.path_cls("s3://bucket/ns/")],
++)
++def test_link_created_on_non_nested_path(base_info, tmp_dir, dvc, scm):
++    remote = RemoteS3(dvc, {"url": str(base_info.parent)})
++    remote.s3.create_bucket(Bucket=base_info.bucket)
++    remote.s3.put_object(
++        Bucket=base_info.bucket, Key=(base_info / "from").path, Body="data"
++    )
++    remote.link(base_info / "from", base_info / "to")
++
++    assert remote.exists(base_info / "from")
++    assert remote.exists(base_info / "to")
++
++
++@mock_s3
++def test_makedirs_doesnot_try_on_top_level_paths(tmp_dir, dvc, scm):
++    base_info = RemoteS3.path_cls("s3://bucket/")
++    remote = RemoteS3(dvc, {"url": str(base_info)})
++    remote.makedirs(base_info)
++
++
+ def _upload_multipart(s3, Bucket, Key):
+     mpu = s3.create_multipart_upload(Bucket=Bucket, Key=Key)
+     mpu_id = mpu["UploadId"]
+diff --git a/tests/unit/remote/test_remote.py b/tests/unit/remote/test_remote.py
+--- a/tests/unit/remote/test_remote.py
++++ b/tests/unit/remote/test_remote.py
+@@ -1,4 +1,6 @@
+-from dvc.remote import Remote
++import pytest
++
++from dvc.remote import Remote, RemoteS3, RemoteGS
+ 
+ 
+ def test_remote_with_checksum_jobs(dvc):
+@@ -25,3 +27,15 @@ def test_remote_without_checksum_jobs_default(dvc):
+ 
+     remote = Remote(dvc, name="without_checksum_jobs")
+     assert remote.checksum_jobs == remote.CHECKSUM_JOBS
++
++
++@pytest.mark.parametrize("remote_cls", [RemoteGS, RemoteS3])
++def test_makedirs_not_create_for_top_level_path(remote_cls, mocker):
++    url = "{.scheme}://bucket/".format(remote_cls)
++    remote = remote_cls(None, {"url": url})
++    mocked_client = mocker.PropertyMock()
++    # we use remote clients with same name as scheme to interact with remote
++    mocker.patch.object(remote_cls, remote.scheme, mocked_client)
++
++    remote.makedirs(remote.path_info)
++    assert not mocked_client.called
+
+EOF_SWEGYM
+python -m pip install -e . --no-deps
+: '>>>>> Start Test Output'
+python -m pytest -rA --no-header -p no:cacheprovider -p no:pretty -p no:snail -p no:snail 'tests/func/test_s3.py::test_link_created_on_non_nested_path[base_info0]' 'tests/unit/remote/test_remote.py::test_makedirs_not_create_for_top_level_path[RemoteGS]' 'tests/unit/remote/test_remote.py::test_makedirs_not_create_for_top_level_path[RemoteS3]' tests/func/test_s3.py::test_makedirs_doesnot_try_on_top_level_paths tests/unit/remote/test_remote.py::test_remote_without_checksum_jobs_default tests/func/test_s3.py::test_copy_singlepart_preserve_etag tests/func/test_s3.py::test_copy_multipart_preserve_etag 'tests/func/test_s3.py::test_link_created_on_non_nested_path[base_info1]' tests/unit/remote/test_remote.py::test_remote_with_checksum_jobs tests/unit/remote/test_remote.py::test_remote_without_checksum_jobs
+: '>>>>> End Test Output'
+git checkout 1455e9551ec2b6e142a45360ad1270a772cb1ca4 -- tests/func/test_s3.py tests/unit/remote/test_remote.py 2>/dev/null || true

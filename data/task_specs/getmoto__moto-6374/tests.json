@@ -1,0 +1,18 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_ec2/test_flow_logs.py::test_create_multiple_flow_logs_s3",
+  "tests/test_ec2/test_flow_logs.py::test_create_multiple_flow_logs_cloud_watch"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_ec2/test_flow_logs.py::test_create_flow_logs_cloud_watch",
+  "tests/test_ec2/test_flow_logs.py::test_describe_flow_logs_filtering",
+  "tests/test_ec2/test_flow_logs.py::test_delete_flow_logs_non_existing",
+  "tests/test_ec2/test_flow_logs.py::test_delete_flow_logs",
+  "tests/test_ec2/test_flow_logs.py::test_create_flow_logs_s3",
+  "tests/test_ec2/test_flow_logs.py::test_delete_flow_logs_delete_many",
+  "tests/test_ec2/test_flow_logs.py::test_create_flow_logs_invalid_parameters",
+  "tests/test_ec2/test_flow_logs.py::test_flow_logs_by_ids",
+  "tests/test_ec2/test_flow_logs.py::test_create_flow_logs_unsuccessful",
+  "tests/test_ec2/test_flow_logs.py::test_create_flow_log_create"
+ ]
+}

@@ -1,0 +1,24 @@
+diff --git a/tests/test_concat_itemsd.py b/tests/test_concat_itemsd.py
+--- a/tests/test_concat_itemsd.py
++++ b/tests/test_concat_itemsd.py
+@@ -38,6 +38,20 @@ def test_numpy_values(self):
+         np.testing.assert_allclose(result["img1"], np.array([[0, 1], [1, 2]]))
+         np.testing.assert_allclose(result["cat_img"], np.array([[1, 2], [2, 3], [1, 2], [2, 3]]))
+ 
++    def test_single_numpy(self):
++        input_data = {"img": np.array([[0, 1], [1, 2]])}
++        result = ConcatItemsd(keys="img", name="cat_img")(input_data)
++        result["cat_img"] += 1
++        np.testing.assert_allclose(result["img"], np.array([[0, 1], [1, 2]]))
++        np.testing.assert_allclose(result["cat_img"], np.array([[1, 2], [2, 3]]))
++
++    def test_single_tensor(self):
++        input_data = {"img": torch.tensor([[0, 1], [1, 2]])}
++        result = ConcatItemsd(keys="img", name="cat_img")(input_data)
++        result["cat_img"] += 1
++        torch.testing.assert_allclose(result["img"], torch.tensor([[0, 1], [1, 2]]))
++        torch.testing.assert_allclose(result["cat_img"], torch.tensor([[1, 2], [2, 3]]))
++
+ 
+ if __name__ == "__main__":
+     unittest.main()

@@ -1,0 +1,19 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_remote.py::TestRemote::test_relative_path",
+  "tests/func/test_remote.py::TestRemoteDefault::test",
+  "tests/func/test_config.py::test_config_loads_without_error_for_non_dvc_repo",
+  "tests/func/test_remote.py::TestRemote::test_referencing_other_remotes",
+  "tests/func/test_remote.py::TestRemote::test_overwrite",
+  "tests/func/test_config.py::test_merging_two_levels",
+  "tests/func/test_remote.py::TestRemote::test",
+  "tests/func/test_remote.py::TestRemoteRemove::test"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/test_config.py::TestConfigCLI::test_non_existing",
+  "tests/func/test_config.py::TestConfigCLI::test",
+  "tests/func/test_config.py::TestConfigCLI::test_root",
+  "tests/func/test_config.py::TestConfigCLI::test_local",
+  "tests/func/test_config.py::test_set_invalid_key"
+ ]
+}

@@ -1,0 +1,5 @@
+base_commit: a3d2fbcefe1cbdff55efb085d7c177c3d1e32dc8
+instance_id: conan-io__conan-16350
+log_parser: parse_log_pytest
+repo: conan-io/conan
+version: '2.4'

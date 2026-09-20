@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_localnet.py::TestLocalNet::test_extract_levels_0",
+  "tests/test_localnet.py::TestLocalNet::test_extract_levels_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_localnet.py::TestLocalNet::test_script",
+  "tests/test_localnet.py::TestLocalNet::test_shape_0",
+  "tests/test_localnet.py::TestLocalNet::test_shape_1"
+ ]
+}

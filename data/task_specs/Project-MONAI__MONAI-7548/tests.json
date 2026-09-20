@@ -1,0 +1,25 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_6",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_6"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_1",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_medicalnet_on_2d_data",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_2",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_4",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_1",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_1d",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_5",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_3",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_different_shape",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_4",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_2",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_5",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_3",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_7",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_0",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_identical_input_0",
+  "tests/test_perceptual_loss.py::TestPerceptualLoss::test_shape_7"
+ ]
+}

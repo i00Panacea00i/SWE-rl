@@ -1,0 +1,34 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_add.py::TestShouldUpdateStateEntryForFileAfterAdd::test",
+  "tests/func/test_add.py::TestShouldUpdateStateEntryForDirectoryAfterAdd::test"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/test_add.py::TestAddExternalLocalFile::test",
+  "tests/func/test_add.py::TestAddDirectory::test",
+  "tests/func/test_add.py::TestDoubleAddUnchanged::test_dir",
+  "tests/func/test_add.py::TestShouldPlaceStageInDataDirIfRepositoryBelowSymlink::test",
+  "tests/func/test_add.py::TestAddDirWithExistingCache::test",
+  "tests/func/test_add.py::TestAddFileInDir::test",
+  "tests/func/test_add.py::TestAddDirectoryRecursive::test",
+  "tests/func/test_add.py::TestAdd::test",
+  "tests/func/test_add.py::TestShouldCollectDirCacheOnlyOnce::test",
+  "tests/func/test_add.py::TestShouldAddDataFromInternalSymlink::test",
+  "tests/func/test_add.py::TestAddCommit::test",
+  "tests/func/test_add.py::TestShouldCleanUpAfterFailedAdd::test",
+  "tests/func/test_add.py::TestShouldThrowProperExceptionOnCorruptedStageFile::test",
+  "tests/func/test_add.py::TestAddDirectoryWithForwardSlash::test",
+  "tests/func/test_add.py::TestAddFilename::test",
+  "tests/func/test_add.py::TestAdd::test_unicode",
+  "tests/func/test_add.py::TestAddModifiedDir::test",
+  "tests/func/test_add.py::TestAddUnupportedFile::test",
+  "tests/func/test_add.py::TestShouldNotTrackGitInternalFiles::test",
+  "tests/func/test_add.py::TestShouldAddDataFromExternalSymlink::test",
+  "tests/func/test_add.py::TestCmdAdd::test",
+  "tests/func/test_add.py::TestDoubleAddUnchanged::test_file",
+  "tests/func/test_add.py::TestAddTrackedFile::test",
+  "tests/func/test_add.py::TestShouldNotCheckCacheForDirIfCacheMetadataDidNotChange::test",
+  "tests/func/test_add.py::TestAddCmdDirectoryRecursive::test",
+  "tests/func/test_add.py::TestAddLocalRemoteFile::test"
+ ]
+}

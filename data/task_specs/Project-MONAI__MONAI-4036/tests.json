@@ -1,0 +1,15 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_2",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_4",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_5",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_1"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_patch_wsi_dataset.py::testing_data_config",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_3",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_6",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_7",
+  "tests/test_patch_wsi_dataset.py::TestPatchWSIDataset::test_read_patches_cucim_0"
+ ]
+}

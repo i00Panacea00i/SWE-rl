@@ -1,0 +1,27 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_brackets[(job_id",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_brackets[job_id"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_reverse_keys[begins_with(start_date,:sk)",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashKey::test_unknown_hash_key",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_begin_with[job_id",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_numeric_comparisons[>=]",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashKey::test_unknown_hash_value",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_begin_with__wrong_case[Begins_with]",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_in_between[job_id",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_unknown_hash_key",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_numeric_comparisons[",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_begin_with__wrong_case[Begins_With]",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_reverse_keys[start_date",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_unknown_range_key[job_id",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_reverse_keys[start_date=:sk",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestNamesAndValues::test_names_and_values",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_numeric_comparisons[>]",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashKey::test_hash_key_only[job_id",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_reverse_keys[start_date>:sk",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_numeric_comparisons[=",
+  "tests/test_dynamodb/models/test_key_condition_expression_parser.py::TestHashAndRangeKey::test_begin_with__wrong_case[BEGINS_WITH]"
+ ]
+}

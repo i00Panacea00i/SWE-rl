@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testAsyncContextManagerWithGenericFunction",
+  "mypy/test/testcheck.py::TypeCheckSuite::testAsyncContextManagerWithGenericFunctionAndSendType",
+  "mypy/test/testcheck.py::TypeCheckSuite::testContextManagerWithGenericFunctionAndSendType"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testContextManagerWithUnspecifiedArguments"
+ ]
+}

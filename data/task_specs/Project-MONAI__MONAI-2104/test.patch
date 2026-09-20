@@ -1,0 +1,111 @@
+diff --git a/tests/test_rand_crop_by_pos_neg_labeld.py b/tests/test_rand_crop_by_pos_neg_labeld.py
+--- a/tests/test_rand_crop_by_pos_neg_labeld.py
++++ b/tests/test_rand_crop_by_pos_neg_labeld.py
+@@ -18,7 +18,7 @@
+ 
+ TEST_CASE_0 = [
+     {
+-        "keys": ["image", "extral", "label"],
++        "keys": ["image", "extra", "label"],
+         "label_key": "label",
+         "spatial_size": [-1, 2, 2],
+         "pos": 1,
+@@ -29,10 +29,9 @@
+     },
+     {
+         "image": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+-        "extral": np.random.randint(0, 2, size=[3, 3, 3, 3]),
++        "extra": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+         "label": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+-        "affine": np.eye(3),
+-        "shape": "CHWD",
++        "image_meta_dict": {"affine": np.eye(3), "shape": "CHWD"},
+     },
+     list,
+     (3, 3, 2, 2),
+@@ -40,7 +39,7 @@
+ 
+ TEST_CASE_1 = [
+     {
+-        "keys": ["image", "extral", "label"],
++        "keys": ["image", "extra", "label"],
+         "label_key": "label",
+         "spatial_size": [2, 2, 2],
+         "pos": 1,
+@@ -51,10 +50,9 @@
+     },
+     {
+         "image": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+-        "extral": np.random.randint(0, 2, size=[3, 3, 3, 3]),
++        "extra": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+         "label": np.random.randint(0, 2, size=[3, 3, 3, 3]),
+-        "affine": np.eye(3),
+-        "shape": "CHWD",
++        "label_meta_dict": {"affine": np.eye(3), "shape": "CHWD"},
+     },
+     list,
+     (3, 2, 2, 2),
+@@ -62,7 +60,7 @@
+ 
+ TEST_CASE_2 = [
+     {
+-        "keys": ["image", "extral", "label"],
++        "keys": ["image", "extra", "label"],
+         "label_key": "label",
+         "spatial_size": [2, 2, 2],
+         "pos": 1,
+@@ -73,10 +71,9 @@
+     },
+     {
+         "image": np.zeros([3, 3, 3, 3]) - 1,
+-        "extral": np.zeros([3, 3, 3, 3]),
++        "extra": np.zeros([3, 3, 3, 3]),
+         "label": np.ones([3, 3, 3, 3]),
+-        "affine": np.eye(3),
+-        "shape": "CHWD",
++        "extra_meta_dict": {"affine": np.eye(3), "shape": "CHWD"},
+     },
+     list,
+     (3, 2, 2, 2),
+@@ -89,10 +86,12 @@ def test_type_shape(self, input_param, input_data, expected_type, expected_shape
+         result = RandCropByPosNegLabeld(**input_param)(input_data)
+         self.assertIsInstance(result, expected_type)
+         self.assertTupleEqual(result[0]["image"].shape, expected_shape)
+-        self.assertTupleEqual(result[0]["extral"].shape, expected_shape)
++        self.assertTupleEqual(result[0]["extra"].shape, expected_shape)
+         self.assertTupleEqual(result[0]["label"].shape, expected_shape)
+         for i, item in enumerate(result):
+             self.assertEqual(item["image_meta_dict"]["patch_index"], i)
++            self.assertEqual(item["label_meta_dict"]["patch_index"], i)
++            self.assertEqual(item["extra_meta_dict"]["patch_index"], i)
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tests/test_rand_weighted_cropd.py b/tests/test_rand_weighted_cropd.py
+--- a/tests/test_rand_weighted_cropd.py
++++ b/tests/test_rand_weighted_cropd.py
+@@ -139,6 +139,24 @@ def test_rand_weighted_crop_bad_w(self):
+         np.testing.assert_allclose(result[0]["seg"].shape, (1, 48, 64, 80))
+         np.testing.assert_allclose(np.asarray(crop.centers), [[24, 32, 40], [24, 32, 40], [24, 32, 40]])
+ 
++    def test_rand_weighted_crop_patch_index(self):
++        img = self.imt[0]
++        n_samples = 3
++        crop = RandWeightedCropd(("img", "seg"), "w", (10, -1, -1), n_samples)
++        weight = np.zeros_like(img)
++        weight[0, 7, 17] = 1.1
++        weight[0, 13, 31] = 1.1
++        weight[0, 24, 21] = 1
++        crop.set_random_state(10)
++        result = crop({"img": img, "seg": self.segn[0], "w": weight, "img_meta_dict": {"affine": None}})
++        self.assertTrue(len(result) == n_samples)
++        np.testing.assert_allclose(np.asarray(crop.centers), [[14, 32, 40], [41, 32, 40], [20, 32, 40]])
++        for i in range(n_samples):
++            np.testing.assert_allclose(result[i]["img"].shape, (1, 10, 64, 80))
++            np.testing.assert_allclose(result[i]["seg"].shape, (1, 10, 64, 80))
++            np.testing.assert_allclose(result[i]["img_meta_dict"]["patch_index"], i)
++            np.testing.assert_allclose(result[i]["seg_meta_dict"]["patch_index"], i)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()

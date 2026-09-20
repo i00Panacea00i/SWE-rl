@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_handler_metrics_saver.py::TestHandlerMetricsSaver::test_content",
+  "tests/test_handler_metrics_saver_dist.py::DistributedMetricsSaver::test_content",
+  "tests/test_write_metrics_reports.py::TestWriteMetricsReports::test_content"
+ ],
+ "PASS_TO_PASS": []
+}

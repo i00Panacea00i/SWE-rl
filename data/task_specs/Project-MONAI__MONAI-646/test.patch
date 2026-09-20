@@ -1,0 +1,24 @@
+diff --git a/tests/test_dice_loss.py b/tests/test_dice_loss.py
+--- a/tests/test_dice_loss.py
++++ b/tests/test_dice_loss.py
+@@ -106,7 +106,7 @@
+             "target": torch.tensor([[[[1.0, 0.0], [1.0, 1.0]]]]),
+             "smooth": 1e-5,
+         },
+-        -0.059094,
++        0.470451,
+     ],
+ ]
+ 
+diff --git a/tests/test_masked_dice_loss.py b/tests/test_masked_dice_loss.py
+--- a/tests/test_masked_dice_loss.py
++++ b/tests/test_masked_dice_loss.py
+@@ -110,7 +110,7 @@
+             "target": torch.tensor([[[[1.0, 0.0], [1.0, 1.0]]]]),
+             "smooth": 1e-5,
+         },
+-        -0.059094,
++        0.470451,
+     ],
+ ]
+ 

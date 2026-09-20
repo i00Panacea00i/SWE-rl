@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testDataclassWithSlotsDerivedFromNonSlot",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-plugin-attrs.test::testAttrsClassWithSlotsDerivedFromNonSlots"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-plugin-attrs.test::testRuntimeSlotsAttr",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testDataclassWithSlotsConflict"
+ ]
+}

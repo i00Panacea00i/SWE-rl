@@ -1,0 +1,51 @@
+diff --git a/test-data/unit/check-dataclasses.test b/test-data/unit/check-dataclasses.test
+--- a/test-data/unit/check-dataclasses.test
++++ b/test-data/unit/check-dataclasses.test
+@@ -1519,6 +1519,22 @@ class Some:
+         self.y = 1  # E: Trying to assign name "y" that is not in "__slots__" of type "__main__.Some"
+ [builtins fixtures/dataclasses.pyi]
+ 
++[case testDataclassWithSlotsDerivedFromNonSlot]
++# flags: --python-version 3.10
++from dataclasses import dataclass
++
++class A:
++    pass
++
++@dataclass(slots=True)
++class B(A):
++    x: int
++
++    def __post_init__(self) -> None:
++        self.y = 42
++
++[builtins fixtures/dataclasses.pyi]
++
+ [case testDataclassWithSlotsConflict]
+ # flags: --python-version 3.10
+ from dataclasses import dataclass
+diff --git a/test-data/unit/check-plugin-attrs.test b/test-data/unit/check-plugin-attrs.test
+--- a/test-data/unit/check-plugin-attrs.test
++++ b/test-data/unit/check-plugin-attrs.test
+@@ -1677,6 +1677,21 @@ class C:
+         self.c = 2  # E: Trying to assign name "c" that is not in "__slots__" of type "__main__.C"
+ [builtins fixtures/plugin_attrs.pyi]
+ 
++[case testAttrsClassWithSlotsDerivedFromNonSlots]
++import attrs
++
++class A:
++    pass
++
++@attrs.define(slots=True)
++class B(A):
++    x: int
++
++    def __attrs_post_init__(self) -> None:
++        self.y = 42
++
++[builtins fixtures/plugin_attrs.pyi]
++
+ [case testRuntimeSlotsAttr]
+ from attr import dataclass
+ 

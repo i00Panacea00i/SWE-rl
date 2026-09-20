@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "pandas/tests/frame/methods/test_isetitem.py::TestDataFrameSetItem::test_isetitem_ea_df",
+  "pandas/tests/frame/methods/test_isetitem.py::TestDataFrameSetItem::test_isetitem_ea_df_scalar_indexer"
+ ],
+ "PASS_TO_PASS": []
+}

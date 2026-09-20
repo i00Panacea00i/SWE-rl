@@ -1,0 +1,39 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_stage_resolver.py::test_set[True]",
+  "tests/func/test_stage_resolver.py::test_set[False]",
+  "tests/unit/test_context.py::test_resolve_resolves_boolean_value"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/test_context.py::test_select",
+  "tests/unit/test_context.py::test_context_list",
+  "tests/unit/test_context.py::test_merge_list",
+  "tests/func/test_stage_resolver.py::test_set[To",
+  "tests/unit/test_context.py::test_track",
+  "tests/func/test_stage_resolver.py::test_set[value]",
+  "tests/func/test_stage_resolver.py::test_set[3.141592653589793]",
+  "tests/func/test_stage_resolver.py::test_set[None]",
+  "tests/unit/test_context.py::test_select_unwrap",
+  "tests/unit/test_context.py::test_context",
+  "tests/unit/test_context.py::test_context_dict_ignores_keys_except_str",
+  "tests/unit/test_context.py::test_merge_from_raises_if_file_not_exist",
+  "tests/func/test_stage_resolver.py::test_vars",
+  "tests/unit/test_context.py::test_track_from_multiple_files",
+  "tests/unit/test_context.py::test_node_value",
+  "tests/func/test_stage_resolver.py::test_foreach_loop_dict",
+  "tests/unit/test_context.py::test_loop_context",
+  "tests/func/test_stage_resolver.py::test_coll[coll1]",
+  "tests/unit/test_context.py::test_overwrite_with_setitem",
+  "tests/unit/test_context.py::test_merge_dict",
+  "tests/func/test_stage_resolver.py::test_simple_foreach_loop",
+  "tests/unit/test_context.py::test_load_from",
+  "tests/func/test_stage_resolver.py::test_set_with_foreach",
+  "tests/func/test_stage_resolver.py::test_no_params_yaml_and_vars",
+  "tests/unit/test_context.py::test_clone",
+  "tests/func/test_stage_resolver.py::test_coll[coll0]",
+  "tests/unit/test_context.py::test_resolve_resolves_dict_keys",
+  "tests/unit/test_context.py::test_repr",
+  "tests/unit/test_context.py::test_context_setitem_getitem",
+  "tests/func/test_stage_resolver.py::test_set[3]"
+ ]
+}

@@ -1,0 +1,5 @@
+base_commit: 7b054f1d8f4a2343268f5182d47996a5469b10dc
+instance_id: dask__dask-9272
+log_parser: parse_log_pytest
+repo: dask/dask
+version: '2022.7'

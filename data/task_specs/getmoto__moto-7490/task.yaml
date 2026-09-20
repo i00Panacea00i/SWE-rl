@@ -1,0 +1,5 @@
+base_commit: db862bcf3b5ea051d412620caccbc08d72c8f441
+instance_id: getmoto__moto-7490
+log_parser: parse_log_pytest
+repo: getmoto/moto
+version: '5.0'

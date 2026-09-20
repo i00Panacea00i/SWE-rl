@@ -1,0 +1,16 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_sobel_gradientd.py::SobelGradientTests::test_sobel_gradients_0",
+  "tests/test_sobel_gradient.py::SobelGradientTests::test_sobel_gradients_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_sobel_gradientd.py::SobelGradientTests::test_sobel_gradients_error_0",
+  "tests/test_sobel_gradientd.py::SobelGradientTests::test_sobel_kernels_1",
+  "tests/test_sobel_gradient.py::SobelGradientTests::test_sobel_gradients_error_0",
+  "tests/test_sobel_gradient.py::SobelGradientTests::test_sobel_kernels_2",
+  "tests/test_sobel_gradient.py::SobelGradientTests::test_sobel_kernels_0",
+  "tests/test_sobel_gradientd.py::SobelGradientTests::test_sobel_kernels_0",
+  "tests/test_sobel_gradientd.py::SobelGradientTests::test_sobel_kernels_2",
+  "tests/test_sobel_gradient.py::SobelGradientTests::test_sobel_kernels_1"
+ ]
+}

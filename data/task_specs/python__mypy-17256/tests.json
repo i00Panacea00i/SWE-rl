@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testTypeNarrowingReachableNegativeUnion",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-narrowing.test::testTypeNarrowingReachableNegative"
+ ],
+ "PASS_TO_PASS": []
+}

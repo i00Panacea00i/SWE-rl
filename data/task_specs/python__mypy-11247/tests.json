@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testFinalEnumWithClassDef",
+  "mypy/test/testcheck.py::TypeCheckSuite::testEnumImplicitlyFinalForSubclassing",
+  "mypy/test/testcheck.py::TypeCheckSuite::testEnumFinalSubtypingMethodAndValueSpecialCase"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testEnumFinalSubtypingEnumMetaSpecialCase",
+  "mypy/test/testcheck.py::TypeCheckSuite::testSubclassingNonFinalEnums",
+  "mypy/test/testcheck.py::TypeCheckSuite::testEnumExplicitlyAndImplicitlyFinal",
+  "mypy/test/testcheck.py::TypeCheckSuite::testEnumFinalSubtypingOverloadedSpecialCase"
+ ]
+}

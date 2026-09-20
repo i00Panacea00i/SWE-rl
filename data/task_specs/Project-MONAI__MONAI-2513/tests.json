@@ -1,0 +1,22 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_focal_loss.py::TestFocalLoss::test_consistency_with_cross_entropy_2d_onehot_label",
+  "tests/test_focal_loss.py::TestFocalLoss::test_consistency_with_cross_entropy_classification",
+  "tests/test_focal_loss.py::TestFocalLoss::test_ill_shape",
+  "tests/test_focal_loss.py::TestFocalLoss::test_consistency_with_cross_entropy_2d",
+  "tests/test_focal_loss.py::TestFocalLoss::test_foreground",
+  "tests/test_masked_loss.py::TestMaskedLoss::test_shape_0"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_focal_loss.py::TestFocalLoss::test_script",
+  "tests/test_focal_loss.py::TestFocalLoss::test_multi_class_seg_2d",
+  "tests/test_focal_loss.py::TestFocalLoss::test_ill_class_weight",
+  "tests/test_focal_loss.py::TestFocalLoss::test_empty_class_2d",
+  "tests/test_masked_loss.py::TestMaskedLoss::test_ill_opts",
+  "tests/test_masked_loss.py::TestMaskedLoss::test_script",
+  "tests/test_focal_loss.py::TestFocalLoss::test_bin_seg_3d",
+  "tests/test_focal_loss.py::TestFocalLoss::test_consistency_with_cross_entropy_classification_01",
+  "tests/test_focal_loss.py::TestFocalLoss::test_ill_opts",
+  "tests/test_focal_loss.py::TestFocalLoss::test_bin_seg_2d"
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_smartcachedataset.py::TestSmartCacheDataset::test_shuffle",
+  "tests/test_handler_smartcache.py::TestHandlerSmartCache::test_content"
+ ],
+ "PASS_TO_PASS": []
+}

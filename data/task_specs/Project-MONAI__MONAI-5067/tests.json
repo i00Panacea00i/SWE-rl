@@ -1,0 +1,37 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_patch_dataset.py::TestPatchDataset::test_loading_array",
+  "tests/test_compose.py::TestCompose::test_data_loader",
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_loading_array",
+  "tests/test_thread_buffer.py::TestDataLoader::test_deterministic",
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_loading_dict",
+  "tests/test_dataloader.py::TestLoaderRandom::test_randomize_1",
+  "tests/test_compose.py::TestCompose::test_data_loader_2"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_thread_buffer.py::TestDataLoader::test_values",
+  "tests/test_grid_dataset.py::TestGridPatchDataset::test_shape",
+  "tests/test_dataloader.py::TestDataLoader::test_exception_0",
+  "tests/test_compose.py::TestCompose::test_flatten_and_len",
+  "tests/test_compose.py::TestCompose::test_randomize_warn",
+  "tests/test_dataloader.py::TestLoaderRandom::test_zipdataset",
+  "tests/test_dataloader.py::TestDataLoader::test_exception_1",
+  "tests/test_compose.py::TestCompose::test_non_dict_compose_with_unpack",
+  "tests/test_compose.py::TestCompose::test_backwards_compatible_imports",
+  "tests/test_compose.py::TestCompose::test_list_dict_compose_no_map",
+  "tests/test_compose.py::TestCompose::test_dict_compose",
+  "tests/test_patch_dataset.py::TestPatchDataset::test_shape",
+  "tests/test_compose.py::TestCompose::test_empty_compose",
+  "tests/test_thread_buffer.py::TestDataLoader::test_dataloader",
+  "tests/test_thread_buffer.py::TestDataLoader::test_dataloader_repeats",
+  "tests/test_dataloader.py::TestLoaderRandom::test_randomize_0",
+  "tests/test_thread_buffer.py::TestDataLoader::test_thread_workers",
+  "tests/test_compose.py::TestCompose::test_list_non_dict_compose_with_unpack",
+  "tests/test_dataloader.py::TestDataLoader::test_values",
+  "tests/test_compose.py::TestCompose::test_err_msg",
+  "tests/test_thread_buffer.py::TestDataLoader::test_time",
+  "tests/test_compose.py::TestCompose::test_non_dict_compose",
+  "tests/test_compose.py::TestCompose::test_random_compose",
+  "tests/test_compose.py::TestCompose::test_list_dict_compose"
+ ]
+}

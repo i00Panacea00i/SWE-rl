@@ -1,0 +1,30 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_11",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_05"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_09",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_04",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_07",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_06",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_04",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_03",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_00",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_02",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_08",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_09",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_00",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_01",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_07",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_01",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_08",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_11",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_10",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_10",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_06",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_05",
+  "tests/test_as_discrete.py::TestAsDiscrete::test_value_shape_02",
+  "tests/test_as_discreted.py::TestAsDiscreted::test_value_shape_03"
+ ]
+}

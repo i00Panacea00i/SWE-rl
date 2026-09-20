@@ -1,0 +1,5 @@
+base_commit: 94bbaaad028678166896cf139f778240e02d0a69
+instance_id: facebookresearch__hydra-1006
+log_parser: parse_log_pytest
+repo: facebookresearch/hydra
+version: '1.0'

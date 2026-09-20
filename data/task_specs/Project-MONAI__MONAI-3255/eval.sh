@@ -1,0 +1,154 @@
+#!/bin/bash
+set -uxo pipefail
+source /opt/miniconda3/bin/activate
+conda activate testbed
+cd /testbed
+git config --global --add safe.directory /testbed
+git config --global http.sslVerify false
+git config --global user.email none@none.com
+git config --global user.name SWE-Gym
+git checkout 4deb590dec2e7dc27e535a1f208aaec4b8661ef3 -- tests/test_numpy_reader.py tests/test_wsireader.py 2>/dev/null || true
+git apply -v - <<'EOF_SWEGYM'
+diff --git a/tests/test_numpy_reader.py b/tests/test_numpy_reader.py
+--- a/tests/test_numpy_reader.py
++++ b/tests/test_numpy_reader.py
+@@ -10,12 +10,15 @@
+ # limitations under the License.
+ 
+ import os
++import sys
+ import tempfile
+ import unittest
+ 
+ import numpy as np
++import torch
+ 
+-from monai.data import NumpyReader
++from monai.data import DataLoader, Dataset, NumpyReader
++from monai.transforms import LoadImaged
+ 
+ 
+ class TestNumpyReader(unittest.TestCase):
+@@ -27,8 +30,8 @@ def test_npy(self):
+ 
+             reader = NumpyReader()
+             result = reader.get_data(reader.read(filepath))
+-        self.assertTupleEqual(result[1]["spatial_shape"], test_data.shape)
+-        self.assertTupleEqual(result[0].shape, test_data.shape)
++        np.testing.assert_allclose(result[1]["spatial_shape"], test_data.shape)
++        np.testing.assert_allclose(result[0].shape, test_data.shape)
+         np.testing.assert_allclose(result[0], test_data)
+ 
+     def test_npz1(self):
+@@ -39,8 +42,8 @@ def test_npz1(self):
+ 
+             reader = NumpyReader()
+             result = reader.get_data(reader.read(filepath))
+-        self.assertTupleEqual(result[1]["spatial_shape"], test_data1.shape)
+-        self.assertTupleEqual(result[0].shape, test_data1.shape)
++        np.testing.assert_allclose(result[1]["spatial_shape"], test_data1.shape)
++        np.testing.assert_allclose(result[0].shape, test_data1.shape)
+         np.testing.assert_allclose(result[0], test_data1)
+ 
+     def test_npz2(self):
+@@ -52,8 +55,8 @@ def test_npz2(self):
+ 
+             reader = NumpyReader()
+             result = reader.get_data(reader.read(filepath))
+-        self.assertTupleEqual(result[1]["spatial_shape"], test_data1.shape)
+-        self.assertTupleEqual(result[0].shape, (2, 3, 4, 4))
++        np.testing.assert_allclose(result[1]["spatial_shape"], test_data1.shape)
++        np.testing.assert_allclose(result[0].shape, (2, 3, 4, 4))
+         np.testing.assert_allclose(result[0], np.stack([test_data1, test_data2]))
+ 
+     def test_npz3(self):
+@@ -65,8 +68,8 @@ def test_npz3(self):
+ 
+             reader = NumpyReader(npz_keys=["test1", "test2"])
+             result = reader.get_data(reader.read(filepath))
+-        self.assertTupleEqual(result[1]["spatial_shape"], test_data1.shape)
+-        self.assertTupleEqual(result[0].shape, (2, 3, 4, 4))
++        np.testing.assert_allclose(result[1]["spatial_shape"], test_data1.shape)
++        np.testing.assert_allclose(result[0].shape, (2, 3, 4, 4))
+         np.testing.assert_allclose(result[0], np.stack([test_data1, test_data2]))
+ 
+     def test_npy_pickle(self):
+@@ -77,7 +80,7 @@ def test_npy_pickle(self):
+ 
+             reader = NumpyReader()
+             result = reader.get_data(reader.read(filepath))[0].item()
+-        self.assertTupleEqual(result["test"].shape, test_data["test"].shape)
++        np.testing.assert_allclose(result["test"].shape, test_data["test"].shape)
+         np.testing.assert_allclose(result["test"], test_data["test"])
+ 
+     def test_kwargs(self):
+@@ -88,7 +91,39 @@ def test_kwargs(self):
+ 
+             reader = NumpyReader(mmap_mode="r")
+             result = reader.get_data(reader.read(filepath, mmap_mode=None))[0].item()
+-        self.assertTupleEqual(result["test"].shape, test_data["test"].shape)
++        np.testing.assert_allclose(result["test"].shape, test_data["test"].shape)
++
++    def test_dataloader(self):
++        test_data = np.random.randint(0, 256, size=[3, 4, 5])
++        datalist = []
++        with tempfile.TemporaryDirectory() as tempdir:
++            for i in range(4):
++                filepath = os.path.join(tempdir, f"test_data{i}.npz")
++                np.savez(filepath, test_data)
++                datalist.append({"image": filepath})
++
++                num_workers = 2 if sys.platform == "linux" else 0
++                loader = DataLoader(
++                    Dataset(data=datalist, transform=LoadImaged(keys="image", reader=NumpyReader())),
++                    batch_size=2,
++                    num_workers=num_workers,
++                )
++                for d in loader:
++                    for s in d["image_meta_dict"]["spatial_shape"]:
++                        torch.testing.assert_allclose(s, torch.as_tensor([3, 4, 5]))
++                    for c in d["image"]:
++                        torch.testing.assert_allclose(c, test_data)
++
++    def test_channel_dim(self):
++        test_data = np.random.randint(0, 256, size=[3, 4, 5, 2])
++        with tempfile.TemporaryDirectory() as tempdir:
++            filepath = os.path.join(tempdir, "test_data.npy")
++            np.save(filepath, test_data)
++
++            reader = NumpyReader(channel_dim=-1)
++            result = reader.get_data(reader.read(filepath))
++        np.testing.assert_allclose(result[1]["spatial_shape"], test_data.shape[:-1])
++        self.assertEqual(result[1]["original_channel_dim"], -1)
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tests/test_wsireader.py b/tests/test_wsireader.py
+--- a/tests/test_wsireader.py
++++ b/tests/test_wsireader.py
+@@ -14,6 +14,7 @@
+ from unittest import skipUnless
+ 
+ import numpy as np
++import torch
+ from numpy.testing import assert_array_equal
+ from parameterized import parameterized
+ 
+@@ -151,8 +152,8 @@ def test_with_dataloader(self, file_path, level, expected_spatial_shape, expecte
+             dataset = Dataset([{"image": file_path}], transform=train_transform)
+             data_loader = DataLoader(dataset)
+             data: dict = first(data_loader)
+-            spatial_shape = tuple(d.item() for d in data["image_meta_dict"]["spatial_shape"])
+-            self.assertTupleEqual(spatial_shape, expected_spatial_shape)
++            for s in data["image_meta_dict"]["spatial_shape"]:
++                torch.testing.assert_allclose(s, expected_spatial_shape)
+             self.assertTupleEqual(data["image"].shape, expected_shape)
+ 
+ 
+
+EOF_SWEGYM
+python -m pip install -e . --no-deps
+: '>>>>> Start Test Output'
+python -m pytest -rA --no-header -p no:cacheprovider -p no:pretty -p no:snail -p no:snail tests/test_numpy_reader.py::TestNumpyReader::test_channel_dim tests/test_numpy_reader.py::TestNumpyReader::test_dataloader tests/test_numpy_reader.py::TestNumpyReader::test_npy_pickle tests/test_numpy_reader.py::TestNumpyReader::test_npz3 tests/test_numpy_reader.py::TestNumpyReader::test_kwargs tests/test_numpy_reader.py::TestNumpyReader::test_npz1 tests/test_numpy_reader.py::TestNumpyReader::test_npy tests/test_numpy_reader.py::TestNumpyReader::test_npz2
+: '>>>>> End Test Output'
+git checkout 4deb590dec2e7dc27e535a1f208aaec4b8661ef3 -- tests/test_numpy_reader.py tests/test_wsireader.py 2>/dev/null || true

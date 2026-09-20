@@ -1,0 +1,30 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/test_path_info.py::test_relative_to_different_subpath[/foo/bar-../baz]",
+  "tests/unit/test_path_info.py::test_relative_to_different_subpath[/baz-/foo/bar]",
+  "tests/unit/test_path_info.py::test_relative_to_different_subpath[../baz-/foo/bar]",
+  "tests/unit/test_path_info.py::test_relative_to_different_subpath[/foo/bar-/baz]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/test_path_info.py::test_path_info_as_posix[/some/abs/path-/some/abs/path-posix]",
+  "tests/unit/test_path_info.py::test_https_url_info_str",
+  "tests/unit/test_path_info.py::test_url_info_parent[URLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_eq[CloudURLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_parent[CloudURLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_eq[URLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_deepcopy[CloudURLInfo]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[some/rel/path-some/rel/path-posix]",
+  "tests/unit/test_path_info.py::test_url_info_parents[CloudURLInfo]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[../../../../..-../../../../..-posix]",
+  "tests/unit/test_path_info.py::test_url_info_str[URLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_deepcopy[URLInfo]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[..\\windows\\rel\\path-../windows/rel/path-nt]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[..\\..\\..\\..\\..-../../../../..-nt]",
+  "tests/unit/test_path_info.py::test_url_info_parents[URLInfo]",
+  "tests/unit/test_path_info.py::test_url_info_deepcopy[HTTPURLInfo]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[../some/rel/path-../some/rel/path-posix]",
+  "tests/unit/test_path_info.py::test_url_info_str[CloudURLInfo]",
+  "tests/unit/test_path_info.py::test_path_info_as_posix[windows\\relpath-windows/relpath-nt]",
+  "tests/unit/test_path_info.py::test_url_replace_path"
+ ]
+}

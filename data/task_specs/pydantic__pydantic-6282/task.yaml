@@ -1,0 +1,5 @@
+base_commit: 1826419f9db274ff5e64f2823d72e260527f0407
+instance_id: pydantic__pydantic-6282
+log_parser: parse_log_pytest
+repo: pydantic/pydantic
+version: '2.03'

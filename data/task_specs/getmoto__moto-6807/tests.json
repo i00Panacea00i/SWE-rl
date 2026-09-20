@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_core/test_environ_patching.py::test_aws_keys_are_patched",
+  "tests/test_core/test_environ_patching.py::test_aws_keys_can_be_none"
+ ],
+ "PASS_TO_PASS": []
+}

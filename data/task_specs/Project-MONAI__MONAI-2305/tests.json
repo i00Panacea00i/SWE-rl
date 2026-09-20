@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_deepgrow_interaction.py::TestInteractions::test_val_interaction",
+  "tests/test_deepgrow_interaction.py::TestInteractions::test_train_interaction"
+ ],
+ "PASS_TO_PASS": []
+}

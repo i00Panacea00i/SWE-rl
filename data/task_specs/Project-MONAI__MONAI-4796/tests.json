@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_handler_prob_map_producer.py::TestHandlerProbMapGenerator::test_prob_map_generator_0_temp_image_inference_output_1",
+  "tests/test_handler_prob_map_producer.py::TestHandlerProbMapGenerator::test_prob_map_generator_2_temp_image_inference_output_3",
+  "tests/test_handler_prob_map_producer.py::TestHandlerProbMapGenerator::test_prob_map_generator_1_temp_image_inference_output_2"
+ ],
+ "PASS_TO_PASS": []
+}

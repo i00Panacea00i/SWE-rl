@@ -1,0 +1,14 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_rds/test_rds_export_tasks.py::test_start_export_task_db_cluster",
+  "tests/test_rds/test_rds_export_tasks.py::test_start_export_task_db"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_rds/test_rds_export_tasks.py::test_describe_export_tasks_fails_unknown_task",
+  "tests/test_rds/test_rds_export_tasks.py::test_cancel_export_task_fails_unknown_task",
+  "tests/test_rds/test_rds_export_tasks.py::test_start_export_task_fails_unknown_snapshot",
+  "tests/test_rds/test_rds_export_tasks.py::test_cancel_export_task",
+  "tests/test_rds/test_rds_export_tasks.py::test_describe_export_tasks",
+  "tests/test_rds/test_rds_export_tasks.py::test_start_export_task_fail_already_exists"
+ ]
+}

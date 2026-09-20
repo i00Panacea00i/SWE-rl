@@ -1,0 +1,28 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_upsample_block.py::TestUpsample::test_shape_04",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_05"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_upsample_block.py::TestUpsample::test_shape_15",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_03",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_18",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_02",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_06",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_13",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_07",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_21",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_19",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_09",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_12",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_17",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_11",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_14",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_08",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_01",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_00",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_10",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_20",
+  "tests/test_upsample_block.py::TestUpsample::test_shape_16"
+ ]
+}

@@ -1,0 +1,19 @@
+diff --git a/tests/func/test_metrics.py b/tests/func/test_metrics.py
+--- a/tests/func/test_metrics.py
++++ b/tests/func/test_metrics.py
+@@ -706,6 +706,7 @@ def _test_metrics(self, func):
+                 "master": {"metrics.json": ["master"]},
+                 "one": {"metrics.json": ["one"]},
+                 "two": {"metrics.json": ["two"]},
++                "working tree": {"metrics.json": ["two"]},
+             },
+         )
+ 
+@@ -719,6 +720,7 @@ def _test_metrics(self, func):
+                 "master": {"metrics.json": ["master"]},
+                 "one": {"metrics.json": ["one"]},
+                 "two": {"metrics.json": ["two"]},
++                "working tree": {"metrics.json": ["two"]},
+             },
+         )
+ 

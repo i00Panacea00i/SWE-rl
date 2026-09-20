@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_iot/test_iot_search.py::test_search_things[thingName:ab?-results3]",
+  "tests/test_iot/test_iot_search.py::test_search_things[abc-results0]",
+  "tests/test_iot/test_iot_search.py::test_search_things[thingName:abc-results1]",
+  "tests/test_iot/test_iot_search.py::test_search_things[*-results4]",
+  "tests/test_iot/test_iot_search.py::test_search_things[thingName:ab*-results2]"
+ ],
+ "PASS_TO_PASS": []
+}

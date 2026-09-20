@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::testInvalidParamSpecType1",
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::testInvalidParamSpecType2"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::testGenericParamSpec",
+  "mypy/test/testsemanal.py::SemAnalErrorSuite::testInvalidGenericArg"
+ ]
+}
