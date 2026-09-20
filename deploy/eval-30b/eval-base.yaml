@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-eval-base
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 172800
+  nodeName: 10.0.12.5
+  containers:
+    - name: eval
+      image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          python -c 'import json; from pathlib import Path; p=Path("/mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct"); idx=json.loads((p/"model.safetensors.index.json").read_text()); shards=sorted(set(idx["weight_map"].values())); assert all((p/s).exists() and (p/s).stat().st_size>0 for s in shards); print("MODEL_OK", len(shards), "shards", flush=True)'
+          cd /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit
+          sha256sum --status -c /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/protocol.sha256
+          export PYTHONPATH=/mnt/cfs/swe-rl/runs/swegym-30b-tier0-r1/verl-src:/mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit
+          python -m pip install --no-cache-dir 'accelerate==1.15.0' 'e2b==2.49.0' 'unidiff==0.7.5' 'swebench==5.0.2' 'tencentcloud-sdk-python-ags'
+          mkdir -p /mnt/cfs/swe-rl/logs/eval-base
+          python -m sandbox.preflight \
+            /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/data/heldout/heldout.parquet \
+            /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/data/heldout/heldout.parquet
+          bash /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/configs/eval_4l20_30b.sh
+      env:
+        - name: PYTHONPATH
+          value: /mnt/cfs/swe-rl/runs/swegym-30b-tier0-r1/verl-src:/mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit
+        - name: E2B_DOMAIN
+          value: ap-singapore.tencentags.com
+        - name: E2B_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+        - name: SWE_RUN_ID
+          value: eval-base-t0
+        - name: EVAL_VARIANT
+          value: base
+        - name: EVAL_N
+          value: "1"
+        - name: EVAL_TEMP
+          value: "0.0"
+        - name: VERL_DATA
+          value: /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/data/heldout/heldout.parquet
+        - name: VERL_VAL_DATA
+          value: /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/data/heldout/heldout.parquet
+        - name: VERL_REWARD_PATH
+          value: /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/verl_plugin/reward.py
+        - name: VERL_AGENT_LOOP_CONFIG
+          value: /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/configs/swe_agent.yaml
+        - name: VERL_AGENT_NAME
+          value: swe_ags
+        - name: VERL_MODEL
+          value: /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct
+        - name: VERL_OUT
+          value: /mnt/cfs/swe-rl/checkpoints/eval-base-scratch
+        - name: VERL_LOG_DIR
+          value: /mnt/cfs/swe-rl/logs/eval-base
+        - name: VERL_REPORT_DIR
+          value: /mnt/cfs/swe-rl/eval_reports/eval-base
+        - name: VERL_AGENT_WORKERS
+          value: "10"
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+        - name: VLLM_LOGGING_LEVEL
+          value: INFO
+        - name: RAY_memory_usage_threshold
+          value: "0.97"
+      resources:
+        limits:
+          nvidia.com/gpu: 4
+          cpu: "100"
+          memory: 350Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+        - name: tccli-cred
+          mountPath: /root/.tccli
+          readOnly: true
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 32Gi
+    - name: tccli-cred
+      secret:
+        secretName: tccli-credential
