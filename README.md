@@ -2,7 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-基于 [SWE-bench](https://www.swebench.com/) 真实 GitHub issue，用 **GRPO 算法**训练 Qwen2.5-Coder 的 LoRA 适配器：模型在云沙箱（官方评测镜像）中用 shell 命令修复真实 bug，独立判分器按"修复了多少个原本失败的测试"打分，奖励经组内归一化驱动策略更新。
+基于 [SWE-bench](https://www.swebench.com/) 真实 GitHub issue，用 **GRPO 算法**训练 **Qwen3-Coder-30B-A3B（MoE）**的 LoRA 适配器：模型在云沙箱（官方评测镜像）中用 shell 命令修复真实 bug，独立判分器按"修复了多少个原本失败的测试"打分，奖励经组内归一化驱动策略更新。
+
+> ✅ **已完成一次完整训练运行**（`swegym-30b-tier0-r1`，4×L20）：50/50 步、**1692 条轨迹**、奖励曲线正趋势（滑动平均 **+183%**）。完整报告见 [`reports/swegym-30b-tier0-r1/`](reports/swegym-30b-tier0-r1/)。
 
 ## 功能特性
 
@@ -13,26 +15,43 @@
 - **验收门** — 训练后自动检查：轨迹数 / 步数 / 组内奖励差异 / 非零梯度 / 检查点
 - **可复现性** — 每次训练使用不可变代码快照（SHA256 清单）+ 冻结数据切分
 
+## 训练成果（swegym-30b-tier0-r1）
+
+![Reward Curve](reports/swegym-30b-tier0-r1/figs/reward_curve.png)
+
+| 指标 | 数值 |
+|---|---|
+| 模型 / 硬件 | Qwen3-Coder-30B-A3B（MoE，激活 3B）· 4×L20（192GB 显存）|
+| 训练规模 | **50/50 步** · 21 小时 · 8 题×4 次/步（32 轨迹）|
+| 轨迹总量 | **1692 条**（步骤/补丁/判分证据完整落盘）|
+| 奖励趋势 | 滑动平均 **0.042 → 0.119（+183%）**，斜率 +0.00038/步，峰值 0.281 |
+| 满分轨迹 | 157 条（训练期 11.8%）|
+| 稳定性 | 零崩溃（含一次 CPU 内存 OOM 修复 + 无损续训）|
+
+- 📊 完整报告：**[`reports/swegym-30b-tier0-r1/README.md`](reports/swegym-30b-tier0-r1/README.md)**（沙箱构建 / 部署步骤 / 模型选型 / 超参 / 结果分析）
+- 📐 架构文档：[`docs/training-architecture-overview.md`](docs/training-architecture-overview.md)
+
 ## 技术栈
 
-Python 3.11 · [verl](https://github.com/volcengine/verl) 0.10.0.dev · Ray · vLLM · FSDP · LoRA (PEFT) · Kubernetes · e2b 协议沙箱
+Python 3.11 · [verl](https://github.com/volcengine/verl) 0.10.0.dev · Ray · **vLLM 0.24** · FSDP · LoRA (PEFT) · Kubernetes · e2b 协议沙箱 · **AGS（镜像覆盖模式）**
 
 ## 目录结构
 
 ```
-├── sandbox/        # 沙箱执行与判分（episode.py 判分器、harness.py 协议核心）
-├── verl_plugin/    # verl 插件（swe_agent_loop.py、reward.py）
-├── configs/        # 训练超参（grpo_l20_lora.sh）与 AgentLoop 配置
-├── controller/     # 验收门 report_run.py、训练监视器、奖励曲线
+├── sandbox/        # 沙箱执行与判分（episode.py 判分器、harness.py 协议核心、ags_instance.py 镜像覆盖）
+├── verl_plugin/    # verl 插件（swe_agent_loop.py、reward.py、adapter_export.py 逐单元导出）
+├── configs/        # 训练超参（grpo_4l20_30b.sh 为 30B-MoE 4 卡版）与 AgentLoop 配置
+├── controller/     # 验收门 report_run.py、训练监视器 + 指标解析/绘图/LoRA 转换工具
 ├── tests/          # 单元测试（判分鲁棒性回归 × 9）
 ├── deploy/         # Kubernetes Pod 清单（训练/评估/验证/同步）
-├── data/           # 实例元数据、官方协议 task_specs、冻结切分（parquet）
-└── docs/           # RL 流水线技术报告
+├── data/           # 实例元数据、官方协议 task_specs（210 题）、冻结切分
+├── reports/        # 训练报告（swegym-30b-tier0-r1：图表/指标/配置/参考）
+└── docs/           # 架构文档与技术报告（含文档索引 docs/README.md）
 ```
 
 ## 环境要求
 
-- Linux（训练侧需 K8s 集群 + 2×GPU，如 2×L20 48GB；工具链侧普通机器即可）
+- Linux（训练侧需 K8s 集群 + GPU 节点；**30B-MoE 参考配置：4×L20 192GB 显存 + 384GB 内存**；工具链侧普通机器即可）
 - Python 3.11+、Docker（构建沙箱镜像）、kubectl、tccli（含 ags 模块 ≥3.1.164.1）
 - 云资源：e2b 协议沙箱服务、容器镜像仓库、K8s 集群与共享存储
 
@@ -121,4 +140,6 @@ GRPO 组内奖励全相同时优势恒 0（算法预期）。排查顺序：`cri
 
 ## 截图
 
-<!-- TODO: 训练奖励曲线 / 流水线架构图 -->
+![Training Dashboard](reports/swegym-30b-tier0-r1/figs/training_dashboard.png)
+
+> 上：训练奖励曲线（滑动平均 + 线性趋势 + best-so-far）· 下：四联仪表盘（F2P 通过率 / val / 协议质量 / 前后半程分布）
