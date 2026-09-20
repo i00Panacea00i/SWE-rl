@@ -30,6 +30,7 @@
 
 - 📊 完整报告：**[`reports/swegym-30b-tier0-r1/README.md`](reports/swegym-30b-tier0-r1/README.md)**（沙箱构建 / 部署步骤 / 模型选型 / 超参 / 结果分析）
 - 📐 架构文档：[`docs/training-architecture-overview.md`](docs/training-architecture-overview.md)
+- 🛠️ 问题复盘归档：**[`docs/troubleshooting/`](docs/troubleshooting/README.md)**（7 篇：运行复盘 / 基础设施 / 沙箱平台 / 训练引擎 / 数据判分 / Agent 协议 / 工程工具箱，含**症状速查表**）
 
 ## 技术栈
 

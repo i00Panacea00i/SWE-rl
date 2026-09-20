@@ -10,6 +10,7 @@
 | [ags_image_override.md](ags_image_override.md) | **AGS 镜像覆盖方案**（1 个通用工具服务 N 道题，含全流程实测证据）| 2026-09-18 |
 | [../reports/swegym-30b-tier0-r1/README.md](../reports/swegym-30b-tier0-r1/README.md) | **训练完整报告**（沙箱构建 / TKE 部署 / 模型选型 / 超参 / 结果分析）| 2026-09-19 |
 | [../reports/swegym-30b-tier0-r1/REFERENCE.md](../reports/swegym-30b-tier0-r1/REFERENCE.md) | 资产引路（权重 / 轨迹 / 数据 / COS 备份位置 + 推理加载示例）| 2026-09-20 |
+| [troubleshooting/README.md](troubleshooting/README.md) | **问题复盘归档**（7 篇：运行复盘 / 基础设施 / 沙箱 / 训练引擎 / 数据判分 / Agent 协议 / 工程工具箱）——含症状速查表 | 2026-09-20 |
 
 ## 历史文档（保留追溯，内容已过时）
 
