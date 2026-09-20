@@ -58,14 +58,31 @@ def export_fsdp1_lora(root, max_unit_bytes=256 * 1024 * 1024):
         if peer not in expected:
             raise RuntimeError(f'Unpaired LoRA parameter: {name}')
     raw = OrderedDict()
+    device = torch.device('cuda', torch.cuda.current_device())
     for unit, owned, _ in units:
-        with FSDP.summon_full_params(unit, recurse=False, writeback=False,
-                                    rank0_only=False, offload_to_cpu=False):
-            for local_name, full_name, shape in owned:
-                parameter = unit.module.get_parameter(local_name)
-                if tuple(parameter.shape) != shape:
-                    raise RuntimeError(f'Unsharded adapter shape mismatch: {full_name}')
-                raw[full_name] = parameter.detach().to(device='cpu', copy=True)
+        # 逐单元 GPU 中转：param_offload 让 flat param 常驻 CPU，而 FSDP1 的
+        # summon_full_params 在 unshard 前断言计算设备驻留（_check_on_compute_device）。
+        # 每个单元受 max_unit_bytes 约束（≤256MB）：上卡 → summon 导出 → 回 CPU，
+        # 峰值仅单单元大小；避免全模型 staging（单卡上与常驻 vLLM 抢显存触发 OOM）。
+        handle = unit._handle
+        staged = False
+        if handle is not None and handle.flat_param.data.device.type != 'cuda':
+            handle.flat_param_to(device, non_blocking=False)
+            handle.flat_param._local_shard = handle.flat_param.data
+            staged = True
+        try:
+            with FSDP.summon_full_params(unit, recurse=False, writeback=False,
+                                        rank0_only=False, offload_to_cpu=False):
+                for local_name, full_name, shape in owned:
+                    parameter = unit.module.get_parameter(local_name)
+                    if tuple(parameter.shape) != shape:
+                        raise RuntimeError(f'Unsharded adapter shape mismatch: {full_name}')
+                    raw[full_name] = parameter.detach().to(device='cpu', copy=True)
+        finally:
+            if staged:
+                handle.flat_param_to(torch.device('cpu'), non_blocking=False)
+                flat_param = handle.flat_param
+                flat_param._local_shard = flat_param.data
     if set(raw) != set(expected):
         raise RuntimeError('Incomplete adapter export')
     result = get_peft_model_state_dict(peft_model, state_dict=raw,

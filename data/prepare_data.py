@@ -16,7 +16,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from sandbox.ags_instance import tcr_image_for  # noqa: E402
 
 # 训练/评估必须使用同一套系统提示（README 已知坑 #3）
 SYSTEM_PROMPT = (
@@ -159,6 +163,9 @@ def main():
                            "image_ags": r.get("image_ags", ""), "max_steps": args.max_steps_hint,
                            "split": split, "validated": not args.allow_unvalidated,
                            "f2p": tests["FAIL_TO_PASS"], "p2p": tests["PASS_TO_PASS"],
+                           # 镜像覆盖模式（docs/ags_image_override.md）：AgentLoop 据此
+                           # 走"通用工具 + 镜像覆盖"路径；旧数据无此字段则回退模板路径
+                           "image_tcr": tcr_image_for(iid),
                            "env": {"cwd": "/testbed"}},
         })
     if args.split_dir:

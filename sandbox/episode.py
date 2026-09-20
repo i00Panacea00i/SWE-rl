@@ -74,7 +74,14 @@ def prepare_eval_script(inst: Instance) -> str:
     modules = {"astropy/astropy": "astropy", "django/django": "django",
                "matplotlib/matplotlib": "matplotlib", "psf/requests": "requests",
                "pylint-dev/pylint": "pylint", "scikit-learn/scikit-learn": "sklearn",
-               "sphinx-doc/sphinx": "sphinx", "sympy/sympy": "sympy"}
+               "sphinx-doc/sphinx": "sphinx", "sympy/sympy": "sympy",
+               # SWE-Gym 扩容新增仓库（判分前源码导入自检用）
+               "pandas-dev/pandas": "pandas", "Project-MONAI/MONAI": "monai",
+               "getmoto/moto": "moto", "python/mypy": "mypy",
+               "iterative/dvc": "dvc", "dask/dask": "dask",
+               "modin-project/modin": "modin", "pydantic/pydantic": "pydantic",
+               "conan-io/conan": "conan", "facebookresearch/hydra": "hydra",
+               "bokeh/bokeh": "bokeh"}
     module = modules[inst.repo]
     check = ("import importlib,os; m=importlib.import_module(" + repr(module) + "); "
              "p=os.path.realpath(m.__file__); assert p.startswith('/testbed/'), p; "
@@ -112,9 +119,27 @@ class EpisodeSession:
         self.sandbox_id = None
         self.fingerprint = ""
         self.tree = None
+        self.sandbox_mode = ""
 
     def start(self):
-        self.sb = Sandbox.create(template=self.inst.tool_name, timeout=self.timeout)
+        # 镜像覆盖模式：inst.image_tcr 存在时走"通用工具 + 镜像覆盖"（配额友好，
+        # 见 docs/ags_image_override.md）；否则回退每题一工具的模板路径。
+        image_tcr = getattr(self.inst, "image_tcr", "")
+        if image_tcr:
+            from sandbox.ags_instance import start_instance, stop_instance
+
+            tool = os.environ.get("AGS_MULTI_TOOL", "swe-ags")
+            instance_id = start_instance(image_tcr, tool_name=tool,
+                                         timeout_s=self.timeout)
+            try:
+                self.sb = Sandbox.connect(instance_id, timeout=self.timeout)
+            except Exception:
+                stop_instance(instance_id)          # 连接失败不留下孤儿实例
+                raise
+            self.sandbox_mode = "image_override"
+        else:
+            self.sb = Sandbox.create(template=self.inst.tool_name, timeout=self.timeout)
+            self.sandbox_mode = "template"
         self.sandbox_id = self.sb.sandbox_id
         result = self.run(f"cd /testbed && {GIT} rev-parse HEAD", 30, trusted=True)
         image_head = result[1].strip()

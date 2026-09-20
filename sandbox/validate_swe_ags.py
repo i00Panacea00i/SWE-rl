@@ -87,13 +87,41 @@ class AgsRunner:
         self.evidence.record(cmd, code, int((time.time() - t0) * 1000), out, err)
         return code, out, err
 
+    # 暂时性平台错误（镜像预热中/实例创建竞态）——自动重试
+    RETRY_HINTS = ("409", "CREATING", "still preparing", "ResourceUnavailable")
+
     def run(self, inst: Instance, mode: str) -> dict:
+        """带暂时性错误重试的执行包装（最多 3 次重试，间隔 40s）。"""
+        out = None
+        for attempt in range(4):
+            out = self._run_once(inst, mode)
+            if not out.pop("_retryable", False):
+                return out
+            print(f"    (暂时性错误，40s 后重试 {attempt + 1}/3): {out['why'][:120]}",
+                  flush=True)
+            time.sleep(40)
+        return out
+
+    def _run_once(self, inst: Instance, mode: str) -> dict:
         """返回 {ok, why, grade, sandbox_id, env_fingerprint}"""
         sb, sid, fp = None, "", ""
         g = {"status": "harness_error", "detail": "sandbox create failed"}
         try:
-            sb = Sandbox.create(template=inst.tool_name,
-                                timeout=self.sandbox_timeout)
+            image_tcr = getattr(inst, "image_tcr", "")
+            if image_tcr:
+                # 镜像覆盖模式（docs/ags_image_override.md）：通用工具 + 实例级镜像覆盖
+                from ags_instance import start_instance, stop_instance
+                tool = os.environ.get("AGS_MULTI_TOOL", "swe-ags")
+                aid = start_instance(image_tcr, tool_name=tool,
+                                     timeout_s=self.sandbox_timeout)
+                try:
+                    sb = Sandbox.connect(aid, timeout=self.sandbox_timeout)
+                except Exception:
+                    stop_instance(aid)
+                    raise
+            else:
+                sb = Sandbox.create(template=inst.tool_name,
+                                    timeout=self.sandbox_timeout)
             sid = sb.sandbox_id
             sb.files.write("/tmp/eval.sh", inst.eval_sh)
             sb.files.write("/tmp/gold.patch", inst.gold_patch)
@@ -114,8 +142,11 @@ class AgsRunner:
             return {"ok": ok, "why": why, "grade": g,
                     "sandbox_id": sid, "env_fingerprint": fp}
         except Exception as e:
-            return {"ok": False, "why": f"sandbox_error: {str(e)[:300]}",
-                    "grade": g, "sandbox_id": sid, "env_fingerprint": fp}
+            msg = str(e)[:300]
+            retryable = any(h in msg for h in self.RETRY_HINTS)
+            return {"ok": False, "why": f"sandbox_error: {msg}",
+                    "grade": g, "sandbox_id": sid, "env_fingerprint": fp,
+                    "_retryable": retryable}
         finally:
             if sb is not None:
                 try:

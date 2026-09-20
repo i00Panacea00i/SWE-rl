@@ -44,6 +44,8 @@ class Instance:
     test_patch: str
     log_parser: str
     version: str
+    # 镜像覆盖模式（docs/ags_image_override.md）：非空时沙箱走"通用工具+镜像覆盖"
+    image_tcr: str = ""
     _spec: TestSpec = field(init=False, repr=False)
 
     def __post_init__(self):
@@ -90,6 +92,7 @@ def load_instances(instance_ids: list[str] | None = None) -> list[Instance]:
             test_patch=test_patch,
             log_parser=task["log_parser"],
             version=r.get("version", ""),
+            image_tcr=r.get("image_tcr", ""),
         ))
     if instance_ids:
         got = {i.instance_id for i in out}

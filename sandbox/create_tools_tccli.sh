@@ -46,8 +46,7 @@ create_one() {
     --NetworkConfiguration.NetworkMode "$NETWORK" \
     --CustomConfiguration.Image "${REGISTRY}:${tag}" \
     --CustomConfiguration.ImageRegistryType enterprise \
-    --CustomConfiguration.Command /init \
-    --CustomConfiguration.Args sleep infinity \
+    --CustomConfiguration.Command /usr/bin/envd \
     --CustomConfiguration.Ports.0.Name envd \
     --CustomConfiguration.Ports.0.Port 49983 \
     --CustomConfiguration.Ports.0.Protocol TCP \

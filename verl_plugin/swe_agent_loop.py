@@ -16,7 +16,7 @@ from sandbox.harness import load_instances
 
 
 
-from sandbox.action_protocol import bounded_observation, parse_action
+from sandbox.action_protocol import bounded_observation, classify_operation, parse_action
 
 
 class SWEAgentLoop(AgentLoopBase):
@@ -76,6 +76,7 @@ class SWEAgentLoop(AgentLoopBase):
         try:
             await asyncio.to_thread(session.start)
             record["sandbox_id"] = session.sandbox_id
+            record["sandbox_mode"] = session.sandbox_mode
             record["fingerprint"] = session.fingerprint
             for turn in range(self.max_steps):
                 remaining = budget - len(mask) - 32
@@ -120,8 +121,15 @@ class SWEAgentLoop(AgentLoopBase):
                 except ValueError as exc:
                     code, observation = 2, f"Action format error; no command executed: {exc}"
                 metrics["tool_calls"] += time.monotonic() - t0
+                if command:
+                    kind = classify_operation(command)
+                elif submit_requested:
+                    kind = "submit"
+                else:
+                    kind = "format_error"
                 record["steps"].append({
-                    "step": turn + 1, "action": action, "executed_command": command,
+                    "step": turn + 1, "kind": kind, "action": action,
+                    "executed_command": command,
                     "observation": observation, "reward": 0.0, "done": done,
                     "exit_code": code, "action_token_ids": generated.token_ids,
                 })
@@ -187,6 +195,12 @@ class SWEAgentLoop(AgentLoopBase):
             record["final"] = final
             record["shell_operations"] = operations
             record["meets_min_steps"] = operations >= 3
+            # 结构化 tracing 汇总：各操作类别（读文件/编辑/执行命令/跑测试）计数
+            kind_counts: dict[str, int] = {}
+            for s in record["steps"]:
+                k = s.get("kind", "unknown")
+                kind_counts[k] = kind_counts.get(k, 0) + 1
+            record["operation_kinds"] = kind_counts
             record["finished_at"] = time.time()
             record["steps"][-1].update(reward=final["reward"], done=True)
             # Terminal scoring belongs to the driver, not an unrecorded model action.
