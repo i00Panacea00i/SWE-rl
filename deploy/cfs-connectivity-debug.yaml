@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cfs-net-debug
+spec:
+  restartPolicy: Never
+  nodeName: 10.0.0.60
+  containers:
+    - name: probe
+      image: python:3.11-slim
+      command: ["bash", "-c"]
+      args:
+        - |
+          python - <<'EOF'
+          import socket, time
+          for host, port in [("10.0.16.9", 2049), ("10.0.16.9", 111)]:
+              s = socket.socket(); s.settimeout(5)
+              t0 = time.time()
+              try:
+                  s.connect((host, port))
+                  print(f"CONNECT OK   {host}:{port}  ({time.time()-t0:.2f}s)", flush=True)
+              except Exception as e:
+                  print(f"CONNECT FAIL {host}:{port}  {type(e).__name__}: {e}  ({time.time()-t0:.2f}s)", flush=True)
+              finally:
+                  s.close()
+          EOF
+      resources:
+        limits: {cpu: "1", memory: 512Mi}

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-model-ship
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 7200
+  nodeName: 10.0.0.60
+  containers:
+    - name: ship
+      image: benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/model-shipper:qwen35-9b
+      command: ["sh", "-c"]
+      args:
+        - |
+          set -e
+          SRC=/model/Qwen3.5-9B
+          DST=/mnt/cfs/swe-rl/model/Qwen3.5-9B
+          echo "源文件清单:"
+          ls -la $SRC | head -8
+          rm -rf $DST && mkdir -p $DST
+          cp -a $SRC/. $DST/
+          echo "=== 校验 ==="
+          SRC_COUNT=$(find $SRC -type f | wc -l)
+          DST_COUNT=$(find $DST -type f | wc -l)
+          SRC_BYTES=$(du -sb $SRC | cut -f1)
+          DST_BYTES=$(du -sb $DST | cut -f1)
+          echo "文件数: $SRC_COUNT -> $DST_COUNT"
+          echo "字节数: $SRC_BYTES -> $DST_BYTES"
+          [ "$SRC_COUNT" = "$DST_COUNT" ] && [ "$SRC_BYTES" = "$DST_BYTES" ] && echo SHIP_OK || { echo SHIP_MISMATCH; exit 1; }
+          ls -la $DST | head -8
+          cat $DST/.download-verified.json | head -c 300
+      resources:
+        limits: {cpu: "8", memory: 8Gi}
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  imagePullSecrets:
+    - name: tcr-sg
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
