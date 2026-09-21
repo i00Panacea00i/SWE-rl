@@ -110,22 +110,96 @@ sed -i '/ask_password = params.get("ask_password", False)/a\        self.allow_a
 | ④ 输出截断（drain） | 防超大输出撑爆回传 | 头 25% + 尾 75% 保留（上限 `MAX_OUTPUT_BYTES`） |
 | ⑤ 目录锚定 | 固定工作目录 | `cd /testbed \|\| exit 125` |
 
-最终的传输体（示意）：
-
-```bash
-cd /testbed || exit 125; check=$(bash -n -c '<模型命令>' 2>&1); ...
-timeout -k 5s 120s bash -lc 'export PATH=...; <模型命令>' 2>&1 | python -c '<drain 脚本>'
-```
-
-### 2.3 传输 → 2.4 沙箱内执行
-
-`sb.commands.run(wrapped, user="root", timeout=140)` → HTTPS → AGS → envd →
-沙箱 bash。沙箱环境（来自真实 `fingerprint` 字段）：
+**真实还原**（同一命令经包装后的实际结构——各层参数均取自真实配置）：
 
 ```
-Linux 6.6.69-cube.pvm.guest.005.x … x86_64 GNU/Linux
-Debian GNU/Linux 13 (trixie)   ← AGS 沙箱的系统指纹（每次创建后校验并留档）
-仓库位置：/testbed（git 仓库，镜像 HEAD 与 base_commit 校验后才开始）
+cd /testbed || exit 125                    ← ⑤ 目录锚定
+ ; bash -n -c '<原始命令>'                  ← ② 语法预检（不合法 → exit 2，不执行）
+ ; timeout -k 5s 120s bash -lc '<命令>'    ← ③ 超时双保险（cmd-timeout=120s）
+ ; python -c '<drain: cap=32768>'          ← ④ 输出截断（MAX_OUTPUT_BYTES=32768）
+ ; exit ${PIPESTATUS[0]}                    ← 退出码透传（drain 不吞真值）
+```
+
+> 完整单行命令（含嵌套引号转义，长度约为原始命令的 5-8 倍）见
+> `sandbox/episode.py` 的 `EpisodeSession.run()`——**语法预检拦截的真实案例见 §2.4 证据集②**。
+
+### 2.3 传输：完整链路与分段实测
+
+`sb.commands.run(wrapped, user="root", timeout=140)` → HTTPS → AGS 网关 → 沙箱 envd → bash。
+
+| 分段 | 实测（样本轨迹 `moto-5737__s1`，16 条命令） | 说明 |
+|---|---|---|
+| 沙箱内执行 | **0.10 – 2.50 s** | `duration_s` 字段——纯执行耗时（不含网络） |
+| 网络往返 | ~0.3–1 s | 东京↔新加坡跨境 HTTPS；16 路并发掩盖 |
+| 大输出命令 | 0.26 s（cat 32KB 文件） | 输出经 drain 截断后回传 |
+
+沙箱环境（真实 `fingerprint` 字段，创建时采集并校验）：
+```
+Linux ee41841b 6.6.69-cube.pvm.guest.005.x … x86_64 GNU/Linux
+Debian GNU/Linux 13 (trixie)
+仓库位置：/testbed（git 仓库，镜像 HEAD 与 base_commit 校验通过后才开始）
+```
+
+### 2.4 沙箱内执行：数据可得性 + 三组真实证据
+
+**首先回答一个关键问题：沙箱内的数据能拿到哪些？**
+
+| 数据 | 可得性 | 载体 | 说明 |
+|---|---|---|---|
+| 命令 stdout / stderr | ✅ 完整 | `execution.json` | 经 drain 截断（上限 32768B） |
+| 退出码（真值） | ✅ 完整 | `execution.json` | PIPESTATUS 透传，不吞码 |
+| 每条命令耗时 | ✅ 完整 | `execution.json` | 沙箱内计时（毫秒级） |
+| **判分期完整日志** | ✅ 完整 | **`test.log`** | **沙箱内真实日志**（官方测试输出，未截断） |
+| 沙箱系统指纹 | ✅ 创建时采集 | `fingerprint` | 内核/发行版（防跑错镜像） |
+| envd / 平台内部日志 | ❌ 不开放 | — | AGS 平台侧，无导出 API |
+
+**证据集 ① · 一条完整轨迹的全部 16 条命令**（`moto-5737__s1`——真实的"做题故事"）：
+
+```
+[ 1] exit=0  0.570s  trusted  git rev-parse HEAD              → 4ec74854...
+[ 2] exit=0  0.123s  trusted  uname -a && cat /etc/os-release → Debian 13 指纹
+[ 3] exit=0  0.124s  trusted  git apply -v test patch         → Applied cleanly
+[ 4] exit=0  0.516s  trusted  git add -A && write-tree        → 5f6811d3...（快照）
+────── 以下为模型命令（trusted=false）──────
+[ 5] exit=1  2.502s  python -m pytest ...（首跑失败——探索开始）
+[ 6] exit=0  0.174s  cat tests/test_cloudfront/test_cloudfront.py
+[ 7] exit=0  0.124s  grep -n -A 50 "def update_distribution" moto/cloudfront/models.py
+[ 8] exit=0  0.121s  grep -n -A 20 -B 5 "class.*DistributionConfig" ...
+[ 9] exit=0  0.179s  grep -n -A 150 "class DistributionConfig" ...
+[10] exit=2  0.103s  散文("But when we create a new DistributionConfig...") → 预检拦截
+[11] exit=0  0.127s  sed -i '329i\...'（尝试插入代码）
+[12] exit=1  1.008s  pytest（仍失败）
+[13] exit=0  0.123s  sed -i '325,335d'（回退删除）
+[14] exit=4  0.754s  pytest（收集错误：0 items / 2 errors）
+[15] exit=0  0.125s  sed -i '320,340d'
+[16] exit=4  0.832s  pytest（仍失败）
+```
+
+**证据集 ② · `exit_code` 全谱**（1314 条命令的实测分布）：
+
+| 码 | 数量 | 占比 | 真实样本（命令 → 回传摘录） | 语义 |
+|---|---|---|---|---|
+| 0 | 1246 | 94.8% | `cat /testbed/mypy/checkstrformat.py` → 32803B 源码 | 成功 |
+| 1 | 39 | 3.0% | `pytest ...test_plots` → "…FAILED [ 33%]…" | **正常失败反馈**（非通信故障） |
+| 4 | 13 | 1.0% | `pytest ...test_gc` → "collected 0 items / 2 errors" | pytest 收集失败 |
+| 2 | 11 | 0.8% | 散文含未闭合引号 → "Incomplete/invalid shell action; **not executed**" | **语法预检拦截** |
+| 127 | 5 | 0.4% | 散文（语法合法）→ "bash: Looking: **command not found**" | 散文被执行 |
+
+**exit=2 vs exit=127 对照**（同根因：模型只输出思考、没给命令块——两种命运）：
+
+```
+散文含未闭合引号  → bash -n 预检发现 → exit 2（不执行）——防护生效
+散文语法合法      → 通过预检 → bash 执行 → exit 127（command not found）
+                   → 宽容解析兜底为一次"无效轮次"
+```
+
+**证据集 ③ · 输出截断实证**（drain 机制的上限与真实命中）：
+
+```
+drain 上限（代码常量）: MAX_OUTPUT_BYTES = 32_768
+实测最大 stdout       : 32_803 B——三条命令精确命中（32768 + 截断标记偏移）
+截断格式              : 头 8 KB + "\n[output truncated; head and tail]\n" + 尾 24 KB
+全量 stdout 总计      : 1.0 MB / 1314 条命令（不截断将撑爆上下文与回传带宽）
 ```
 
 ### 2.5 回传（stdout/stderr + 退出码）——真实数据
@@ -144,6 +218,34 @@ exit_code=0
 
 **字段语义**：`exit_code` 来自 `PIPESTATUS` 的真值（drain 脚本不吞退出码）；
 stdout/stderr 合并回传；回传体即模型的"观察"（observation）。
+
+### 2.5b 判分期沙箱日志（`test.log`）——"沙箱内 log"的完整样貌
+
+判分在**独立沙箱**执行，其完整输出落盘为 `test.log`（**未截断**，约 3.5KB/条，
+全部 320 条评估轨迹各一份）。真实案例（dvc-4623）：
+
+头部：
+```
+Checking patch tests/unit/remote/ssh/test_ssh.py...
+Applied patch tests/unit/remote/ssh/test_ssh.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/dvc/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 28 items
+tests/unit/remote/ssh/test_ssh.py ............................ [100%]
+```
+
+尾部：
+```
+============================== 28 passed in 0.49s ==============================
+>>>>> End Test Output
+SWE_SUITE_EXIT=0
+```
+
+> 这就是"沙箱内 log"的最完整形态：从补丁应用到官方测试运行的全程输出——
+> 判分脚本重定向到 `/tmp/swe-eval.log` 后**整份取回**（`sb.files.read`）落盘。
+> 归档：`artifacts/archive/pass4-eval-20260921/`（320 份）。
 
 ### 2.6 观察截断（512 token）
 
