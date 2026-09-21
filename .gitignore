@@ -20,13 +20,16 @@ venv/
 htmlcov/
 
 # ===== 运行产物与大文件 =====
-artifacts/
+artifacts/*
+# 例外：Phase A pilot 轨迹样本（16 个 jsonl，2026-09-10 tracing 冒烟记录）
+!artifacts/traces/
 output/
 logs/
 *.log
 *.tgz
 *.tmp
-traces/
+# 仅忽略仓库根目录的 traces/（避免连坐 artifacts/traces 例外）
+/traces/
 checkpoints/
 eval_reports/
 monitor/
