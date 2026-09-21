@@ -34,12 +34,12 @@
 ### 1.1 实际训练环境
 
 ```
-腾讯云 VPC（东京）vpc-njm2vgou
+腾讯云 VPC（东京）vpc-<id>
 ├── TKE 集群 sichenggpuZ1（K8s 1.34.1）
 │   └── GPU 节点 PNV5b.32XLARGE384
 │       ├── 4× NVIDIA L20（48GB × 4 = 192GB 显存）
 │       ├── 128 vCPU / 384 GB 内存
-│       └── 子网 subnet-7k2qn2rx（NAT 出公网）
+│       └── 子网 subnet-<id>（NAT 出公网）
 ├── CFS 共享存储（NFS，模型/数据/轨迹/检查点）
 └── （公网）AGS 沙箱平台 · TCR 镜像仓库
 ```

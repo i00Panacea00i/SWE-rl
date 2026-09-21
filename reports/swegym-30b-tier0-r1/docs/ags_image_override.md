@@ -47,7 +47,7 @@ SandboxTool（模板）                     StartSandboxInstance（实例）
 
 | 项 | 说明 |
 |---|---|
-| TCR 镜像 | `enterprise` 类型仓库（本例 `benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags:<tag>`），镜像内必须含 envd |
+| TCR 镜像 | `enterprise` 类型仓库（本例 `registry.example.com/swe-mirror/swe-ags:<tag>`），镜像内必须含 envd |
 | 镜像预热 | `CreatePreCacheImageTask`（否则冷启动慢；预热后实测 4.2s 就绪） |
 | RoleArn | TCR 拉取权限：`qcs::cam::uin/<YOUR_UIN>:roleName/<YOUR_TCR_ROLE>` |
 | CAM 凭证 | `secretId` + `secretKey` + `token`（本项目 CVM 的 `~/.tccli/default.credential` 为**临时凭证**，含 `expiresAt`） |
@@ -63,7 +63,7 @@ tccli ags CreateSandboxTool --region ap-singapore --cli-unfold-argument \
   --ToolName "swe-ags" \
   --ToolType custom \
   --NetworkConfiguration.NetworkMode SANDBOX \
-  --CustomConfiguration.Image "benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags:conan-io_s_conan-10408" \
+  --CustomConfiguration.Image "registry.example.com/swe-mirror/swe-ags:conan-io_s_conan-10408" \
   --CustomConfiguration.ImageRegistryType enterprise \
   --CustomConfiguration.Command /usr/bin/envd \
   --CustomConfiguration.Ports.0.Name envd \
@@ -86,7 +86,7 @@ tccli ags CreateSandboxTool --region ap-singapore --cli-unfold-argument \
 # 每次拉起某道题的环境：覆盖镜像（新题只需改最后一段 tag）
 tccli ags StartSandboxInstance --region ap-singapore --cli-unfold-argument \
   --ToolName "swe-ags" --Timeout 30m \
-  --CustomConfiguration.Image "benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags:python_s_mypy-5617" \
+  --CustomConfiguration.Image "registry.example.com/swe-mirror/swe-ags:python_s_mypy-5617" \
   --CustomConfiguration.ImageRegistryType enterprise
 # 返回 InstanceId 与 Status（镜像已预热时直接 RUNNING）
 ```
@@ -114,7 +114,7 @@ def start_swe_instance(image_tag: str, tool: str = "swe-ags", timeout: str = "30
     req.ToolName = tool
     req.Timeout = timeout                     # 必传！默认仅 5m，最大 24h
     cc = models.CustomConfiguration()
-    cc.Image = f"benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags:{image_tag}"
+    cc.Image = f"registry.example.com/swe-mirror/swe-ags:{image_tag}"
     cc.ImageRegistryType = "enterprise"
     req.CustomConfiguration = cc              # ★ 镜像覆盖发生在这里
     resp = client.StartSandboxInstance(req)

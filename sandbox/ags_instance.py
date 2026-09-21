@@ -23,7 +23,7 @@ from pathlib import Path
 DEFAULT_REGION = os.environ.get("DEPLOY_REGION", "ap-singapore")
 DEFAULT_IMAGE_PREFIX = os.environ.get(
     "AGS_IMAGE_PREFIX",
-    "benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags",
+    "registry.example.com/swe-mirror/swe-ags",
 )
 DEFAULT_TOOL = os.environ.get("AGS_MULTI_TOOL", "swe-ags")
 OAUTH_ENDPOINT = "https://cli.cloud.tencent.com"

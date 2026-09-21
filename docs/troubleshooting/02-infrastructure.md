@@ -40,17 +40,17 @@ tccli vpc DescribeRouteTables --region ap-tokyo
 
 ## 3. 集群访问中断与迁移（老集群 → 新集群）
 
-**现象**：某日 `kubectl get nodes` 超时；`dial tcp 43.167.155.16:443: i/o timeout`（ICMP 通但 TCP 443 不通）；老集群 `DescribeClusterInstances` 返回空——老集群无节点、API 不可达。
+**现象**：某日 `kubectl get nodes` 超时；`dial tcp 203.0.113.10:443: i/o timeout`（ICMP 通但 TCP 443 不通）；老集群 `DescribeClusterInstances` 返回空——老集群无节点、API 不可达。
 
-**根因**：平台侧进行集群切换——老集群被下线（CLB 拒绝服务），新集群 `sichenggpuZ1`（cls-ro74kviw）已就绪但**只配了内网域名**（`cls-<id>.ccs.tencent-cloud.com`，仅 VPC 内可解析）。
+**根因**：平台侧进行集群切换——老集群被下线（CLB 拒绝服务），新集群 `sichenggpuZ1`（cls-<id>）已就绪但**只配了内网域名**（`cls-<id>.ccs.tencent-cloud.com`，仅 VPC 内可解析）。
 
 **修复（逐步）**：
 ```bash
 # 1) 取新集群 kubeconfig
-tccli tke DescribeClusterKubeconfig --ClusterId cls-ro74kviw --region ap-tokyo > new-cluster.yaml
+tccli tke DescribeClusterKubeconfig --ClusterId cls-<id> --region ap-tokyo > new-cluster.yaml
 # 2) 发现外网端点为空 → 开通公网 API（复用既有 ACL 安全组）
-tccli tke CreateClusterEndpoint --ClusterId cls-ro74kviw --IsExtranet true \
-    --SecurityGroup sg-afcewzt8        # 入站仅 443 + 本机 IP/32
+tccli tke CreateClusterEndpoint --ClusterId cls-<id> --IsExtranet true \
+    --SecurityGroup sg-<id>        # 入站仅 443 + 本机 IP/32
 # 3) kubeconfig server 替换为公网 CLB 域名 → kubectl get nodes 成功
 # 4) 切换默认 kubeconfig（备份旧配置）
 cp ~/.kube/config ~/.kube/config.old && cp new-cluster.yaml ~/.kube/config
@@ -73,7 +73,7 @@ cp ~/.kube/config ~/.kube/config.old && cp new-cluster.yaml ~/.kube/config
 apiVersion: v1
 kind: PersistentVolume
 spec:
-  nfs: { server: 10.0.16.9, path: / }     # CFS 挂载点
+  nfs: { server: 10.0.0.x, path: / }     # CFS 挂载点
   accessModes: [ReadWriteMany]
   storageClassName: swe-rl-cfs
 ```
@@ -102,7 +102,7 @@ spec:
 
 ## 6. CFS 访问路径（开发机不在集群 VPC 时）
 
-**现象**：`kubectl cp` 慢且不稳；尝试从开发机直连 CFS（`10.0.16.9:2049`）——不可达（跨 VPC 无对等）。
+**现象**：`kubectl cp` 慢且不稳；尝试从开发机直连 CFS（`10.0.0.x:2049`）——不可达（跨 VPC 无对等）。
 
 **修复**：**sync Pod 中转**——集群内起一个挂载 CFS 的小 Pod（`deploy/sync-kit.yaml`），所有读写走 `kubectl exec/cp`。
 **注意**：sync Pod 是短命 Pod（命令跑完即退出）——访问前若 `Completed` 需先重启：

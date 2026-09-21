@@ -1,0 +1,90 @@
+{
+  "stage": "final-validation / held-out",
+  "source": "86 candidates dual-verified (baseline x1 + golden x2)",
+  "passed": [
+    "conan-io__conan-16038",
+    "conan-io__conan-16350",
+    "getmoto__moto-5737",
+    "getmoto__moto-6306",
+    "getmoto__moto-6374",
+    "getmoto__moto-7567",
+    "iterative__dvc-2126",
+    "iterative__dvc-3493",
+    "iterative__dvc-4623",
+    "iterative__dvc-5148",
+    "iterative__dvc-5732",
+    "iterative__dvc-6845",
+    "pydantic__pydantic-5021",
+    "pydantic__pydantic-6282",
+    "pydantic__pydantic-8947",
+    "python__mypy-10401",
+    "python__mypy-10766",
+    "python__mypy-10937",
+    "python__mypy-11213",
+    "python__mypy-11220",
+    "python__mypy-11247",
+    "python__mypy-11314",
+    "python__mypy-11420",
+    "python__mypy-13514",
+    "python__mypy-14835",
+    "python__mypy-14981",
+    "python__mypy-15045",
+    "python__mypy-15297",
+    "python__mypy-15440",
+    "python__mypy-15490",
+    "python__mypy-15624",
+    "python__mypy-15876",
+    "python__mypy-15882",
+    "python__mypy-15976",
+    "python__mypy-16330",
+    "python__mypy-16555",
+    "python__mypy-16905",
+    "python__mypy-17016",
+    "python__mypy-17287",
+    "python__mypy-9380"
+  ],
+  "rejected": [
+    {
+      "instance_id": "python__mypy-11352",
+      "failure_mode": "f2p_fail",
+      "why": "命令 apply_gold 失败 exit=1:     if fullname == 'contextlib.contextmanager':\n            return contextmanager_callback\n        elif fullname == 'builtins.open' and self.python_version[0] == 3:\n          "
+    },
+    {
+      "instance_id": "python__mypy-16084",
+      "failure_mode": "f2p_fail",
+      "why": "F2P 未全过: ['mypyc/test/test_run.py::TestRun::run-functions.test::testNestedFunctionDunderDict312', 'mypyc/test/test_run.py::TestRun::run-functions.test::testFunctoolsUpdateWrapper']"
+    },
+    {
+      "instance_id": "conan-io__conan-11505",
+      "failure_mode": "baseline_error",
+      "why": "F2P 未全过: ['conans/test/integration/toolchains/microsoft/test_msbuilddeps.py::test_msbuilddeps_maps_architecture_to_platform[armv8-ARM64]', 'conans/test/integration/toolchains/microsoft/test_msbuilddep"
+    },
+    {
+      "instance_id": "python__mypy-16717",
+      "failure_mode": "baseline_error",
+      "why": "金标下 P2P 回归: ['mypyc/test/test_run.py::TestRun::run-generators.test::testYieldThrow']"
+    },
+    {
+      "instance_id": "iterative__dvc-4185",
+      "failure_mode": "baseline_error",
+      "why": "F2P 未全过: ['tests/unit/dependency/test_params.py::test_params_with_false_values[{}]', 'tests/unit/dependency/test_params.py::test_params_with_false_values[no]', 'tests/unit/dependency/test_params.py::t"
+    },
+    {
+      "instance_id": "iterative__dvc-1944",
+      "failure_mode": "f2p_fail",
+      "why": "F2P 未全过: ['tests/func/test_metrics.py::TestMetrics::test_show', 'tests/func/test_metrics.py::TestMetricsCLI::test_show']"
+    },
+    {
+      "instance_id": "conan-io__conan-14397",
+      "failure_mode": "leak_with_train_set",
+      "why": "候选清单快照漂移：该题在清单生成后被验证并进入训练集"
+    }
+  ],
+  "leak_check": "PASS (auto-removed 1 leaked instance(s))",
+  "train_ref_size": 22,
+  "counts": {
+    "passed": 40,
+    "rejected": 6
+  },
+  "instances_sha256": "717e77e14320d042ded84f1f46490a6fb4f7a7bbfd581d33a3efc95d6df975ef"
+}

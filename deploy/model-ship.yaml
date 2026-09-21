@@ -8,7 +8,7 @@ spec:
   nodeName: 10.0.0.60
   containers:
     - name: ship
-      image: benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/model-shipper:qwen35-9b
+      image: registry.example.com/swe-mirror/model-shipper:qwen35-9b
       command: ["sh", "-c"]
       args:
         - |

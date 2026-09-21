@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-merge-lora
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 7200
+  nodeName: 10.0.0.x
+  containers:
+    - name: merge
+      image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          RUN=/mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora
+          cd $RUN/kit
+          export PYTHONPATH=$RUN/kit
+          mkdir -p /mnt/cfs/swe-rl/logs/eval-lora
+          rm -rf /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct-lora-step50
+          python controller/merge_lora_native.py \
+            --base /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct \
+            --adapter /mnt/cfs/swe-rl/checkpoints/swegym-30b-tier0-r1/global_step_50/actor/hf-adapter \
+            --out /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct-lora-step50 \
+            2>&1 | tee /mnt/cfs/swe-rl/logs/eval-lora/merge-$(date -u +%Y%m%dT%H%M%SZ).log
+      env:
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+      resources:
+        limits:
+          cpu: "40"
+          memory: 48Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs

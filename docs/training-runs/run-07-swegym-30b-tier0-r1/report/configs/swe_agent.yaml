@@ -1,0 +1,10 @@
+- name: swe_ags
+  _target_: verl_plugin.swe_agent_loop.SWEAgentLoop
+  max_steps: 12
+  # 768 会让模型写完整 unified diff 时被截断，heredoc 未闭合导致命令超时（exit=124）
+  # 且补丁为空。放宽到 1280 使短小的原地编辑能完整输出。
+  # 2048：模型常先输出思考再给命令块（宽容解析已忽略 prose），需为"思考+完整命令"留足预算。
+  action_tokens: 2048
+  observation_tokens: 512
+  # 该类级信号量限制的是"整个 episode"的并发数（见 SWEAgentLoop.run）。
+  sandbox_concurrency: 8

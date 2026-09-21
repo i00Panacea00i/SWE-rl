@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-swegym-7b-tier0-r1
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 259200
+  nodeName: 10.0.0.99
+  containers:
+    - name: train
+      image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          python -c 'import json; from pathlib import Path; p=Path("/mnt/cfs/swe-rl/model/Qwen2.5-Coder-7B-Instruct"); d=json.loads((p/".download-verified.json").read_text()); assert d["download_complete"] and d["repo"]=="Qwen/Qwen2.5-Coder-7B-Instruct"; assert all((p/n).stat().st_size==v["bytes"] for n,v in d["files"].items()); print("MODEL_CHECKSUM_MANIFEST_OK", d["revision"], d["shards"], flush=True)'
+          cd /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit
+          sha256sum --status -c /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/protocol.sha256
+          export PYTHONPATH=/mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/verl-src:/mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit
+          python -m pip install --no-cache-dir 'accelerate==1.15.0' 'e2b==2.49.0' 'unidiff==0.7.5' 'swebench==5.0.2' 'tencentcloud-sdk-python==3.1.172'
+          mkdir -p /mnt/cfs/swe-rl/logs/swegym-7b-tier0-r1
+          nvidia-smi --query-gpu=timestamp,index,memory.used,memory.total,utilization.gpu --format=csv --loop=30 > /mnt/cfs/swe-rl/logs/swegym-7b-tier0-r1/gpu.csv &
+          GPU_MON_PID=$!
+          trap 'kill "$GPU_MON_PID" 2>/dev/null || true' EXIT
+          python -m sandbox.preflight \
+            /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/data/tier0-r1/train.parquet \
+            /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/data/tier0-r1/eval.parquet
+          bash /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/configs/grpo_l20_lora_7b.sh
+          python -m controller.report_run --traces /mnt/cfs/swe-rl/traces/swegym-7b-tier0-r1 >> /mnt/cfs/swe-rl/logs/swegym-7b-tier0-r1/report.log 2>&1 || true
+      env:
+        - name: PYTHONPATH
+          value: /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/verl-src:/mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit
+        - name: E2B_DOMAIN
+          value: ap-singapore.tencentags.com
+        - name: E2B_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+        - name: AGS_MULTI_TOOL
+          value: swe-ags
+        - name: TENCENTCLOUD_REFRESH_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: cam-credentials
+              key: TENCENTCLOUD_REFRESH_TOKEN
+        - name: TENCENTCLOUD_OPEN_ID
+          valueFrom:
+            secretKeyRef:
+              name: cam-credentials
+              key: TENCENTCLOUD_OPEN_ID
+        - name: TENCENTCLOUD_SITE
+          valueFrom:
+            secretKeyRef:
+              name: cam-credentials
+              key: TENCENTCLOUD_SITE
+        - name: SWE_RUN_ID
+          value: swegym-7b-tier0-r1
+        - name: VERL_DATA
+          value: /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/data/tier0-r1/train.parquet
+        - name: VERL_VAL_DATA
+          value: /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/data/tier0-r1/eval.parquet
+        - name: VERL_REWARD_PATH
+          value: /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/verl_plugin/reward.py
+        - name: VERL_AGENT_LOOP_CONFIG
+          value: /mnt/cfs/swe-rl/runs/swegym-7b-tier0-r1/kit/configs/swe_agent.yaml
+        - name: VERL_AGENT_NAME
+          value: swe_ags
+        - name: VERL_MAX_PROMPT_LENGTH
+          value: "4096"
+        - name: VERL_MAX_RESPONSE_LENGTH
+          value: "8192"
+        - name: VERL_TRAIN_STEPS
+          value: "50"
+        - name: VERL_AGENT_WORKERS
+          value: "6"
+        - name: VERL_LOG_DIR
+          value: /mnt/cfs/swe-rl/logs/swegym-7b-tier0-r1
+        - name: VERL_REPORT_DIR
+          value: /mnt/cfs/swe-rl/eval_reports/swegym-7b-tier0-r1
+        - name: VERL_MODEL
+          value: /mnt/cfs/swe-rl/model/Qwen2.5-Coder-7B-Instruct
+        - name: VERL_OUT
+          value: /mnt/cfs/swe-rl/checkpoints/swegym-7b-tier0-r1
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+        - name: VLLM_LOGGING_LEVEL
+          value: INFO
+        - name: NPROC_PER_NODE
+          value: "1"
+        - name: VERL_RESUME_MODE
+          value: disable
+        - name: VERL_SAVE_FREQ
+          value: "5"
+        - name: VERL_TEST_FREQ
+          value: "5"
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+          cpu: "32"
+          memory: 120Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 32Gi

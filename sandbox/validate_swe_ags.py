@@ -44,21 +44,21 @@ def now_iso() -> str:
 
 
 def append_jsonl_atomic(path: Path, record: dict):
-    """flock + 临时文件 + fsync 原子追加"""
-    tmp = path.with_suffix(".tmp")
-    with open(tmp, "w") as f:
-        f.write(json.dumps(record, ensure_ascii=False) + "\n")
-        f.flush()
-        os.fsync(f.fileno())
+    """flock 互斥 + fsync 原子追加。
+
+    并发安全说明：直接持锁写入，不经共享 tmp 文件——早期实现用固定名
+    `*.tmp` 中转，在多线程并发下会互相覆盖/误删（曾导致 1 题丢失 + 1 题重复，
+    见 docs/troubleshooting/07-eng-toolbox.md）。
+    """
+    line = json.dumps(record, ensure_ascii=False) + "\n"
     with open(path, "a") as f:
         fcntl.flock(f, fcntl.LOCK_EX)
         try:
-            f.write(tmp.read_text())
+            f.write(line)
             f.flush()
             os.fsync(f.fileno())
         finally:
             fcntl.flock(f, fcntl.LOCK_UN)
-    tmp.unlink()
 
 
 def load_validated_ids(path: Path) -> set:

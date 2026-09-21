@@ -1,5 +1,7 @@
 #!/bin/bash
-# 评估专用（val-only）：Qwen3-Coder-30B-A3B 的 base vs base+LoRA 对比。
+# 评估专用：Qwen3-Coder-30B-A3B 的 base vs base+LoRA 对比。
+# 编排说明：EVAL_TOTAL_STEPS=1 复刻训练编排（val-only 的 total=0 会跳过 actor 显存释放时序，
+# 导致 update_weights 后 vLLM 权重唤醒 OOM）。val_before_train 产出评估数据后即可终止 Pod。
 # 公平性锁定：本脚本为唯一评估入口——两组（base/lora）除 EVAL_VARIANT 外所有参数逐字节一致。
 # 用法：
 #   EVAL_VARIANT=base   （无适配器）
@@ -59,15 +61,16 @@ python3 -u -m verl.trainer.main_ppo \
     data.val_files="$EVAL_DATA" \
     +data.apply_chat_template_kwargs.enable_thinking=false \
     data.train_batch_size=8 \
+    data.val_batch_size="${EVAL_BATCH:-4}" \
     data.dataloader_num_workers=0 \
     data.max_prompt_length="${VERL_MAX_PROMPT_LENGTH:-4096}" \
-    data.max_response_length="${VERL_MAX_RESPONSE_LENGTH:-8192}" \
+    data.max_response_length="${VERL_MAX_RESPONSE_LENGTH:-4096}" \
     actor_rollout_ref.model.path="$MODEL" \
     "${LORA_ARGS[@]}" \
     actor_rollout_ref.actor.optim.lr=1e-5 \
     actor_rollout_ref.actor.ppo_mini_batch_size=8 \
     actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=1 \
-    actor_rollout_ref.actor.use_kl_loss=True \
+    actor_rollout_ref.actor.use_kl_loss=False \
     actor_rollout_ref.actor.kl_loss_coef=0.001 \
     actor_rollout_ref.actor.strategy=fsdp \
     actor_rollout_ref.actor.fsdp_config.model_dtype=bf16 \
@@ -82,9 +85,9 @@ python3 -u -m verl.trainer.main_ppo \
     actor_rollout_ref.rollout.load_format=safetensors \
     actor_rollout_ref.rollout.layered_summon=True \
     actor_rollout_ref.rollout.tensor_model_parallel_size=4 \
-    actor_rollout_ref.rollout.free_cache_engine=False \
+    actor_rollout_ref.rollout.free_cache_engine=True \
     actor_rollout_ref.rollout.max_model_len=16384 \
-    actor_rollout_ref.rollout.gpu_memory_utilization=0.6 \
+    actor_rollout_ref.rollout.gpu_memory_utilization=0.42 \
     actor_rollout_ref.rollout.enforce_eager=True \
     actor_rollout_ref.rollout.max_num_batched_tokens=8192 \
     actor_rollout_ref.rollout.log_prob_micro_batch_size_per_gpu=1 \
@@ -105,7 +108,7 @@ python3 -u -m verl.trainer.main_ppo \
     trainer.test_freq=9999 \
     trainer.save_freq=9999 \
     trainer.total_epochs=100 \
-    trainer.total_training_steps=0 \
+    trainer.total_training_steps="${EVAL_TOTAL_STEPS:-1}" \
     trainer.default_local_dir="$OUT" \
     trainer.n_gpus_per_node=4 \
     trainer.nnodes=1 2>&1 | tee "$LOG_DIR/eval-${VARIANT}-$(date -u +%Y%m%dT%H%M%SZ).log"

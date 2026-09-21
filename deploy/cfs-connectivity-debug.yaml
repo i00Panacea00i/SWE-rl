@@ -13,7 +13,7 @@ spec:
         - |
           python - <<'EOF'
           import socket, time
-          for host, port in [("10.0.16.9", 2049), ("10.0.16.9", 111)]:
+          for host, port in [("10.0.0.x", 2049), ("10.0.0.x", 111)]:
               s = socket.socket(); s.settimeout(5)
               t0 = time.time()
               try:

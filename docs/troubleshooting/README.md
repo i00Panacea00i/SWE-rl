@@ -14,6 +14,7 @@
 | 5 | [05-data-judging.md](05-data-judging.md) | 数据与判分：GRPO 零奖励诊断、判分器鲁棒性、假阳性/flaky/坏题过滤 |
 | 6 | [06-agent-protocol.md](06-agent-protocol.md) | Agent 协议与模型输出：format_error、action_tokens、thinking 模式、MoE-LoRA 策略 |
 | 7 | [07-eng-toolbox.md](07-eng-toolbox.md) | 工程工具箱：大文件传输、跨区上传、YAML/heredoc、Pod 运维、验证技巧 |
+| 8 | [08-eval-standalone-vllm.md](08-eval-standalone-vllm.md) | **评估阶段 OOM 与独立 vLLM 架构**：val 路径 5 次 OOM、共卡显存极限、独立 driver、LoRA 离线合并、上下文预算 |
 
 ## 症状速查表（按报错关键词）
 
@@ -25,6 +26,10 @@
 | `RayTaskError(OutOfMemoryError)` / Ray 杀 worker | [04 §2 CPU 内存 OOM](04-training-engine.md) |
 | `KV cache` 不足 / `max_model_len` 相关 | [04 §1.2](04-training-engine.md) |
 | `update_weights` 阶段 OOM | [04 §1.3](04-training-engine.md) |
+| 评估路径 `update_weights` OOM（差 ~200MB，配置调不动） | [08 §1-2 独立 vLLM 方案](08-eval-standalone-vllm.md) |
+| `... is unsupported LoRA weight`（vLLM 加载 LoRA） | [08 §4.1 离线合并](08-eval-standalone-vllm.md) |
+| `cannot import name 'HybridCache' from 'transformers'` | [08 §4.2 权重级合并](08-eval-standalone-vllm.md) |
+| `maximum context length is 16384 tokens`（评估 driver） | [08 §4.3 预算管理](08-eval-standalone-vllm.md) |
 | `KeyError: 'image_env'` / 预检失败 | [05 §5 字段缺失](05-data-judging.md) |
 | `Mixed prose/code fences` / `format_error` | [06 §1 宽容解析](06-agent-protocol.md) |
 | `ModuleNotFoundError: tencentcloud` | [04 §5 依赖缺失](04-training-engine.md) |
@@ -60,6 +65,7 @@
 09-18 swegym-9b-tier0-r1         → 多模态/单卡极限，十余项启动障碍（未完成）
 09-18 swegym-30b-tier0-r1 (4×L20) → ✅ 50/50 步完成（本仓库主成果）
 09-19~20 归档 / COS / GitHub 发布
+09-20 eval-base vs eval-lora (4×L20) → ✅ 独立 vLLM 架构跑通双组对照（base 5% / lora 2.5%）
 ```
 
 > 每次运行的详细终止原因与根因见 [01-runs-postmortem.md](01-runs-postmortem.md)。
