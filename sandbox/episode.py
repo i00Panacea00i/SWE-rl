@@ -123,7 +123,7 @@ class EpisodeSession:
 
     def start(self):
         # 镜像覆盖模式：inst.image_tcr 存在时走"通用工具 + 镜像覆盖"（配额友好，
-        # 见 docs/ags_image_override.md）；否则回退每题一工具的模板路径。
+        # 见 docs/infrastructure/ags_image_override.md）；否则回退每题一工具的模板路径。
         image_tcr = getattr(self.inst, "image_tcr", "")
         if image_tcr:
             from sandbox.ags_instance import start_instance, stop_instance

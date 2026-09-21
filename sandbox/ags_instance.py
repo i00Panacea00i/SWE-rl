@@ -1,6 +1,6 @@
 """AGS 沙箱实例管理：通用工具 + 镜像覆盖（Image Override）+ 凭证自动刷新。
 
-配套文档 docs/ags_image_override.md。核心流程：
+配套文档 docs/infrastructure/ags_image_override.md。核心流程：
   1. StartSandboxInstance(ToolName=<通用工具>, CustomConfiguration.Image=<题的TCR镜像>)
   2. 轮询至 RUNNING
   3. e2b Sandbox.connect(instance_id) 接入既有 Agent 工具链

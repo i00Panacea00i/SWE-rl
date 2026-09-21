@@ -109,7 +109,7 @@ class AgsRunner:
         try:
             image_tcr = getattr(inst, "image_tcr", "")
             if image_tcr:
-                # 镜像覆盖模式（docs/ags_image_override.md）：通用工具 + 实例级镜像覆盖
+                # 镜像覆盖模式（docs/infrastructure/ags_image_override.md）：通用工具 + 实例级镜像覆盖
                 from ags_instance import start_instance, stop_instance
                 tool = os.environ.get("AGS_MULTI_TOOL", "swe-ags")
                 aid = start_instance(image_tcr, tool_name=tool,

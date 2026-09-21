@@ -1,7 +1,7 @@
 # 03 · 沙箱平台问题（AGS / TCR / e2b）
 
 > 沙箱工具配额、镜像覆盖、预热、创建竞态、凭证限流、环境激活——平台侧全部坑位的根因与修复。
-> 方案全文见 [../ags_image_override.md](../ags_image_override.md)（含实测证据）。
+> 方案全文见 [../infrastructure/ags_image_override.md](../infrastructure/ags_image_override.md)（含实测证据）。
 
 ---
 

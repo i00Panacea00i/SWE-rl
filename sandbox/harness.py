@@ -44,7 +44,7 @@ class Instance:
     test_patch: str
     log_parser: str
     version: str
-    # 镜像覆盖模式（docs/ags_image_override.md）：非空时沙箱走"通用工具+镜像覆盖"
+    # 镜像覆盖模式（docs/infrastructure/ags_image_override.md）：非空时沙箱走"通用工具+镜像覆盖"
     image_tcr: str = ""
     _spec: TestSpec = field(init=False, repr=False)
 

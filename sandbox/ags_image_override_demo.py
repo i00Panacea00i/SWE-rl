@@ -2,7 +2,7 @@
 
 用途：在**同一个通用沙箱工具**上，用镜像覆盖拉起不同题目的环境，
 经 e2b connect 执行命令验证，然后 kill 清理。配套文档：
-docs/ags_image_override.md
+docs/infrastructure/ags_image_override.md
 
 用法：
   set -a && source .env && set +a

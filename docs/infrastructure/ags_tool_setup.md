@@ -3,7 +3,7 @@
 > ⚠️ **本文档前提已过时（2026-09-18 修正）**：AGS **现已验证支持**在创建实例时
 > 动态指定/覆盖镜像（`StartSandboxInstance` 的 `CustomConfiguration.Image`），
 > 配合 e2b `Sandbox.connect()` 可做到 **1 个通用工具服务任意题量**。
-> 最新方案请看：**[docs/ags_image_override.md](ags_image_override.md)**。
+> 最新方案请看：**[docs/infrastructure/ags_image_override.md](ags_image_override.md)**。
 > 下文"每题一工具"的做法仅在需要题级工具名路由的历史管道中保留参考价值。
 
 > 每个工具绑定一个固定镜像（写于 Image Override 验证之前；现已不成立）。

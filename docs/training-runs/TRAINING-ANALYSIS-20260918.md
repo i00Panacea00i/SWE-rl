@@ -131,7 +131,7 @@
 | 训练日志（含指标） | `/mnt/cfs/swe-rl/logs/swegym-7b-tier0-r1/train-20260918T051338Z.log` |
 | 305 条 episode 轨迹 | `/mnt/cfs/swe-rl/traces/swegym-7b-tier0-r1/train/step-*/` |
 | 成功轨迹（可复盘） | `.../step-8/python__mypy-11241/*`、`.../step-19/python__mypy-10683/*` |
-| Image Override 文档 | `docs/ags_image_override.md` |
+| Image Override 文档 | `docs/infrastructure/ags_image_override.md` |
 | 数据导入脚本（tier 定义） | `data/import_swe_gym.py`（tier=仓库测试速度，非难度） |
 
 ---

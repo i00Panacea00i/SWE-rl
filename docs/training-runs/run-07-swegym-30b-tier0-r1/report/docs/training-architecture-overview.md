@@ -299,7 +299,7 @@ sb = Sandbox.connect(instance_id)
 | 训练完整报告（归档） | `reports/swegym-30b-tier0-r1/README.md` |
 | 奖励曲线 / 仪表盘 | `reports/swegym-30b-tier0-r1/figs/` |
 | 逐步指标 / 轨迹统计 | `reports/swegym-30b-tier0-r1/metrics/` |
-| 沙箱方案（含实测证据） | `docs/ags_image_override.md` |
+| 沙箱方案（含实测证据） | `docs/infrastructure/ags_image_override.md` |
 | 训练超参全表 | `reports/swegym-30b-tier0-r1/configs/grpo_4l20_30b.sh` |
 | 资产位置（权重/轨迹/数据） | `reports/swegym-30b-tier0-r1/REFERENCE.md` |
 | 指标解析与绘图脚本 | `controller/parse_metrics.py` · `parse_traces.py` · `plot_metrics.py` |

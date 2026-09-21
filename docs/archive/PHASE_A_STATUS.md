@@ -17,7 +17,7 @@
 | verl 训练 parquet（11 题，剔除 flaky） | ✅ | `data/train.parquet` |
 | AGS 批量验证驱动（幂等/flock/证据/flaky 闸门） | ✅ 代码就绪 | `sandbox/validate_swe_ags.py` |
 | 工具就绪探测 | ✅ 代码就绪 | `sandbox/probe_tools.py` |
-| 东京 GPU 训练适配方案 + 部署骨架 | ✅ | `docs/tokyo_gpu_plan.md`、`deploy/`、`configs/` |
+| 东京 GPU 训练适配方案 + 部署骨架 | ✅ | `docs/infrastructure/tokyo_gpu_plan.md`、`deploy/`、`configs/` |
 
 ## 数据质量结论
 
@@ -40,7 +40,7 @@
 
 ## 阻塞项（需控制台操作，无 API Key 替代方案）
 
-1. 按 `docs/ags_tool_setup.md` 创建 10 个 AGS 沙箱工具（~2 分钟/个）；
+1. 按 `docs/infrastructure/ags_tool_setup.md` 创建 10 个 AGS 沙箱工具（~2 分钟/个）；
 2. 每个镜像 `CreatePreCacheImageTask` 预热（API Explorer）；
 3. 完成后依次运行：
 

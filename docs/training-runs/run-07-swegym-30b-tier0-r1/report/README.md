@@ -78,7 +78,7 @@ SandboxTool "swe-ags"（模板，仅 1 个）        StartSandboxInstance（实�
                                         e2b SDK `Sandbox.connect(instance_id)` 接入
 ```
 
-- 完整方案与实测证据：`docs/ags_image_override.md`
+- 完整方案与实测证据：`docs/infrastructure/ags_image_override.md`
 - 训练侧实现：`sandbox/ags_instance.py`（凭证自动刷新：静态密钥 / OAuth 刷新链 / ~/.tccli 文件三优先级 + **跨进程文件缓存**防限流）
 
 ### 1.5 题目镜像清单（本次训练 22 题）

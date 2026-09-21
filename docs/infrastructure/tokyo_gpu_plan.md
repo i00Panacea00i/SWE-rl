@@ -1,6 +1,6 @@
 # 训练侧方案（TKE ap-tokyo GPU 适配）
 
-> **⚠️ 本文档已被 `docs/training-architecture-overview.md` 取代**（2026-09-10 确定为
+> **⚠️ 本文档已被 `docs/overview/training-architecture-overview.md` 取代**（2026-09-10 确定为
 > ap-tokyo-2 固定节点 2×L20 + Qwen3-Coder-30B-A3B + LoRA-GRPO）。
 > 本文保留作为跨区链路分析的背景材料（§0 的时延评估仍然有效）。
 
