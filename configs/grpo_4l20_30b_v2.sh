@@ -52,7 +52,7 @@ python3 -u -m verl.trainer.main_ppo \
     actor_rollout_ref.model.lora_rank=32 \
     actor_rollout_ref.model.lora_alpha=64 \
     actor_rollout_ref.model.lora.merge=False \
-    actor_rollout_ref.model.target_modules=all-linear \
+    'actor_rollout_ref.model.target_modules=[q_proj,k_proj,v_proj,o_proj]' \
     actor_rollout_ref.actor.optim.lr="${VERL_LR:-3e-5}" \
     actor_rollout_ref.actor.optim.clip_grad=0.5 \
     actor_rollout_ref.actor.ppo_mini_batch_size=8 +actor_rollout_ref.actor.checkpoint.save_lora_only=True \
