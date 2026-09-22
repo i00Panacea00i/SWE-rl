@@ -1,0 +1,17 @@
+diff --git a/conan/tools/files/patches.py b/conan/tools/files/patches.py
+index 1dd15f3e1..304d4c70c 100644
+--- a/conan/tools/files/patches.py
++++ b/conan/tools/files/patches.py
+@@ -50,9 +50,9 @@ def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0
+     patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+ 
+     if patch_file:
+-        patchset = patch_ng.fromfile(patch_file)
+-    else:
+-        patchset = patch_ng.fromstring(patch_string.encode())
++        if not os.path.isabs(patch_file):
++            base = base_path or conanfile.folders.base_source
++            patch_file = os.path.join(base, patch_file)
+ 
+     if not patchset:
+         raise ConanException("Failed to parse patch: %s" % (patch_file if patch_file else "string"))

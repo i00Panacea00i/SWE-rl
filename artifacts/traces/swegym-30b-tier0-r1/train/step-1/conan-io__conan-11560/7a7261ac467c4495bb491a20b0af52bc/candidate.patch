@@ -1,0 +1,24 @@
+diff --git a/conan/tools/google/bazeldeps.py b/conan/tools/google/bazeldeps.py
+index 8a7b1af20..e32127a40 100644
+--- a/conan/tools/google/bazeldeps.py
++++ b/conan/tools/google/bazeldeps.py
+@@ -60,18 +60,13 @@ class BazelDeps(object):
+             load("@rules_cc//cc:defs.bzl", "cc_import", "cc_library")
+ 
+             {% for libname, filepath in libs.items() %}
+-            cc_import(
+-                name = "{{ libname }}_precompiled",
+                 {{ library_type }} = "{{ filepath }}"
+             )
+             {% endfor %}
+ 
+             {% for libname, (lib_path, dll_path) in shared_with_interface_libs.items() %}
+             cc_import(
+-                name = "{{ libname }}_precompiled",
+-                interface_library = "{{ lib_path }}",
+-                shared_library = "{{ dll_path }}",
+-            )
++        alwayslink = True,
+             {% endfor %}
+ 
+             cc_library(

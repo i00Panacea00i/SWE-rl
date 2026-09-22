@@ -1,0 +1,22 @@
+diff --git a/conan/tools/cmake/cmake.py b/conan/tools/cmake/cmake.py
+index 39a326bec..744a27368 100644
+--- a/conan/tools/cmake/cmake.py
++++ b/conan/tools/cmake/cmake.py
+@@ -163,7 +163,7 @@ class CMake(object):
+         self._conanfile.output.info("Running CMake.build()")
+         self._build(build_type, target, cli_args, build_tool_args)
+ 
+-    def install(self, build_type=None, component=None):
++    def install(self, build_type=None, component=None, cli_args=None):
+         """
+         Equivalent to run ``cmake --build . --target=install``
+ 
+@@ -192,6 +192,8 @@ class CMake(object):
+         do_strip = self._conanfile.conf.get("tools.cmake:install_strip", check_type=bool)
+         if do_strip:
+             arg_list.append("--strip")
++        if cli_args:
++            arg_list.extend(cli_args)
+ 
+         arg_list = " ".join(filter(None, arg_list))
+         command = "%s %s" % (self._cmake_program, arg_list)

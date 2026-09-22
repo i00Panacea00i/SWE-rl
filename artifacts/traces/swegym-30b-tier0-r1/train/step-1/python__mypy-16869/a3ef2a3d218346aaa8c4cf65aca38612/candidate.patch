@@ -1,0 +1,20 @@
+diff --git a/mypy/stubgen.py b/mypy/stubgen.py
+index 1f7a01e6a..94573471e 100755
+--- a/mypy/stubgen.py
++++ b/mypy/stubgen.py
+@@ -319,8 +319,13 @@ class AliasPrinter(NodeVisitor[str]):
+             index = index[1:-1]
+         return f"{base}[{index}]"
+ 
+-    def visit_tuple_expr(self, node: TupleExpr) -> str:
+-        return f"({', '.join(n.accept(self) for n in node.items)})"
++        def visit_tuple_expr(self, node: TupleExpr) -> str:
++        items = []
++        for n in node.items:
++            item = n.accept(self)
++            if item is not None:
++                items.append(item)
++        return f"({', '.join(items)})"})"
+ 
+     def visit_list_expr(self, node: ListExpr) -> str:
+         return f"[{', '.join(n.accept(self) for n in node.items)}]"

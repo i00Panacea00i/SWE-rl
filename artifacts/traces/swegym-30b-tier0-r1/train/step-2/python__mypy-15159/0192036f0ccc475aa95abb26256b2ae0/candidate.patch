@@ -1,0 +1,13 @@
+diff --git a/mypy/semanal.py b/mypy/semanal.py
+index abb58245a..a782fe2dc 100644
+--- a/mypy/semanal.py
++++ b/mypy/semanal.py
+@@ -5593,7 +5593,7 @@ class SemanticAnalyzer(
+         # TODO: unify/clean-up/simplify lookup methods, see #4157.
+         # TODO: support nested classes (but consider performance impact,
+         #       we might keep the module level only lookup for thing like 'builtins.int').
+-        assert "." in fullname
++        assert "." in fullname and fullname != ""
+         module, name = fullname.rsplit(".", maxsplit=1)
+         if module not in self.modules:
+             return None

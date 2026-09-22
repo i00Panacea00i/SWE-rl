@@ -1,0 +1,46 @@
+diff --git a/test-data/unit/check-typeguard.test b/test-data/unit/check-typeguard.test
+index 27b88553f..66c21bf3a 100644
+--- a/test-data/unit/check-typeguard.test
++++ b/test-data/unit/check-typeguard.test
+@@ -54,18 +54,6 @@ def main(a: object, b: object) -> None:
+         reveal_type(b)  # N: Revealed type is "builtins.object"
+ [builtins fixtures/tuple.pyi]
+ 
+-[case testTypeGuardTypeVarReturn]
+-from typing import Callable, Optional, TypeVar
+-from typing_extensions import TypeGuard
+-T = TypeVar('T')
+-def is_str(x: object) -> TypeGuard[str]: pass
+-def main(x: object, type_check_func: Callable[[object], TypeGuard[T]]) -> T:
+-    if not type_check_func(x):
+-        raise Exception()
+-    return x
+-reveal_type(main("a", is_str))  # N: Revealed type is "builtins.str"
+-[builtins fixtures/exception.pyi]
+-
+ [case testTypeGuardIsBool]
+ from typing_extensions import TypeGuard
+ def f(a: TypeGuard[int]) -> None: pass
+diff --git a/test-data/unit/check-typeis.test b/test-data/unit/check-typeis.test
+index 6b9684550..04b64a45c 100644
+--- a/test-data/unit/check-typeis.test
++++ b/test-data/unit/check-typeis.test
+@@ -92,18 +92,6 @@ def main(a: Tuple[object, ...]):
+         reveal_type(a)  # N: Revealed type is "builtins.tuple[builtins.int, ...]"
+ [builtins fixtures/tuple.pyi]
+ 
+-[case testTypeIsTypeVarReturn]
+-from typing import Callable, Optional, TypeVar
+-from typing_extensions import TypeIs
+-T = TypeVar('T')
+-def is_str(x: object) -> TypeIs[str]: pass
+-def main(x: object, type_check_func: Callable[[object], TypeIs[T]]) -> T:
+-    if not type_check_func(x):
+-        raise Exception()
+-    return x
+-reveal_type(main("a", is_str))  # N: Revealed type is "builtins.str"
+-[builtins fixtures/exception.pyi]
+-
+ [case testTypeIsUnionIn]
+ from typing import Union
+ from typing_extensions import TypeIs

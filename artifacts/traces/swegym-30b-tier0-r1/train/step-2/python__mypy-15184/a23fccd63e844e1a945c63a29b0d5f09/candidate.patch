@@ -1,0 +1,13 @@
+diff --git a/mypy/messages.py b/mypy/messages.py
+index eb0b5448e..a51522344 100644
+--- a/mypy/messages.py
++++ b/mypy/messages.py
+@@ -1657,7 +1657,7 @@ class MessageBuilder:
+ 
+     def assert_type_fail(self, source_type: Type, target_type: Type, context: Context) -> None:
+         self.fail(
+-            f"Expression is of type {format_type(source_type, self.options)}, "
++            f"Expression is of type {format_type(source_type, self.options, qualify_names=True)}, "
+             f"not {format_type(target_type, self.options)}",
+             context,
+             code=codes.ASSERT_TYPE,

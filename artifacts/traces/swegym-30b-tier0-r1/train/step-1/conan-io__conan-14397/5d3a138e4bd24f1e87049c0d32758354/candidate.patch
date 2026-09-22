@@ -1,0 +1,13 @@
+diff --git a/conan/tools/cmake/cmake.py b/conan/tools/cmake/cmake.py
+index 39a326bec..7e62455e9 100644
+--- a/conan/tools/cmake/cmake.py
++++ b/conan/tools/cmake/cmake.py
+@@ -163,7 +163,7 @@ class CMake(object):
+         self._conanfile.output.info("Running CMake.build()")
+         self._build(build_type, target, cli_args, build_tool_args)
+ 
+-    def install(self, build_type=None, component=None):
++    def install(self, build_type=None, component=None, cli_args=None):
+         """
+         Equivalent to run ``cmake --build . --target=install``
+ 

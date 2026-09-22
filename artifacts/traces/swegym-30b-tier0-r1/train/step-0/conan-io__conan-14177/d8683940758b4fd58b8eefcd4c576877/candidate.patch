@@ -1,0 +1,28 @@
+diff --git a/conan/tools/files/patches.py b/conan/tools/files/patches.py
+index 98f24a880..9621807ed 100644
+--- a/conan/tools/files/patches.py
++++ b/conan/tools/files/patches.py
+@@ -68,7 +68,7 @@ def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0
+         raise ConanException("Failed to apply patch: %s" % patch_file)
+ 
+ 
+-def apply_conandata_patches(conanfile):
++def apply_conandata_patches(conanfile, verbose=False):
+     """
+     Applies patches stored in ``conanfile.conan_data`` (read from ``conandata.yml`` file).
+     It will apply all the patches under ``patches`` entry that matches the given
+@@ -94,6 +94,14 @@ def apply_conandata_patches(conanfile):
+         raise ConanException("conandata.yml 'patches' should be a list or a dict {version: list}")
+     for it in entries:
+         if "patch_file" in it:
++            if verbose:
++                patch_file = it.get("patch_file")
++                patch_description = it.get("patch_description")
++                patch_type = it.get("patch_type", "file")
++                if patch_description:
++                    conanfile.output.info("Apply patch ({0}): {1}".format(patch_type, patch_description))
++                else:
++                    conanfile.output.info("Apply patch ({0}): {1}".format(patch_type, patch_file))
+             # The patch files are located in the root src
+             entry = it.copy()
+             patch_file = os.path.join(conanfile.export_sources_folder, entry.pop("patch_file"))

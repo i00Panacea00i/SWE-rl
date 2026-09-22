@@ -1,0 +1,12 @@
+diff --git a/conan/tools/cmake/cmake.py b/conan/tools/cmake/cmake.py
+index 39a326bec..8104d16e1 100644
+--- a/conan/tools/cmake/cmake.py
++++ b/conan/tools/cmake/cmake.py
+@@ -142,6 +142,7 @@ class CMake(object):
+             args += ['--'] + cmd_line_args
+ 
+         arg_list = ['"{}"'.format(bf), build_config, cmd_args_to_string(args)]
++        args.extend(cli_args)
+         arg_list = " ".join(filter(None, arg_list))
+         command = "%s --build %s" % (self._cmake_program, arg_list)
+         self._conanfile.run(command, env=env)
