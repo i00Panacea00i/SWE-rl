@@ -7,7 +7,8 @@
 #   lr 1e-5 → 3e-5（grad_norm 长期 0.02 量级，更新过小）               [H6]
 #   +optim.clip_grad=0.5（显式；step 41/44/45 曾发生 grad_norm 8.0）   [H7]
 #   kl_loss_coef 0.001 → 0.0005（防全零步 KL-only 漂移）               [H8]
-#   target_modules → all-linear（表达力；verl 支持该字符串）            [H9]
+#   target_modules 保持 attention-only（H9 作废：字符串 all-linear 会触发 verl 的
+#     list() 拆分 bug——peft 收到字符集报错；且 MoE 专家层被误挂会梯度稀疏，v1 已排除）
 #   +algorithm.filter_groups（全对/全错组丢弃重采样，DAPO 式）           [H13]
 #   test/save_freq 10 → 25；steps 默认 100（filter_groups 提高步效）    [H11/H12]
 set -euo pipefail
