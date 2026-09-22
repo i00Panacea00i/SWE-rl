@@ -94,6 +94,7 @@ python3 -u -m verl.trainer.main_ppo \
     trainer.val_before_train="${VERL_VAL_BEFORE_TRAIN:-False}" \
     trainer.test_freq="${VERL_TEST_FREQ:-25}" \
     trainer.save_freq="${VERL_SAVE_FREQ:-25}" \
+    trainer.max_actor_ckpt_to_keep="${VERL_MAX_CKPT_KEEP:-3}" \
     trainer.total_epochs=100 \
     trainer.total_training_steps="${VERL_TRAIN_STEPS:-100}" \
     trainer.default_local_dir="$OUT" \
