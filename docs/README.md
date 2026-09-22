@@ -45,6 +45,7 @@
 | [validation/README.md](validation/README.md) | 验证阶段计划（4 份 ADR：测试集 / 协议 / 架构 / 判定）+ 结果摘要 |
 | [validation/pass4-test-design-postmortem.md](validation/pass4-test-design-postmortem.md) | pass@4 测试设计复盘（协议 / 四轮缺陷链 / 有效性 / 改进 checklist） |
 | [validation/trajectory-symptom-study.md](validation/trajectory-symptom-study.md) | **轨迹症状学研究**（20 案例深读 + 1692 条全量分类：8 症状簇 / "说而不做"50.6% / 幻觉提交 / 编辑时机规律） | 09-22 |
+| [validation/rl-full-retrospective.md](validation/rl-full-retrospective.md) | **RL 训练全量复盘**（reward=0 五类根因 / 70% 全零组 / grad 爆炸 / **下一轮配置变更清单**） | 09-22 |
 | `ADR-001 ~ 004` + 术语表 | 开测前锁定的协议资产 |
 
 ### `troubleshooting/` · 排障档案（8 篇 + 速查表）
