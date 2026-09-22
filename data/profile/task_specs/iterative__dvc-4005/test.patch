@@ -1,0 +1,155 @@
+diff --git a/tests/func/metrics/test_diff.py b/tests/func/metrics/test_diff.py
+--- a/tests/func/metrics/test_diff.py
++++ b/tests/func/metrics/test_diff.py
+@@ -153,3 +153,20 @@ def test_no_commits(tmp_dir):
+     assert Git().no_commits
+ 
+     assert Repo.init().metrics.diff() == {}
++
++
++def test_metrics_diff_dirty(tmp_dir, scm, dvc, run_copy_metrics):
++    def _gen(val):
++        tmp_dir.gen({"m_temp.yaml": str(val)})
++        run_copy_metrics("m_temp.yaml", "m.yaml", metrics=["m.yaml"])
++        dvc.scm.commit(str(val))
++
++    _gen(1)
++    _gen(2)
++    _gen(3)
++
++    tmp_dir.gen({"m.yaml": "4"})
++
++    expected = {"m.yaml": {"": {"old": 3, "new": 4, "diff": 1}}}
++
++    assert dvc.metrics.diff() == expected
+diff --git a/tests/func/params/test_diff.py b/tests/func/params/test_diff.py
+--- a/tests/func/params/test_diff.py
++++ b/tests/func/params/test_diff.py
+@@ -24,6 +24,20 @@ def test_diff(tmp_dir, scm, dvc):
+     }
+ 
+ 
++def test_diff_dirty(tmp_dir, scm, dvc):
++    tmp_dir.gen("params.yaml", "foo: bar")
++    dvc.run(cmd="echo params.yaml", params=["foo"], single_stage=True)
++    scm.add(["params.yaml", "Dvcfile"])
++    scm.commit("bar")
++
++    tmp_dir.scm_gen("params.yaml", "foo: baz", commit="baz")
++    tmp_dir.gen("params.yaml", "foo: qux")
++
++    assert dvc.params.diff() == {
++        "params.yaml": {"foo": {"old": "baz", "new": "qux"}}
++    }
++
++
+ def test_diff_new(tmp_dir, scm, dvc):
+     tmp_dir.gen("params.yaml", "foo: bar")
+     dvc.run(cmd="echo params.yaml", params=["foo"], single_stage=True)
+diff --git a/tests/func/plots/test_diff.py b/tests/func/plots/test_diff.py
+--- a/tests/func/plots/test_diff.py
++++ b/tests/func/plots/test_diff.py
+@@ -39,3 +39,17 @@ def test_diff_dirty(tmp_dir, scm, dvc, run_copy_metrics):
+     ]
+     assert plot_content["encoding"]["x"]["field"] == PlotData.INDEX_FIELD
+     assert plot_content["encoding"]["y"]["field"] == "y"
++
++    _write_json(tmp_dir, [{"y": 7}, {"y": 8}], "metric.json")
++
++    plot_string = dvc.plots.diff(props={"fields": {"y"}})["metric.json"]
++
++    plot_content = json.loads(plot_string)
++    assert plot_content["data"]["values"] == [
++        {"y": 3, PlotData.INDEX_FIELD: 0, "rev": "HEAD"},
++        {"y": 5, PlotData.INDEX_FIELD: 1, "rev": "HEAD"},
++        {"y": 7, PlotData.INDEX_FIELD: 0, "rev": "workspace"},
++        {"y": 8, PlotData.INDEX_FIELD: 1, "rev": "workspace"},
++    ]
++    assert plot_content["encoding"]["x"]["field"] == PlotData.INDEX_FIELD
++    assert plot_content["encoding"]["y"]["field"] == "y"
+diff --git a/tests/func/test_api.py b/tests/func/test_api.py
+--- a/tests/func/test_api.py
++++ b/tests/func/test_api.py
+@@ -114,6 +114,10 @@ def test_missing(remote_url, tmp_dir, dvc):
+     # Remove cache to make foo missing
+     remove(dvc.cache.local.cache_dir)
+ 
++    api.read("foo")
++
++    remove("foo")
++
+     with pytest.raises(FileMissingError):
+         api.read("foo")
+ 
+diff --git a/tests/func/test_update.py b/tests/func/test_update.py
+--- a/tests/func/test_update.py
++++ b/tests/func/test_update.py
+@@ -52,9 +52,9 @@ def test_update_import_after_remote_updates_to_dvc(tmp_dir, dvc, erepo_dir):
+     new_rev = None
+     with erepo_dir.branch("branch", new=False), erepo_dir.chdir():
+         erepo_dir.scm.repo.index.remove(["version"])
+-        erepo_dir.dvc_gen("version", "updated")
+-        erepo_dir.scm.add(["version", "version.dvc"])
+-        erepo_dir.scm.commit("upgrade to DVC tracking")
++        erepo_dir.dvc_gen(
++            "version", "updated", commit="upgrade to DVC tracking"
++        )
+         new_rev = erepo_dir.scm.get_rev()
+ 
+     assert old_rev != new_rev
+diff --git a/tests/unit/repo/test_repo_tree.py b/tests/unit/repo/test_repo_tree.py
+--- a/tests/unit/repo/test_repo_tree.py
++++ b/tests/unit/repo/test_repo_tree.py
+@@ -26,6 +26,24 @@ def test_open(tmp_dir, dvc):
+         assert fobj.read() == "foo"
+ 
+ 
++def test_open_dirty_hash(tmp_dir, dvc):
++    tmp_dir.dvc_gen("file", "file")
++    (tmp_dir / "file").write_text("something")
++
++    tree = RepoTree(dvc)
++    with tree.open("file", "r") as fobj:
++        assert fobj.read() == "something"
++
++
++def test_open_dirty_no_hash(tmp_dir, dvc):
++    tmp_dir.gen("file", "file")
++    (tmp_dir / "file.dvc").write_text("outs:\n- path: file\n")
++
++    tree = RepoTree(dvc)
++    with tree.open("file", "r") as fobj:
++        assert fobj.read() == "file"
++
++
+ def test_open_in_history(tmp_dir, scm, dvc):
+     tmp_dir.gen("foo", "foo")
+     dvc.add("foo")
+diff --git a/tests/unit/repo/test_tree.py b/tests/unit/repo/test_tree.py
+--- a/tests/unit/repo/test_tree.py
++++ b/tests/unit/repo/test_tree.py
+@@ -26,6 +26,24 @@ def test_open(tmp_dir, dvc):
+         assert fobj.read() == "foo"
+ 
+ 
++def test_open_dirty_hash(tmp_dir, dvc):
++    tmp_dir.dvc_gen("file", "file")
++    (tmp_dir / "file").write_text("something")
++
++    tree = DvcTree(dvc)
++    with tree.open("file", "r") as fobj:
++        assert fobj.read() == "something"
++
++
++def test_open_dirty_no_hash(tmp_dir, dvc):
++    tmp_dir.gen("file", "file")
++    (tmp_dir / "file.dvc").write_text("outs:\n- path: file\n")
++
++    tree = DvcTree(dvc)
++    with tree.open("file", "r") as fobj:
++        assert fobj.read() == "file"
++
++
+ def test_open_in_history(tmp_dir, scm, dvc):
+     tmp_dir.gen("foo", "foo")
+     dvc.add("foo")

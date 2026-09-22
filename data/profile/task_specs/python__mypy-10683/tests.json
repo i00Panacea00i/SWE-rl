@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignToTypeGuardedVariable1",
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignToTypeGuardedVariable2"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignToTypeGuardedVariable3",
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardUnionOut",
+  "mypy/test/testcheck.py::TypeCheckSuite::testTypeGuardUnionIn"
+ ]
+}

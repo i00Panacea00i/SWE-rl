@@ -1,0 +1,14 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/repo/test_tree.py::test_open_dirty_no_hash",
+  "tests/unit/repo/test_repo_tree.py::test_open_dirty_no_hash"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/metrics/test_diff.py::test_metrics_diff_no_metrics",
+  "tests/func/metrics/test_diff.py::test_no_commits",
+  "tests/func/params/test_diff.py::test_no_commits",
+  "tests/func/test_api.py::test_get_url_requires_dvc",
+  "tests/func/test_api.py::test_open_scm_controlled",
+  "tests/func/params/test_diff.py::test_diff_no_params"
+ ]
+}

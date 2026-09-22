@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311_semanal"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClass",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple_semanal",
+  "mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClassWithImport"
+ ]
+}

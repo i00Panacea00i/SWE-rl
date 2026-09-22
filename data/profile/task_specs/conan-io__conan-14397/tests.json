@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args_strip",
+  "conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_component",
+  "conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_strip"
+ ]
+}

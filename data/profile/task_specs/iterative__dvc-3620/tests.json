@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/remote/test_local.py::test_is_protected[symlink]",
+  "tests/unit/remote/test_local.py::test_is_protected[hardlink]"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/remote/test_local.py::test_protect_ignore_errors[1]",
+  "tests/unit/remote/test_local.py::test_status_download_optimization",
+  "tests/unit/remote/test_local.py::test_protect_ignore_errors[13]",
+  "tests/unit/remote/test_local.py::test_protect_ignore_erofs"
+ ]
+}

@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-recursive-types.test::testForwardBoundFunctionScopeWorks",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-recursive-types.test::testRecursiveBoundFunctionScopeNoCrash"
+ ],
+ "PASS_TO_PASS": []
+}

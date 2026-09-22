@@ -1,0 +1,16 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_s3.py::test_link_created_on_non_nested_path[base_info0]",
+  "tests/unit/remote/test_remote.py::test_makedirs_not_create_for_top_level_path[RemoteGS]",
+  "tests/unit/remote/test_remote.py::test_makedirs_not_create_for_top_level_path[RemoteS3]",
+  "tests/func/test_s3.py::test_makedirs_doesnot_try_on_top_level_paths"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/remote/test_remote.py::test_remote_without_checksum_jobs_default",
+  "tests/func/test_s3.py::test_copy_singlepart_preserve_etag",
+  "tests/func/test_s3.py::test_copy_multipart_preserve_etag",
+  "tests/func/test_s3.py::test_link_created_on_non_nested_path[base_info1]",
+  "tests/unit/remote/test_remote.py::test_remote_with_checksum_jobs",
+  "tests/unit/remote/test_remote.py::test_remote_without_checksum_jobs"
+ ]
+}

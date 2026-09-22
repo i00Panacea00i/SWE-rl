@@ -1,0 +1,81 @@
+diff --git a/mypy/test/teststubgen.py b/mypy/test/teststubgen.py
+--- a/mypy/test/teststubgen.py
++++ b/mypy/test/teststubgen.py
+@@ -10,6 +10,8 @@
+ from types import ModuleType
+ from typing import Any
+ 
++import pytest
++
+ from mypy.errors import CompileError
+ from mypy.moduleinspect import InspectError, ModuleInspect
+ from mypy.stubdoc import (
+@@ -698,6 +700,8 @@ def run_case_inner(self, testcase: DataDrivenTestCase) -> None:
+                 f.write(content)
+ 
+         options = self.parse_flags(source, extra)
++        if sys.version_info < options.pyversion:
++            pytest.skip()
+         modules = self.parse_modules(source)
+         out_dir = "out"
+         try:
+diff --git a/test-data/unit/stubgen.test b/test-data/unit/stubgen.test
+--- a/test-data/unit/stubgen.test
++++ b/test-data/unit/stubgen.test
+@@ -1211,6 +1211,56 @@ T = TypeVar('T')
+ 
+ class D(Generic[T]): ...
+ 
++[case testGenericClassTypeVarTuple]
++from typing import Generic
++from typing_extensions import TypeVarTuple, Unpack
++Ts = TypeVarTuple('Ts')
++class D(Generic[Unpack[Ts]]): ...
++[out]
++from typing import Generic
++from typing_extensions import TypeVarTuple, Unpack
++
++Ts = TypeVarTuple('Ts')
++
++class D(Generic[Unpack[Ts]]): ...
++
++[case testGenericClassTypeVarTuple_semanal]
++from typing import Generic
++from typing_extensions import TypeVarTuple, Unpack
++Ts = TypeVarTuple('Ts')
++class D(Generic[Unpack[Ts]]): ...
++[out]
++from typing import Generic
++from typing_extensions import TypeVarTuple, Unpack
++
++Ts = TypeVarTuple('Ts')
++
++class D(Generic[Unpack[Ts]]): ...
++
++[case testGenericClassTypeVarTuplePy311]
++# flags: --python-version=3.11
++from typing import Generic, TypeVarTuple
++Ts = TypeVarTuple('Ts')
++class D(Generic[*Ts]): ...
++[out]
++from typing import Generic, TypeVarTuple
++
++Ts = TypeVarTuple('Ts')
++
++class D(Generic[*Ts]): ...
++
++[case testGenericClassTypeVarTuplePy311_semanal]
++# flags: --python-version=3.11
++from typing import Generic, TypeVarTuple
++Ts = TypeVarTuple('Ts')
++class D(Generic[*Ts]): ...
++[out]
++from typing import Generic, TypeVarTuple
++
++Ts = TypeVarTuple('Ts')
++
++class D(Generic[*Ts]): ...
++
+ [case testObjectBaseClass]
+ class A(object): ...
+ [out]

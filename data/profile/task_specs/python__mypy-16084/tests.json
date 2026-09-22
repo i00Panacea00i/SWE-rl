@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "mypyc/test/test_run.py::TestRun::run-functions.test::testNestedFunctionDunderDict312",
+  "mypyc/test/test_run.py::TestRun::run-functions.test::testFunctoolsUpdateWrapper"
+ ],
+ "PASS_TO_PASS": []
+}

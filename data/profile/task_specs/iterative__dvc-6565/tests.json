@@ -1,0 +1,13 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/remote/test_http.py::test_basic_auth_method",
+  "tests/unit/remote/test_http.py::test_public_auth_method",
+  "tests/unit/remote/test_http.py::test_ssl_verify_disable",
+  "tests/unit/remote/test_http.py::test_ssl_verify_custom_cert"
+ ],
+ "PASS_TO_PASS": [
+  "tests/unit/remote/test_http.py::test_custom_auth_method",
+  "tests/unit/remote/test_http.py::test_http_method",
+  "tests/unit/remote/test_http.py::test_download_fails_on_error_code"
+ ]
+}

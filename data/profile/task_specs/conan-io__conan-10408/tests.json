@@ -1,0 +1,19 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_file",
+  "conans/test/unittests/tools/files/test_patches.py::test_base_path",
+  "conans/test/unittests/tools/files/test_patches.py::test_apply_in_build_from_patch_in_source",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_arguments"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/unittests/tools/files/test_patches.py::test_single_apply_fail",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_type",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_file_from_forced_build",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_string",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_description",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_patch_extra_fields",
+  "conans/test/unittests/tools/files/test_patches.py::test_multiple_with_version",
+  "conans/test/unittests/tools/files/test_patches.py::test_multiple_no_version",
+  "conans/test/unittests/tools/files/test_patches.py::test_single_no_patchset"
+ ]
+}

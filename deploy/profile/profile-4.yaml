@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-profile-4
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 172800
+  containers:
+    - name: eval
+      image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          python -c 'import json; from pathlib import Path; p=Path("/mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct"); idx=json.loads((p/"model.safetensors.index.json").read_text()); shards=sorted(set(idx["weight_map"].values())); assert all((p/s).exists() and (p/s).stat().st_size>0 for s in shards); print("MODEL_OK", len(shards), "shards", flush=True)'
+          RUN=/mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora
+          cd $RUN/kit
+          sha256sum --status -c protocol.sha256
+          export PYTHONPATH=$RUN/kit:/mnt/cfs/swe-rl/runs/swegym-30b-tier0-r1/verl-src
+          python -m pip install --no-cache-dir 'e2b==2.49.0' 'unidiff==0.7.5' 'swebench==5.0.2' 'tencentcloud-sdk-python-ags' 'pandas' 'pyarrow'
+          mkdir -p /mnt/cfs/swe-rl/traces/profile-t0/vllm /mnt/cfs/swe-rl/logs/profile
+          python controller/eval_driver.py \
+            --parquet $RUN/kit/data/profile/profile-4.parquet \
+            --out /mnt/cfs/swe-rl/traces/profile-t0/vllm \
+            --model /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct \
+            --variant base --n 4 --temperature 0.7 \
+            --max-steps 16 --action-tokens 2048 --observation-tokens 768 \
+            --workers 16 --limit ${EVAL_LIMIT:-0} 2>&1 | tee /mnt/cfs/swe-rl/logs/profile/profile-4-$(date -u +%Y%m%dT%H%M%SZ).log
+          # ── 画像汇总（本 Pod 有 python + 依赖 + CFS 读权限；前 3 批已完成）──
+          set +e
+          python /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/scripts/summarize_profile.py 2>&1 | tee -a /mnt/cfs/swe-rl/logs/profile/summary.log
+          set -e
+      env:
+        - name: EVAL_LIMIT
+          value: "0"
+        - name: SWE_INSTANCES_FILE
+          value: /mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit/data/profile-instances.jsonl
+        - name: E2B_DOMAIN
+          value: ap-singapore.tencentags.com
+        - name: E2B_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ags-credentials
+              key: E2B_API_KEY
+        - name: VLLM_LOGGING_LEVEL
+          value: INFO
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+      resources:
+        limits:
+          nvidia.com/gpu: 4
+          cpu: "100"
+          memory: 350Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+        - name: tccli-cred
+          mountPath: /root/.tccli
+          readOnly: true
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 32Gi
+    - name: tccli-cred
+      secret:
+        secretName: tccli-credential

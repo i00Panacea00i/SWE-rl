@@ -1,0 +1,81 @@
+#!/bin/bash
+set -uxo pipefail
+source /opt/miniconda3/bin/activate
+conda activate testbed
+cd /testbed
+git config --global --add safe.directory /testbed
+git config --global http.sslVerify false
+git config --global user.email none@none.com
+git config --global user.name SWE-Gym
+git checkout 92752e039209680a510e930eb7dc7c1953b28c6c -- tests/func/test_import.py tests/unit/command/test_imp.py 2>/dev/null || true
+git apply -v - <<'EOF_SWEGYM'
+diff --git a/tests/func/test_import.py b/tests/func/test_import.py
+--- a/tests/func/test_import.py
++++ b/tests/func/test_import.py
+@@ -465,3 +465,13 @@ def test_try_import_complete_repo(tmp_dir, dvc, erepo_dir):
+     with pytest.raises(IsADVCRepoError) as exc_info:
+         dvc.imp(os.fspath(erepo_dir), os.curdir, out="out")
+     assert expected_message == str(exc_info.value)
++
++
++def test_import_with_no_exec(tmp_dir, dvc, erepo_dir):
++    with erepo_dir.chdir():
++        erepo_dir.dvc_gen("foo", "foo content", commit="create foo")
++
++    dvc.imp(os.fspath(erepo_dir), "foo", out="foo_imported", no_exec=True)
++
++    dst = tmp_dir / "foo_imported"
++    assert not dst.exists()
+diff --git a/tests/unit/command/test_imp.py b/tests/unit/command/test_imp.py
+--- a/tests/unit/command/test_imp.py
++++ b/tests/unit/command/test_imp.py
+@@ -24,5 +24,41 @@ def test_import(mocker):
+     assert cmd.run() == 0
+ 
+     m.assert_called_once_with(
+-        "repo_url", path="src", out="out", fname="file", rev="version"
++        "repo_url",
++        path="src",
++        out="out",
++        fname="file",
++        rev="version",
++        no_exec=False,
++    )
++
++
++def test_import_no_exec(mocker):
++    cli_args = parse_args(
++        [
++            "import",
++            "repo_url",
++            "src",
++            "--out",
++            "out",
++            "--file",
++            "file",
++            "--rev",
++            "version",
++            "--no-exec",
++        ]
++    )
++
++    cmd = cli_args.func(cli_args)
++    m = mocker.patch.object(cmd.repo, "imp", autospec=True)
++
++    assert cmd.run() == 0
++
++    m.assert_called_once_with(
++        "repo_url",
++        path="src",
++        out="out",
++        fname="file",
++        rev="version",
++        no_exec=True,
+     )
+
+EOF_SWEGYM
+python -m pip install -e . --no-deps
+: '>>>>> Start Test Output'
+python -m pytest -rA --no-header -p no:cacheprovider -p no:pretty -p no:snail -p no:snail tests/unit/command/test_imp.py::test_import tests/unit/command/test_imp.py::test_import_no_exec
+: '>>>>> End Test Output'
+git checkout 92752e039209680a510e930eb7dc7c1953b28c6c -- tests/func/test_import.py tests/unit/command/test_imp.py 2>/dev/null || true

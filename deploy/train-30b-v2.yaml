@@ -11,7 +11,6 @@ metadata:
 spec:
   restartPolicy: Never
   activeDeadlineSeconds: 432000
-  nodeName: 10.0.12.94
   containers:
     - name: train
       image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543

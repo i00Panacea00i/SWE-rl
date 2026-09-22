@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_secretsmanager/test_rotate_simple_lambda.py::test_simple_lambda_is_invoked__do_not_rotate_immediately",
+  "tests/test_secretsmanager/test_rotate_simple_lambda.py::test_simple_lambda_is_invoked"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_awslambda/test_lambda_invoke.py::TestLambdaInvocations::test_invoke_dryrun_function",
+  "tests/test_awslambda/test_lambda_invoke.py::TestLambdaInvocations::test_invoke_async_function[FunctionArn]",
+  "tests/test_awslambda/test_lambda_invoke.py::TestLambdaInvocations::test_invoke_async_function[FunctionName]"
+ ]
+}

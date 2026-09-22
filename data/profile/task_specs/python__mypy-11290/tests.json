@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testNoneHasBool",
+  "mypy/test/testcheck.py::TypeCheckSuite::testNoneHasBoolShowNoneErrorsFalse"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::testAssignmentInvariantNoteForList"
+ ]
+}

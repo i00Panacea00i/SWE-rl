@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_import.py::test_import_rev",
+  "tests/func/test_import.py::test_import",
+  "tests/func/test_import.py::test_import_dir"
+ ],
+ "PASS_TO_PASS": []
+}

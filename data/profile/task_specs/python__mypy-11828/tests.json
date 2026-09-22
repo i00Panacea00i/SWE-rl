@@ -1,0 +1,8 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.pyproject.test::testMultilineLiteralExcludePyprojectTOML",
+  "mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.pyproject.test::testMultilineBasicExcludePyprojectTOML",
+  "mypy/test/testcmdline.py::PythonCmdlineSuite::cmdline.pyproject.test::testSequenceExcludePyprojectTOML"
+ ],
+ "PASS_TO_PASS": []
+}

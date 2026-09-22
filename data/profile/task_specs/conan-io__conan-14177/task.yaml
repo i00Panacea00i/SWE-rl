@@ -1,0 +1,5 @@
+base_commit: b43eb83956f053a47cc3897cfdd57b9da13a16e6
+instance_id: conan-io__conan-14177
+log_parser: parse_log_pytest
+repo: conan-io/conan
+version: '2.1'

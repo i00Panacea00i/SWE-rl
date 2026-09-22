@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testInvalidTupleValueAsExceptionType",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testTupleValueAsExceptionType"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testOverloadedExceptionType"
+ ]
+}

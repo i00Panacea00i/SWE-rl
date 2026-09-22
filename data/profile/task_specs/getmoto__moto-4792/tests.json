@@ -1,0 +1,20 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_s3_minimum",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_with_additional_fields"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_delete_distribution_random_etag",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_with_invalid_s3_bucket",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_with_mismatched_originid",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_returns_etag",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_distribution_needs_unique_caller_reference",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_delete_unknown_distribution",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_get_distribution",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_delete_distribution_without_ifmatch",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_create_origin_without_origin_config",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_get_unknown_distribution",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_list_distributions_without_any",
+  "tests/test_cloudfront/test_cloudfront_distributions.py::test_list_distributions"
+ ]
+}

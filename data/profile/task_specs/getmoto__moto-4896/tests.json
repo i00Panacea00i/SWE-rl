@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_core/test_responses_module.py::TestResponsesModule::test_moto_second",
+  "tests/test_core/test_responses_module.py::TestResponsesModule::test_moto_as_late_as_possible"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_core/test_responses_module.py::TestResponsesModule::test_moto_first"
+ ]
+}

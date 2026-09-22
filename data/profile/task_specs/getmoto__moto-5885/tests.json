@@ -1,0 +1,9 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/test_eks/test_eks_ec2.py::test_passing_a_known_launchtemplate_by_name",
+  "tests/test_eks/test_eks_ec2.py::test_passing_a_known_launchtemplate_by_id"
+ ],
+ "PASS_TO_PASS": [
+  "tests/test_eks/test_eks_ec2.py::test_passing_an_unknown_launchtemplate_is_supported"
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "FAIL_TO_PASS": [
+  "conans/test/integration/toolchains/microsoft/test_msbuilddeps.py::test_msbuilddeps_maps_architecture_to_platform[armv8-ARM64]",
+  "conans/test/integration/toolchains/microsoft/test_msbuilddeps.py::test_msbuilddeps_maps_architecture_to_platform[armv7-ARM]"
+ ],
+ "PASS_TO_PASS": [
+  "conans/test/integration/toolchains/microsoft/test_msbuilddeps.py::test_msbuilddeps_maps_architecture_to_platform[x86-Win32]",
+  "conans/test/integration/toolchains/microsoft/test_msbuilddeps.py::test_msbuilddeps_maps_architecture_to_platform[x86_64-x64]"
+ ]
+}

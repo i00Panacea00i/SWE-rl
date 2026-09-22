@@ -1,0 +1,11 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/func/test_install.py::TestInstall::test_should_append_hooks_if_file_already_exists",
+  "tests/func/test_install.py::TestInstall::test_should_be_idempotent"
+ ],
+ "PASS_TO_PASS": [
+  "tests/func/test_install.py::TestInstall::test_should_create_hooks",
+  "tests/func/test_install.py::TestInstall::test_should_pre_push_hook_push",
+  "tests/func/test_install.py::TestInstall::test_should_post_checkout_hook_checkout"
+ ]
+}

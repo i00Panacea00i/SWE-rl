@@ -1,0 +1,12 @@
+{
+ "FAIL_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testYieldFromUnionOfGeneratorWithIterableStr",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testYieldFromUnionOfGenerators",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testYieldIteratorReturn"
+ ],
+ "PASS_TO_PASS": [
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testYieldFromInvalidUnionReturn",
+  "mypyc/test/test_run.py::TestRun::run-generators.test::testYieldThrow",
+  "mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testNoCrashOnStarRightHandSide"
+ ]
+}

@@ -1,0 +1,5 @@
+base_commit: 1d4064d0ef5794f7dc61bf3e29b5ae234d04ed4d
+instance_id: dask__dask-6682
+log_parser: parse_log_pytest
+repo: dask/dask
+version: '2.28'

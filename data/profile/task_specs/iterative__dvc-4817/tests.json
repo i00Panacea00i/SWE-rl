@@ -1,0 +1,7 @@
+{
+ "FAIL_TO_PASS": [
+  "tests/unit/command/test_imp.py::test_import",
+  "tests/unit/command/test_imp.py::test_import_no_exec"
+ ],
+ "PASS_TO_PASS": []
+}
