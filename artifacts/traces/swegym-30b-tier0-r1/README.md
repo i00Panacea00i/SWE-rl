@@ -31,7 +31,8 @@ train/step-N/<instance_id>/<rollout_uuid>/
 └── judge/
     ├── result.json         # 判分结果：f2p_passed / f2p_failed / reward / resolved
     ├── execution.json      # 判分命令执行记录
-    └── test.log            # 判分测试输出（pytest）
+    ├── test.log            # 判分测试输出（pytest）
+    └── baseline-control/   # 判分基线对照（部分轨迹有：execution.json / result.json / test.log）
 ```
 
 ## episode.json 关键字段

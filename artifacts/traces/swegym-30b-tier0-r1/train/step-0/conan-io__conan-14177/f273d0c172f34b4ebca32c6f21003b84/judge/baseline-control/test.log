@@ -1,0 +1,117 @@
+Checking patch conans/test/unittests/tools/files/test_patches.py...
+Applied patch conans/test/unittests/tools/files/test_patches.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 13 items
+
+conans/test/unittests/tools/files/test_patches.py FFF..........          [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_multiple_with_version __________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7fc30fc3cf70>
+
+    def test_multiple_with_version(mock_patch_ng):
+        output = RedirectedTestOutput()
+        with redirect_output(output):
+            conanfile = ConanFileMock()
+            conanfile.display_name = 'mocked/ref'
+            conandata_contents = {'patches': {
+                "1.11.0": [
+                    {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+                     'base_path': 'source_subfolder', },
+                    {'patch_file': 'patches/0002-implicit-copy-constructor.patch',
+                     'base_path': 'source_subfolder',
+                     'patch_type': 'backport',
+                     'patch_source': 'https://github.com/google/flatbuffers/pull/5650',
+                     'patch_description': 'Needed to build with modern clang compilers.'}
+                ],
+                "1.12.0": [
+                    {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+                     'base_path': 'source_subfolder', },
+                ]}}
+    
+            conanfile.conan_data = conandata_contents.copy()
+    
+            with pytest.raises(AssertionError) as excinfo:
+                apply_conandata_patches(conanfile)
+            assert 'Can only be applied if conanfile.version is already defined' == str(excinfo.value)
+    
+            conanfile.version = "1.2.11"
+    
+            apply_conandata_patches(conanfile)
+            assert len(str(output.getvalue())) == 0
+    
+            conanfile.version = "1.11.0"
+            apply_conandata_patches(conanfile)
+>           assert 'mocked/ref: Apply patch (file): patches/0001-buildflatbuffers-cmake.patch\n' \
+                   in output.getvalue()
+E           AssertionError: assert 'mocked/ref: Apply patch (file): patches/0001-buildflatbuffers-cmake.patch\n' in 'mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n'
+E            +  where 'mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n' = <built-in method getvalue of RedirectedTestOutput object at 0x7fc31088da20>()
+E            +    where <built-in method getvalue of RedirectedTestOutput object at 0x7fc31088da20> = mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n.getvalue
+
+conans/test/unittests/tools/files/test_patches.py:215: AssertionError
+________________________ test_single_patch_description _________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7fc30fd60d90>
+
+    def test_single_patch_description(mock_patch_ng):
+        output = RedirectedTestOutput()
+        with redirect_output(output):
+            conanfile = ConanFileMock()
+            conanfile.display_name = 'mocked/ref'
+            patch(conanfile, patch_file='patch-file', patch_description='patch_description')
+>       assert 'mocked/ref: Apply patch (file): patch_description\n' == output.getvalue()
+E       AssertionError: assert 'mocked/ref: ...description\n' == 'mocked/ref: ...description\n'
+E         - mocked/ref: Apply patch: patch_description
+E         + mocked/ref: Apply patch (file): patch_description
+E         ?                        +++++++
+
+conans/test/unittests/tools/files/test_patches.py:124: AssertionError
+___________________________ test_multiple_no_version ___________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7fc30fca3910>
+
+    def test_multiple_no_version(mock_patch_ng):
+        output = RedirectedTestOutput()
+        with redirect_output(output):
+            conanfile = ConanFileMock()
+            conanfile.display_name = 'mocked/ref'
+            conanfile.conan_data = {'patches': [
+                {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+                 'base_path': 'source_subfolder', },
+                {'patch_file': 'patches/0002-implicit-copy-constructor.patch',
+                 'base_path': 'source_subfolder',
+                 'patch_type': 'backport',
+                 'patch_source': 'https://github.com/google/flatbuffers/pull/5650',
+                 'patch_description': 'Needed to build with modern clang compilers.'}
+            ]}
+            apply_conandata_patches(conanfile)
+>       assert 'mocked/ref: Apply patch (file): patches/0001-buildflatbuffers-cmake.patch\n' \
+               in output.getvalue()
+E       AssertionError: assert 'mocked/ref: Apply patch (file): patches/0001-buildflatbuffers-cmake.patch\n' in 'mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n'
+E        +  where 'mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n' = <built-in method getvalue of RedirectedTestOutput object at 0x7fc30fd064d0>()
+E        +    where <built-in method getvalue of RedirectedTestOutput object at 0x7fc30fd064d0> = mocked/ref: Apply patch (backport): Needed to build with modern clang compilers.\n.getvalue
+
+conans/test/unittests/tools/files/test_patches.py:176: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_arguments
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_apply_fail
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_type
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file_from_forced_build
+PASSED conans/test/unittests/tools/files/test_patches.py::test_base_path
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_string
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_extra_fields
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file
+PASSED conans/test/unittests/tools/files/test_patches.py::test_apply_in_build_from_patch_in_source
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_no_patchset
+FAILED conans/test/unittests/tools/files/test_patches.py::test_multiple_with_version
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_description
+FAILED conans/test/unittests/tools/files/test_patches.py::test_multiple_no_version
+========================= 3 failed, 10 passed in 0.49s =========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

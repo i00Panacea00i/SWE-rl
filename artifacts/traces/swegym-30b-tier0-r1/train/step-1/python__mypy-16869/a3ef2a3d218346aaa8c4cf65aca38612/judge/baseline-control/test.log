@@ -1,0 +1,117 @@
+Checking patch mypy/test/teststubgen.py...
+Checking patch test-data/unit/stubgen.test...
+Applied patch mypy/test/teststubgen.py cleanly.
+Applied patch test-data/unit/stubgen.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [6 items]
+
+..F..F                                                                   [100%]
+=================================== FAILURES ===================================
+______________________ testGenericClassTypeVarTuplePy311 _______________________
+[gw0] linux -- Python 3.12.4 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/stubgen.test:1240:
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:341: in from_call
+    result: Optional[TResult] = func()
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:262: in <lambda>
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/pluggy/_hooks.py:493: in __call__
+    return self._hookexec(self.name, self._hookimpls, kwargs, firstresult)
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/pluggy/_manager.py:115: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:177: in pytest_runtest_call
+    raise e
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:169: in pytest_runtest_call
+    item.runtest()
+/testbed/mypy/test/data.py:320: in runtest
+    suite.run_case(self)
+/testbed/mypy/test/teststubgen.py:685: in run_case
+    self.run_case_inner(testcase)
+/testbed/mypy/test/teststubgen.py:717: in run_case_inner
+    generate_stubs(options)
+/testbed/mypy/stubgen.py:1673: in generate_stubs
+    generate_stub_for_py_module(
+/testbed/mypy/stubgen.py:1643: in generate_stub_for_py_module
+    mod.ast.accept(gen)
+/testbed/mypy/nodes.py:369: in accept
+    return visitor.visit_mypy_file(self)
+/testbed/mypy/stubgen.py:448: in visit_mypy_file
+    super().visit_mypy_file(o)
+/testbed/mypy/traverser.py:115: in visit_mypy_file
+    d.accept(self)
+/testbed/mypy/nodes.py:1142: in accept
+    return visitor.visit_class_def(self)
+/testbed/mypy/stubgen.py:714: in visit_class_def
+    base_types = self.get_base_types(o)
+/testbed/mypy/stubgen.py:758: in get_base_types
+    base_types.append(base.accept(p))
+/testbed/mypy/nodes.py:1963: in accept
+    return visitor.visit_index_expr(self)
+/testbed/mypy/stubgen.py:317: in visit_index_expr
+    index = node.index.accept(self)
+/testbed/mypy/nodes.py:2269: in accept
+    return visitor.visit_tuple_expr(self)
+/testbed/mypy/stubgen.py:323: in visit_tuple_expr
+    return f"({', '.join(n.accept(self) for n in node.items)})"
+E   TypeError: sequence item 0: expected str instance, NoneType found
+__________________ testGenericClassTypeVarTuplePy311_semanal ___________________
+[gw0] linux -- Python 3.12.4 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/stubgen.test:1252:
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:341: in from_call
+    result: Optional[TResult] = func()
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:262: in <lambda>
+    lambda: ihook(item=item, **kwds), when=when, reraise=reraise
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/pluggy/_hooks.py:493: in __call__
+    return self._hookexec(self.name, self._hookimpls, kwargs, firstresult)
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/pluggy/_manager.py:115: in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:177: in pytest_runtest_call
+    raise e
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/runner.py:169: in pytest_runtest_call
+    item.runtest()
+/testbed/mypy/test/data.py:320: in runtest
+    suite.run_case(self)
+/testbed/mypy/test/teststubgen.py:685: in run_case
+    self.run_case_inner(testcase)
+/testbed/mypy/test/teststubgen.py:717: in run_case_inner
+    generate_stubs(options)
+/testbed/mypy/stubgen.py:1673: in generate_stubs
+    generate_stub_for_py_module(
+/testbed/mypy/stubgen.py:1643: in generate_stub_for_py_module
+    mod.ast.accept(gen)
+/testbed/mypy/nodes.py:369: in accept
+    return visitor.visit_mypy_file(self)
+/testbed/mypy/stubgen.py:448: in visit_mypy_file
+    super().visit_mypy_file(o)
+/testbed/mypy/traverser.py:115: in visit_mypy_file
+    d.accept(self)
+/testbed/mypy/nodes.py:1142: in accept
+    return visitor.visit_class_def(self)
+/testbed/mypy/stubgen.py:714: in visit_class_def
+    base_types = self.get_base_types(o)
+/testbed/mypy/stubgen.py:758: in get_base_types
+    base_types.append(base.accept(p))
+/testbed/mypy/nodes.py:1963: in accept
+    return visitor.visit_index_expr(self)
+/testbed/mypy/stubgen.py:317: in visit_index_expr
+    index = node.index.accept(self)
+/testbed/mypy/nodes.py:2269: in accept
+    return visitor.visit_tuple_expr(self)
+/testbed/mypy/stubgen.py:323: in visit_tuple_expr
+    return f"({', '.join(n.accept(self) for n in node.items)})"
+E   TypeError: sequence item 0: expected str instance, NoneType found
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClass
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple_semanal
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClassWithImport
+FAILED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311
+FAILED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311_semanal
+========================= 2 failed, 4 passed in 5.66s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1
