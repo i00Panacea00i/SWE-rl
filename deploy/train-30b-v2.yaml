@@ -59,7 +59,7 @@ spec:
         - name: VERL_MAX_RESPONSE_LENGTH
           value: "16384"
         - name: VERL_TRAIN_STEPS
-          value: "100"
+          value: "70"
         - name: VERL_TEST_FREQ
           value: "25"
         - name: VERL_SAVE_FREQ
