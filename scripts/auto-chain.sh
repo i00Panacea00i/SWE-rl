@@ -56,7 +56,7 @@ kubectl exec swe-rl-sync -- sh -c "cp $KIT/data/tier0-r2/train.parquet /mnt/cfs/
 tar cf - -C "$POOL" train.parquet instances.jsonl | kubectl exec -i swe-rl-sync -- tar xf - -C /tmp/
 kubectl exec swe-rl-sync -- sh -c "cp /tmp/train.parquet $KIT/data/tier0-r2/train.parquet; cp /tmp/instances.jsonl $KIT/data/instances.jsonl; rm -f /tmp/train.parquet /tmp/instances.jsonl"
 tar cf - -C "$POOL" task_specs | kubectl exec -i swe-rl-sync -- tar xf - -C "$KIT/data/"
-kubectl exec swe-rl-sync -- sh -c "cd $KIT && find configs controller data sandbox tests verl_plugin -type f | sort | xargs sha256sum > protocol.sha256 && wc -l < protocol.sha256 | xargs echo '[阶段3] protocol.sha256 文件数:'"
+kubectl exec swe-rl-sync -- sh -c "cd $KIT && find configs controller data sandbox tests verl_plugin -type f ! -name '.nfs*' | sort | xargs sha256sum > protocol.sha256 && wc -l < protocol.sha256 | xargs echo '[阶段3] protocol.sha256 文件数:'"
 
 # ── 阶段4: 冒烟（配额准入门控）──
 log "[阶段4] 冒烟 10 步"
