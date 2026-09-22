@@ -63,7 +63,7 @@ spec:
         - name: VERL_TEST_FREQ
           value: "25"
         - name: VERL_SAVE_FREQ
-          value: "25"
+          value: "10"
         - name: VERL_FILTER_MAX_GEN
           value: "3"
         - name: VERL_AGENT_WORKERS
