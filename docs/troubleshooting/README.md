@@ -15,6 +15,7 @@
 | 6 | [06-agent-protocol.md](06-agent-protocol.md) | Agent 协议与模型输出：format_error、action_tokens、thinking 模式、MoE-LoRA 策略 |
 | 7 | [07-eng-toolbox.md](07-eng-toolbox.md) | 工程工具箱：大文件传输、跨区上传、YAML/heredoc、Pod 运维、验证技巧 |
 | 8 | [08-eval-standalone-vllm.md](08-eval-standalone-vllm.md) | **评估阶段 OOM 与独立 vLLM 架构**：val 路径 5 次 OOM、共卡显存极限、独立 driver、LoRA 离线合并、上下文预算 |
+| 9 | [09-case-study-conan-14362.md](09-case-study-conan-14362.md) | **案例解剖：一条 0 分轨迹的病理**（诊断正确却从不行动 / 格式致命 / 75 次采样行为指纹 / 根因链与 6 条启示） |
 
 ## 症状速查表（按报错关键词）
 
@@ -30,6 +31,7 @@
 | `... is unsupported LoRA weight`（vLLM 加载 LoRA） | [08 §4.1 离线合并](08-eval-standalone-vllm.md) |
 | `cannot import name 'HybridCache' from 'transformers'` | [08 §4.2 权重级合并](08-eval-standalone-vllm.md) |
 | `maximum context length is 16384 tokens`（评估 driver） | [08 §4.3 预算管理](08-eval-standalone-vllm.md) |
+| 补丁恒为空 / 模型只读不写 / `exit_code=127` 空转 / `Incomplete code fence` | [09 案例解剖](09-case-study-conan-14362.md) |
 | `KeyError: 'image_env'` / 预检失败 | [05 §5 字段缺失](05-data-judging.md) |
 | `Mixed prose/code fences` / `format_error` | [06 §1 宽容解析](06-agent-protocol.md) |
 | `ModuleNotFoundError: tencentcloud` | [04 §5 依赖缺失](04-training-engine.md) |

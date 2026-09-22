@@ -29,6 +29,7 @@
 | [training-loop-flow.md](overview/training-loop-flow.md) | **训练闭环流程**（SandBox tracing → TKE 训练 → 新模型回 SandBox + 数字账） | 09-21 |
 | [pod-ags-communication.md](overview/pod-ags-communication.md) | Pod ↔ AGS 通信全链路手册（三层架构 / 7 步生命周期 / 4 组真实数据案例） | 09-21 |
 | [training-config-audit.md](overview/training-config-audit.md) | 训练配置全面审计（16 项问题 / 实测 × 基准三角验证 / P0-P2 方案） | 09-21 |
+| [verl-training-deepdive.md](overview/verl-training-deepdive.md) | **verl 训练全流程深度复盘**（基于 2092 条真实 trace：编排/数据链/模型角色/算法/系统/异常/瓶颈，12 项证据索引）——团队复用的技术底稿 | 09-22 |
 
 ### `training-runs/` · 训练与评估全记录（9 次运行）
 
@@ -43,6 +44,7 @@
 |---|---|
 | [validation/README.md](validation/README.md) | 验证阶段计划（4 份 ADR：测试集 / 协议 / 架构 / 判定）+ 结果摘要 |
 | [validation/pass4-test-design-postmortem.md](validation/pass4-test-design-postmortem.md) | pass@4 测试设计复盘（协议 / 四轮缺陷链 / 有效性 / 改进 checklist） |
+| [validation/trajectory-symptom-study.md](validation/trajectory-symptom-study.md) | **轨迹症状学研究**（20 案例深读 + 1692 条全量分类：8 症状簇 / "说而不做"50.6% / 幻觉提交 / 编辑时机规律） | 09-22 |
 | `ADR-001 ~ 004` + 术语表 | 开测前锁定的协议资产 |
 
 ### `troubleshooting/` · 排障档案（8 篇 + 速查表）

@@ -31,6 +31,9 @@ pass@4(15%) ≈ pass@1(5%) × 3 揭示"会做但不稳"；每题成功分布显�
 **完整复盘**：[pass4-test-design-postmortem.md](pass4-test-design-postmortem.md)
 （协议设计 / 四轮缺陷链 / 结果有效性 / 下轮改进 checklist）
 
+**轨迹症状学研究**：[trajectory-symptom-study.md](trajectory-symptom-study.md)
+（20 案例深读 + 1692 条全量分类：8 个症状簇 / "说而不做"占 50.6% / 幻觉提交新症状 / 编辑时机规律）
+
 ---
 
 ## 执行阶段
