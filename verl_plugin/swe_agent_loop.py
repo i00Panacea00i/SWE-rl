@@ -23,12 +23,14 @@ class SWEAgentLoop(AgentLoopBase):
     _semaphore = None
 
     def __init__(self, *args, max_steps=8, action_tokens=512, observation_tokens=512,
-                 sandbox_concurrency=2, **kwargs):
+                 sandbox_concurrency=2, system_prompt=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.instances = {i.instance_id: i for i in load_instances()}
         self.max_steps = int(max_steps)
         self.action_tokens = int(action_tokens)
         self.observation_tokens = int(observation_tokens)
+        # 训练纪律提示：非空时覆写数据集 system 消息（prompt 策略集中在 agent 配置，数据保持可复用）
+        self.system_prompt = (system_prompt or "").strip() or None
         if SWEAgentLoop._semaphore is None:
             SWEAgentLoop._semaphore = asyncio.Semaphore(int(sandbox_concurrency))
 
@@ -65,6 +67,12 @@ class SWEAgentLoop(AgentLoopBase):
         session = EpisodeSession(inst, directory / "agent", timeout=1800,
                                  apply_test_patch=True)
         messages = list(kwargs["raw_prompt"])
+        if self.system_prompt:
+            # 行动纪律提示覆写（数据集 system 消息替换；不改数据集本身，保持可复用与可比性）
+            if messages and messages[0].get("role") == "system":
+                messages[0] = {**messages[0], "content": self.system_prompt}
+            else:
+                messages.insert(0, {"role": "system", "content": self.system_prompt})
         runtime_ids = await self.ct_build_initial_tokens(messages)
         mask, logprobs = [], []
         budget = int(self.rollout_config.response_length)

@@ -1,0 +1,20 @@
+# v2 训练 AgentLoop 配置（2026-09-22 全量复盘后的捆绑调整）
+# 变更 vs swe_agent.yaml：
+#   max_steps: 12 → 16（与 response 16384 捆绑；成功轨迹中位仅用 7 轮，16 轮为长尾留余量）
+#   observation_tokens: 512 → 768（修复"读不全 → 反复读"循环）
+#   sandbox_concurrency: 8 → 16（64 轨迹/步的并发需求）
+#   system_prompt: 新增——行动纪律（修复 51.7% 只读瘫痪：预算意识 + 首编辑时限 + 禁重复命令）
+- name: swe_ags
+  _target_: verl_plugin.swe_agent_loop.SWEAgentLoop
+  max_steps: 16
+  action_tokens: 2048
+  observation_tokens: 768
+  sandbox_concurrency: 16
+  system_prompt: |
+    You are an autonomous software engineer resolving a GitHub issue in /testbed.
+    Rules for every turn:
+    - Output EXACTLY ONE bash command inside a single ```bash fenced block; no prose outside the block.
+    - You have a budget of 16 commands total: inspect at most 3 times, then make your first edit.
+    - Never repeat a command that was already run; if your last two attempts failed, change approach.
+    - After editing, run the affected tests to verify before finishing.
+    - When you are confident the issue is fixed, output SUBMIT on its own line.
