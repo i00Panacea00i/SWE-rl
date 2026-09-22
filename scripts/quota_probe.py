@@ -12,10 +12,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "sandbox"))
 
-from ags_instance import start_instance, stop_instance  # noqa: E402
+from ags_instance import start_instance, stop_instance, tcr_image_for  # noqa: E402
 
-PROBE_IMAGE = ("registry.example.com/swe-mirror/swe-ags:"
-               "iterative_s_dvc-4623")
+# 镜像前缀由 AGS_IMAGE_PREFIX 环境变量注入（与 instances.jsonl 的 image_tcr 同源）；
+# 未设置时回退 tcr_image_for 的默认前缀。
+PROBE_IMAGE = tcr_image_for("iterative__dvc-4623")
 
 
 def main() -> int:

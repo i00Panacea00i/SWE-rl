@@ -7,6 +7,10 @@ cd "$(dirname "$0")/.."
 LOG=/tmp/profile-chain.log
 log() { echo "[$(date -u +%H:%M:%S)] $*" | tee -a "$LOG"; }
 
+# 镜像前缀（与 instances.jsonl 的 image_tcr 同源；探针与沙箱启动共用）
+export AGS_IMAGE_PREFIX="${AGS_IMAGE_PREFIX:-benchmark-upload-sicheng.tencentcloudcr.com/swe-mirror/swe-ags}"
+set -a; [ -f .env ] && . ./.env; set +a
+
 log "=== 画像链启动（67 题 × n=4 = 268 轨迹，4 批）==="
 for i in 1 2 3 4; do
   POD="swe-rl-profile-$i"
