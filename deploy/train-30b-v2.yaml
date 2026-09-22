@@ -88,8 +88,28 @@ spec:
           value: auto
         - name: VERL_VAL_BEFORE_TRAIN
           value: "False"
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+        - name: dshm
+          mountPath: /dev/shm
+        - name: tccli-cred
+          mountPath: /root/.tccli
+          readOnly: true
       resources:
         limits:
           nvidia.com/gpu: "4"
           memory: 320Gi
           cpu: "96"
+
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
+    - name: dshm
+      emptyDir:
+        medium: Memory
+        sizeLimit: 32Gi
+    - name: tccli-cred
+      secret:
+        secretName: tccli-credential
