@@ -21,8 +21,15 @@ htmlcov/
 
 # ===== 运行产物与大文件 =====
 artifacts/*
-# 例外：Phase A pilot 轨迹样本（16 个 jsonl，2026-09-10 tracing 冒烟记录）
+# 例外1：Phase A pilot 轨迹样本（16 个 jsonl，2026-09-10 tracing 冒烟记录）
 !artifacts/traces/
+# 例外2：30B tier0-r1 训练轨迹归档（1692 条 episode = 352MB，压缩为 67MB tar.gz，2026-09-22）
+#   注：git 不允许跨越被忽略的父目录，故逐级放行到目标单文件
+!artifacts/archive/
+artifacts/archive/*
+!artifacts/archive/cfs-traces-30b/
+artifacts/archive/cfs-traces-30b/*
+!artifacts/archive/cfs-traces-30b/swegym-30b-tier0-r1.tar.gz
 output/
 logs/
 *.log
