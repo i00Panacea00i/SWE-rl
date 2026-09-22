@@ -1,0 +1,93 @@
+Checking patch test-data/unit/check-fastparse.test...
+Checking patch test-data/unit/parse.test...
+Applied patch test-data/unit/check-fastparse.test cleanly.
+Applied patch test-data/unit/parse.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+gw0 I / gw1 I
+gw0 [8] / gw1 [8]
+
+FF.F....                                                                 [100%]
+=================================== FAILURES ===================================
+______________________ testSliceInAnnotationTypeComment39 ______________________
+[gw1] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/parse.test:966:
+/testbed/mypy/test/testparse.py:22: in run_case
+    test_parser(testcase)
+/testbed/mypy/test/testparse.py:46: in test_parser
+    assert_string_arrays_equal(testcase.output, a,
+E   AssertionError: Invalid parser output (/testbed/test-data/unit/parse.test, line 966)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:2: error: Slice usage in type annotation is invalid (diff)
+  main:3: error: Slice usage in type annotation is invalid (diff)
+  main:4: error: Slice usage in type annotation is invalid (diff)
+Actual:
+  main:2: error: syntax error in type comment   (diff)
+  main:3: error: syntax error in type comment   (diff)
+  main:4: error: syntax error in type comment   (diff)
+
+Alignment of first line difference:
+  E: main:2: error: Slice usage in type annotation is invalid
+  A: main:2: error: syntax error in type comment
+                    ^
+___________________________ testSliceInAnnotation39 ____________________________
+[gw0] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/parse.test:952:
+/testbed/mypy/test/testparse.py:22: in run_case
+    test_parser(testcase)
+/testbed/mypy/test/testparse.py:46: in test_parser
+    assert_string_arrays_equal(testcase.output, a,
+E   AssertionError: Invalid parser output (/testbed/test-data/unit/parse.test, line 952)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:2: error: Slice usage in type annotation is invalid (diff)
+  main:3: error: Slice usage in type annotation is invalid (diff)
+  main:4: error: Slice usage in type annotation is invalid (diff)
+Actual:
+  main:2: error: syntax error in type comment   (diff)
+  main:3: error: syntax error in type comment   (diff)
+  main:4: error: syntax error in type comment   (diff)
+
+Alignment of first line difference:
+  E: main:2: error: Slice usage in type annotation is invalid
+  A: main:2: error: syntax error in type comment
+                    ^
+___________________________ testSliceInAnnotation38 ____________________________
+[gw0] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/parse.test:959:
+/testbed/mypy/test/testparse.py:22: in run_case
+    test_parser(testcase)
+/testbed/mypy/test/testparse.py:46: in test_parser
+    assert_string_arrays_equal(testcase.output, a,
+E   AssertionError: Invalid parser output (/testbed/test-data/unit/parse.test, line 959)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:2: error: Slice usage in type annotation is invalid (diff)
+  main:3: error: Slice usage in type annotation is invalid (diff)
+  main:4: error: Slice usage in type annotation is invalid (diff)
+Actual:
+  main:2: error: syntax error in type comment   (diff)
+  main:3: error: syntax error in type comment   (diff)
+  main:4: error: syntax error in type comment   (diff)
+
+Alignment of first line difference:
+  E: main:2: error: Slice usage in type annotation is invalid
+  A: main:2: error: syntax error in type comment
+                    ^
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testparse.py::ParserSuite::testDictionaryExpression
+PASSED mypy/test/testparse.py::ParserSuite::testCorrectSlicesInAnnotations39
+PASSED mypy/test/testparse.py::ParserSuite::testCorrectSlicesInAnnotations38
+PASSED mypy/test/testparse.py::ParserSuite::testSliceInList39
+PASSED mypy/test/testcheck.py::TypeCheckSuite::testPrintStatementTrailingCommaFastParser_python2
+FAILED mypy/test/testparse.py::ParserSuite::testSliceInAnnotationTypeComment39
+FAILED mypy/test/testparse.py::ParserSuite::testSliceInAnnotation39
+FAILED mypy/test/testparse.py::ParserSuite::testSliceInAnnotation38
+========================= 3 failed, 5 passed in 1.82s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

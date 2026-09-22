@@ -1,0 +1,48 @@
+Checking patch test-data/unit/check-assert-type-fail.test...
+Applied patch test-data/unit/check-assert-type-fail.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [3 items]
+
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_____________________________ testAssertTypeFail1 ______________________________
+[gw0] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-assert-type-fail.test:1:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-assert-type-fail.test, line 1)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:6: error: Expression is of type "array.array[int]", not "__main__.array" (diff)
+Actual:
+  main:6: error: Expression is of type "array[int]", not "array" (diff)
+
+Alignment of first line difference:
+  E: ...ssion is of type "array.array[int]", not "__main__.array"
+  A: ...ssion is of type "array[int]", not "array"
+                               ^
+_____________________________ testAssertTypeFail2 ______________________________
+[gw1] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-assert-type-fail.test:10:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-assert-type-fail.test, line 10)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:7: error: Expression is of type "array.array[int]", not "__main__.array.array" (diff)
+Actual:
+  main:7: error: Expression is of type "array[int]", not "array" (diff)
+
+Alignment of first line difference:
+  E: ...ssion is of type "array.array[int]", not "__main__.array.array"
+  A: ...ssion is of type "array[int]", not "array"
+                               ^
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-assert-type-fail.test::testAssertTypeFail3
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-assert-type-fail.test::testAssertTypeFail1
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-assert-type-fail.test::testAssertTypeFail2
+========================= 2 failed, 1 passed in 1.76s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

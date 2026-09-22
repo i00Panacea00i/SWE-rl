@@ -1,0 +1,42 @@
+Checking patch mypy/test/teststubgen.py...
+Checking patch test-data/unit/stubgen.test...
+Applied patch mypy/test/teststubgen.py cleanly.
+Applied patch test-data/unit/stubgen.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [0 items]
+
+
+==================================== ERRORS ====================================
+__________________ ERROR collecting mypy/test/teststubgen.py ___________________
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/python.py:617: in _importtestmodule
+    mod = import_path(self.path, mode=importmode, root=self.config.rootpath)
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/pathlib.py:567: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/testbed/lib/python3.12/importlib/__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1387: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1360: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1331: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:935: in _load_unlocked
+    ???
+/opt/miniconda3/envs/testbed/lib/python3.12/site-packages/_pytest/assertion/rewrite.py:178: in exec_module
+    exec(co, module.__dict__)
+mypy/test/teststubgen.py:29: in <module>
+    from mypy.stubgen import (
+E     File "/testbed/mypy/stubgen.py", line 328
+E       return f"({', '.join(items)})"})"
+E                                     ^
+E   SyntaxError: unmatched '}'
+=========================== short test summary info ============================
+ERROR mypy/test/teststubgen.py
+=============================== 1 error in 1.07s ===============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

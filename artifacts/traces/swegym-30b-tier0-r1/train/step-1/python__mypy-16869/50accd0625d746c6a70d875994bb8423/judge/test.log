@@ -1,0 +1,24 @@
+Checking patch mypy/test/teststubgen.py...
+Checking patch test-data/unit/stubgen.test...
+Applied patch mypy/test/teststubgen.py cleanly.
+Applied patch test-data/unit/stubgen.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [6 items]
+
+......                                                                   [100%]
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClass
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuple_semanal
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testGenericClassTypeVarTuplePy311_semanal
+PASSED mypy/test/teststubgen.py::StubgenPythonSuite::stubgen.test::testObjectBaseClassWithImport
+============================== 6 passed in 5.15s ===============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=0

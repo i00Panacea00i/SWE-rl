@@ -1,0 +1,55 @@
+Checking patch test-data/unit/check-typeguard.test...
+Checking patch test-data/unit/check-typeis.test...
+Applied patch test-data/unit/check-typeguard.test cleanly.
+Applied patch test-data/unit/check-typeis.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [4 items]
+
+.FF.                                                                     [100%]
+=================================== FAILURES ===================================
+__________________________ testTypeGuardTypeVarReturn __________________________
+[gw0] linux -- Python 3.12.4 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-typeguard.test:57:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-typeguard.test, line 57)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:9: note: Revealed type is "builtins.str"
+Actual:
+[32m  main:5: error: A function returning TypeVar should receive at least one argument containing the same TypeVar[0m (diff)
+  main:9: note: Revealed type is "builtins.str"
+
+Alignment of first line difference:
+  E: main:9: note: Revealed type is "builtins.str"...
+  A: main:5: error: A function returning TypeVar should receive at least one ...
+          ^
+Update the test output using --update-data -n0 (you can additionally use the -k selector to update only specific tests)
+___________________________ testTypeIsTypeVarReturn ____________________________
+[gw0] linux -- Python 3.12.4 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-typeis.test:95:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-typeis.test, line 95)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:9: note: Revealed type is "builtins.str"
+Actual:
+[32m  main:5: error: A function returning TypeVar should receive at least one argument containing the same TypeVar[0m (diff)
+  main:9: note: Revealed type is "builtins.str"
+
+Alignment of first line difference:
+  E: main:9: note: Revealed type is "builtins.str"...
+  A: main:5: error: A function returning TypeVar should receive at least one ...
+          ^
+Update the test output using --update-data -n0 (you can additionally use the -k selector to update only specific tests)
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-typeis.test::testTypeIsUnionIn
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-typeguard.test::testTypeGuardIsBool
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-typeguard.test::testTypeGuardTypeVarReturn
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-typeis.test::testTypeIsTypeVarReturn
+========================= 2 failed, 2 passed in 1.83s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

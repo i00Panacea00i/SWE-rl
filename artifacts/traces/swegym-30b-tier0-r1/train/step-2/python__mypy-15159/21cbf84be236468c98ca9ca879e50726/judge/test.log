@@ -1,0 +1,316 @@
+Checking patch test-data/unit/check-recursive-types.test...
+Applied patch test-data/unit/check-recursive-types.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [2 items]
+
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____________________ testRecursiveBoundFunctionScopeNoCrash ____________________
+[gw1] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-recursive-types.test:901:
+SystemExit: 2
+----------------------------- Captured stdout call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "<string>", line 8, in <module>
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1806, in serve
+    WorkerGateway(io=io, id=id, _startcount=2).serve()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1273, in serve
+    self._execpool.integrate_as_primary_thread()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 389, in integrate_as_primary_thread
+    self._perform_spawn(reply)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 411, in _perform_spawn
+    reply.run()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 341, in run
+    self._result = func(*args, **kwargs)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1291, in executetask
+    exec(co, loc)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 393, in <module>
+    config.hook.pytest_cmdline_main(config=config)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 330, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 283, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 337, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 174, in pytest_runtestloop
+    self.run_one_test()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 195, in run_one_test
+    self.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 113, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 132, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 241, in call_and_report
+    call = CallInfo.from_call(
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 341, in from_call
+    result: TResult | None = func()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 242, in <lambda>
+    lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+    item.runtest()
+  File "/testbed/mypy/test/data.py", line 314, in runtest
+    suite.run_case(self)
+  File "/testbed/mypy/test/testcheck.py", line 85, in run_case
+    self.run_case_once(testcase)
+  File "/testbed/mypy/test/testcheck.py", line 154, in run_case_once
+    res = build.build(sources=sources, options=options, alt_lib_path=test_temp_dir)
+  File "/testbed/mypy/build.py", line 194, in build
+    result = _build(
+  File "/testbed/mypy/build.py", line 267, in _build
+    graph = dispatch(sources, manager, stdout)
+  File "/testbed/mypy/build.py", line 2922, in dispatch
+    process_graph(graph, manager)
+  File "/testbed/mypy/build.py", line 3320, in process_graph
+    process_stale_scc(graph, scc, manager)
+  File "/testbed/mypy/build.py", line 3415, in process_stale_scc
+    mypy.semanal_main.semantic_analysis_for_scc(graph, scc, manager.errors)
+  File "/testbed/mypy/semanal_main.py", line 94, in semantic_analysis_for_scc
+    process_functions(graph, scc, patches)
+  File "/testbed/mypy/semanal_main.py", line 252, in process_functions
+    process_top_level_function(
+  File "/testbed/mypy/semanal_main.py", line 291, in process_top_level_function
+    deferred, incomplete, progress = semantic_analyze_target(
+  File "/testbed/mypy/semanal_main.py", line 349, in semantic_analyze_target
+    analyzer.refresh_partial(
+  File "/testbed/mypy/semanal.py", line 602, in refresh_partial
+    self.accept(node)
+  File "/testbed/mypy/semanal.py", line 6266, in accept
+    node.accept(self)
+  File "/testbed/mypy/nodes.py", line 780, in accept
+    return visitor.visit_func_def(self)
+  File "/testbed/mypy/semanal.py", line 832, in visit_func_def
+    self.analyze_func_def(defn)
+  File "/testbed/mypy/semanal.py", line 896, in analyze_func_def
+    self.analyze_function_body(defn)
+  File "/testbed/mypy/semanal.py", line 1379, in analyze_function_body
+    defn.body.accept(self)
+  File "/testbed/mypy/nodes.py", line 1214, in accept
+    return visitor.visit_block(self)
+  File "/testbed/mypy/semanal.py", line 4482, in visit_block
+    self.accept(s)
+  File "/testbed/mypy/semanal.py", line 6266, in accept
+    node.accept(self)
+  File "/testbed/mypy/nodes.py", line 780, in accept
+    return visitor.visit_func_def(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 832, in visit_func_def
+    self.analyze_func_def(defn)
+  File "/testbed/mypy/semanal.py", line 864, in analyze_func_def
+    result = analyzer.visit_callable_type(defn.type, nested=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 945, in visit_callable_type
+    variables=self.anal_var_defs(variables),
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1550, in anal_var_defs
+    return [self.anal_var_def(vd) for vd in var_defs]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1550, in <listcomp>
+    return [self.anal_var_def(vd) for vd in var_defs]
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1542, in anal_var_def
+    var_def.upper_bound.accept(self),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/types.py", line 2850, in accept
+    ret: T = visitor.visit_placeholder_type(self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1113, in visit_placeholder_type
+    n = None if not t.fullname else self.api.lookup_fully_qualified(t.fullname)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 5580, in lookup_fully_qualified
+    ret = self.lookup_fully_qualified_or_none(fullname)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 5596, in lookup_fully_qualified_or_none
+    assert "." in fullname
+           ^^^^^^^^^^^^^^^
+AssertionError: 
+----------------------------- Captured stderr call -----------------------------
+main:7: error: INTERNAL ERROR -- Please try using mypy master on GitHub:
+https://mypy.readthedocs.io/en/stable/common_issues.html#using-a-development-mypy-build
+Please report a bug at https://github.com/python/mypy/issues
+version: 1.4.0+dev.6b1fc865902bf2b845d3c58b6b9973b5a412241f.dirty
+main:7: : note: use --pdb to drop into pdb
+______________________ testForwardBoundFunctionScopeWorks ______________________
+[gw0] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-recursive-types.test:914:
+SystemExit: 2
+----------------------------- Captured stdout call -----------------------------
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "<string>", line 8, in <module>
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1806, in serve
+    WorkerGateway(io=io, id=id, _startcount=2).serve()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1273, in serve
+    self._execpool.integrate_as_primary_thread()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 389, in integrate_as_primary_thread
+    self._perform_spawn(reply)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 411, in _perform_spawn
+    reply.run()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 341, in run
+    self._result = func(*args, **kwargs)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/execnet/gateway_base.py", line 1291, in executetask
+    exec(co, loc)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 393, in <module>
+    config.hook.pytest_cmdline_main(config=config)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 330, in pytest_cmdline_main
+    return wrap_session(config, _main)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 283, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/main.py", line 337, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 174, in pytest_runtestloop
+    self.run_one_test()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/xdist/remote.py", line 195, in run_one_test
+    self.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 113, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 132, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 241, in call_and_report
+    call = CallInfo.from_call(
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 341, in from_call
+    result: TResult | None = func()
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 242, in <lambda>
+    lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/pluggy/_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+  File "/opt/miniconda3/envs/testbed/lib/python3.11/site-packages/_pytest/runner.py", line 174, in pytest_runtest_call
+    item.runtest()
+  File "/testbed/mypy/test/data.py", line 314, in runtest
+    suite.run_case(self)
+  File "/testbed/mypy/test/testcheck.py", line 85, in run_case
+    self.run_case_once(testcase)
+  File "/testbed/mypy/test/testcheck.py", line 154, in run_case_once
+    res = build.build(sources=sources, options=options, alt_lib_path=test_temp_dir)
+  File "/testbed/mypy/build.py", line 194, in build
+    result = _build(
+  File "/testbed/mypy/build.py", line 267, in _build
+    graph = dispatch(sources, manager, stdout)
+  File "/testbed/mypy/build.py", line 2922, in dispatch
+    process_graph(graph, manager)
+  File "/testbed/mypy/build.py", line 3320, in process_graph
+    process_stale_scc(graph, scc, manager)
+  File "/testbed/mypy/build.py", line 3415, in process_stale_scc
+    mypy.semanal_main.semantic_analysis_for_scc(graph, scc, manager.errors)
+  File "/testbed/mypy/semanal_main.py", line 94, in semantic_analysis_for_scc
+    process_functions(graph, scc, patches)
+  File "/testbed/mypy/semanal_main.py", line 252, in process_functions
+    process_top_level_function(
+  File "/testbed/mypy/semanal_main.py", line 291, in process_top_level_function
+    deferred, incomplete, progress = semantic_analyze_target(
+  File "/testbed/mypy/semanal_main.py", line 349, in semantic_analyze_target
+    analyzer.refresh_partial(
+  File "/testbed/mypy/semanal.py", line 602, in refresh_partial
+    self.accept(node)
+  File "/testbed/mypy/semanal.py", line 6266, in accept
+    node.accept(self)
+  File "/testbed/mypy/nodes.py", line 780, in accept
+    return visitor.visit_func_def(self)
+  File "/testbed/mypy/semanal.py", line 832, in visit_func_def
+    self.analyze_func_def(defn)
+  File "/testbed/mypy/semanal.py", line 896, in analyze_func_def
+    self.analyze_function_body(defn)
+  File "/testbed/mypy/semanal.py", line 1379, in analyze_function_body
+    defn.body.accept(self)
+  File "/testbed/mypy/nodes.py", line 1214, in accept
+    return visitor.visit_block(self)
+  File "/testbed/mypy/semanal.py", line 4482, in visit_block
+    self.accept(s)
+  File "/testbed/mypy/semanal.py", line 6266, in accept
+    node.accept(self)
+  File "/testbed/mypy/nodes.py", line 780, in accept
+    return visitor.visit_func_def(self)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 832, in visit_func_def
+    self.analyze_func_def(defn)
+  File "/testbed/mypy/semanal.py", line 864, in analyze_func_def
+    result = analyzer.visit_callable_type(defn.type, nested=False)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 945, in visit_callable_type
+    variables=self.anal_var_defs(variables),
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1550, in anal_var_defs
+    return [self.anal_var_def(vd) for vd in var_defs]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1550, in <listcomp>
+    return [self.anal_var_def(vd) for vd in var_defs]
+            ^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1542, in anal_var_def
+    var_def.upper_bound.accept(self),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/types.py", line 2850, in accept
+    ret: T = visitor.visit_placeholder_type(self)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/typeanal.py", line 1113, in visit_placeholder_type
+    n = None if not t.fullname else self.api.lookup_fully_qualified(t.fullname)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 5580, in lookup_fully_qualified
+    ret = self.lookup_fully_qualified_or_none(fullname)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/testbed/mypy/semanal.py", line 5596, in lookup_fully_qualified_or_none
+    assert "." in fullname
+           ^^^^^^^^^^^^^^^
+AssertionError: 
+----------------------------- Captured stderr call -----------------------------
+main:8: error: INTERNAL ERROR -- Please try using mypy master on GitHub:
+https://mypy.readthedocs.io/en/stable/common_issues.html#using-a-development-mypy-build
+Please report a bug at https://github.com/python/mypy/issues
+version: 1.4.0+dev.6b1fc865902bf2b845d3c58b6b9973b5a412241f.dirty
+main:8: : note: use --pdb to drop into pdb
+=========================== short test summary info ============================
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-recursive-types.test::testRecursiveBoundFunctionScopeNoCrash
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-recursive-types.test::testForwardBoundFunctionScopeWorks
+============================== 2 failed in 2.21s ===============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

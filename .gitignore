@@ -33,6 +33,8 @@ artifacts/archive/cfs-traces-30b/*
 output/
 logs/
 *.log
+# 例外：数据案例中的判分日志（test.log 是轨迹证据的一部分，须在 *.log 之后声明）
+!artifacts/traces/**/judge/test.log
 *.tgz
 *.tmp
 # 仅忽略仓库根目录的 traces/（避免连坐 artifacts/traces 例外）

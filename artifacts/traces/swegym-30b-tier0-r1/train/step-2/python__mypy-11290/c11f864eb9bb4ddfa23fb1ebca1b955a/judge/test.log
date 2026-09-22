@@ -1,0 +1,56 @@
+Checking patch test-data/unit/check-basic.test...
+Applied patch test-data/unit/check-basic.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+gw0 I / gw1 I
+gw0 [3] / gw1 [3]
+
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_______________________________ testNoneHasBool ________________________________
+[gw0] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-basic.test:401:
+/testbed/mypy/test/testcheck.py:137: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:224: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-basic.test, line 401)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:3: note: Revealed type is "Literal[False]" (diff)
+Actual:
+  main:3: note: Revealed type is "builtins.bool" (diff)
+
+Alignment of first line difference:
+  E: ...te: Revealed type is "Literal[False]"
+  A: ...te: Revealed type is "builtins.bool"
+                              ^
+______________________ testNoneHasBoolShowNoneErrorsFalse ______________________
+[gw1] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-basic.test:407:
+/testbed/mypy/test/testcheck.py:137: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:224: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-basic.test, line 407)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:3: note: Revealed type is "Literal[False]" (diff)
+Actual:
+  main:3: note: Revealed type is "builtins.bool" (diff)
+
+Alignment of first line difference:
+  E: ...te: Revealed type is "Literal[False]"
+  A: ...te: Revealed type is "builtins.bool"
+                              ^
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::testAssignmentInvariantNoteForList
+FAILED mypy/test/testcheck.py::TypeCheckSuite::testNoneHasBool
+FAILED mypy/test/testcheck.py::TypeCheckSuite::testNoneHasBoolShowNoneErrorsFalse
+========================= 2 failed, 1 passed in 1.82s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

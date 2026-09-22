@@ -1,0 +1,130 @@
+Checking patch conans/test/unittests/tools/cmake/test_cmake_install.py...
+Applied patch conans/test/unittests/tools/cmake/test_cmake_install.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+ERROR: not found: /testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args_strip
+(no name '/testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args_strip' in any of [<Module test_cmake_install.py>])
+
+ERROR: not found: /testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args
+(no name '/testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args' in any of [<Module test_cmake_install.py>])
+
+ERROR: not found: /testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_component
+(no name '/testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_component' in any of [<Module test_cmake_install.py>])
+
+ERROR: not found: /testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_strip
+(no name '/testbed/conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_strip' in any of [<Module test_cmake_install.py>])
+
+============================= test session starts ==============================
+collected 0 items / 4 errors
+
+==================================== ERRORS ====================================
+___ ERROR collecting conans/test/unittests/tools/cmake/test_cmake_install.py ___
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/python.py:578: in _importtestmodule
+    mod = import_path(self.fspath, mode=importmode)
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/pathlib.py:524: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/testbed/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:170: in exec_module
+    exec(co, module.__dict__)
+conans/test/unittests/tools/cmake/test_cmake_install.py:1: in <module>
+    from conan.tools.cmake import CMake
+conan/tools/cmake/__init__.py:2: in <module>
+    from conan.tools.cmake.cmake import CMake
+E     File "/testbed/conan/tools/cmake/cmake.py", line 131
+E       :param build_type: Use it only to override the value defined in the ``settings.build_type``
+E       ^
+E   SyntaxError: invalid syntax
+___ ERROR collecting conans/test/unittests/tools/cmake/test_cmake_install.py ___
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/python.py:578: in _importtestmodule
+    mod = import_path(self.fspath, mode=importmode)
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/pathlib.py:524: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/testbed/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:170: in exec_module
+    exec(co, module.__dict__)
+conans/test/unittests/tools/cmake/test_cmake_install.py:1: in <module>
+    from conan.tools.cmake import CMake
+conan/tools/cmake/__init__.py:2: in <module>
+    from conan.tools.cmake.cmake import CMake
+E     File "/testbed/conan/tools/cmake/cmake.py", line 131
+E       :param build_type: Use it only to override the value defined in the ``settings.build_type``
+E       ^
+E   SyntaxError: invalid syntax
+___ ERROR collecting conans/test/unittests/tools/cmake/test_cmake_install.py ___
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/python.py:578: in _importtestmodule
+    mod = import_path(self.fspath, mode=importmode)
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/pathlib.py:524: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/testbed/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:170: in exec_module
+    exec(co, module.__dict__)
+conans/test/unittests/tools/cmake/test_cmake_install.py:1: in <module>
+    from conan.tools.cmake import CMake
+conan/tools/cmake/__init__.py:2: in <module>
+    from conan.tools.cmake.cmake import CMake
+E     File "/testbed/conan/tools/cmake/cmake.py", line 131
+E       :param build_type: Use it only to override the value defined in the ``settings.build_type``
+E       ^
+E   SyntaxError: invalid syntax
+___ ERROR collecting conans/test/unittests/tools/cmake/test_cmake_install.py ___
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/python.py:578: in _importtestmodule
+    mod = import_path(self.fspath, mode=importmode)
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/pathlib.py:524: in import_path
+    importlib.import_module(module_name)
+/opt/miniconda3/envs/testbed/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+<frozen importlib._bootstrap>:1050: in _gcd_import
+    ???
+<frozen importlib._bootstrap>:1027: in _find_and_load
+    ???
+<frozen importlib._bootstrap>:1006: in _find_and_load_unlocked
+    ???
+<frozen importlib._bootstrap>:688: in _load_unlocked
+    ???
+/opt/miniconda3/envs/testbed/lib/python3.10/site-packages/_pytest/assertion/rewrite.py:170: in exec_module
+    exec(co, module.__dict__)
+conans/test/unittests/tools/cmake/test_cmake_install.py:1: in <module>
+    from conan.tools.cmake import CMake
+conan/tools/cmake/__init__.py:2: in <module>
+    from conan.tools.cmake.cmake import CMake
+E     File "/testbed/conan/tools/cmake/cmake.py", line 131
+E       :param build_type: Use it only to override the value defined in the ``settings.build_type``
+E       ^
+E   SyntaxError: invalid syntax
+=========================== short test summary info ============================
+ERROR conans/test/unittests/tools/cmake/test_cmake_install.py
+ERROR conans/test/unittests/tools/cmake/test_cmake_install.py
+ERROR conans/test/unittests/tools/cmake/test_cmake_install.py
+ERROR conans/test/unittests/tools/cmake/test_cmake_install.py
+============================== 4 errors in 0.16s ===============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=4

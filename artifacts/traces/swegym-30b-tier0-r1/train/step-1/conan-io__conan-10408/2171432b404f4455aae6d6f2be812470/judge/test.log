@@ -1,0 +1,90 @@
+Checking patch conans/test/unittests/tools/files/test_patches.py...
+Applied patch conans/test/unittests/tools/files/test_patches.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 13 items
+
+conans/test/unittests/tools/files/test_patches.py FFFF.........          [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_single_patch_file ____________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f1df121f5e0>
+
+    def test_single_patch_file(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+        patch(conanfile, patch_file='patch-file')
+>       assert mock_patch_ng.filename.replace("\\", "/") == '/my_source/patch-file'
+E       AssertionError: assert 'patch-file' == '/my_source/patch-file'
+E         - /my_source/patch-file
+E         + patch-file
+
+conans/test/unittests/tools/files/test_patches.py:43: AssertionError
+________________________________ test_base_path ________________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f1df1115ba0>
+
+    def test_base_path(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+        patch(conanfile, patch_file='patch-file', base_path="subfolder")
+>       assert mock_patch_ng.filename.replace("\\", "/") == '/my_source/patch-file'
+E       AssertionError: assert 'patch-file' == '/my_source/patch-file'
+E         - /my_source/patch-file
+E         + patch-file
+
+conans/test/unittests/tools/files/test_patches.py:65: AssertionError
+___________________ test_apply_in_build_from_patch_in_source ___________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f1df121e4d0>
+
+    def test_apply_in_build_from_patch_in_source(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+        patch(conanfile, patch_file='patch-file', base_path="/my_build/subfolder")
+>       assert mock_patch_ng.filename.replace("\\", "/") == '/my_source/patch-file'
+E       AssertionError: assert 'patch-file' == '/my_source/patch-file'
+E         - /my_source/patch-file
+E         + patch-file
+
+conans/test/unittests/tools/files/test_patches.py:75: AssertionError
+_________________________ test_single_patch_arguments __________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f1df1115360>
+
+    def test_single_patch_arguments(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        conanfile.folders.set_base_source("/path/to/sources")
+        patch(conanfile, patch_file='patch-file', strip=23, fuzz=True)
+>       assert mock_patch_ng.filename.replace("\\", "/") == '/path/to/sources/patch-file'
+E       AssertionError: assert 'patch-file' == '/path/to/sources/patch-file'
+E         - /path/to/sources/patch-file
+E         + patch-file
+
+conans/test/unittests/tools/files/test_patches.py:99: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_apply_fail
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_type
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file_from_forced_build
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_string
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_description
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_patch_extra_fields
+PASSED conans/test/unittests/tools/files/test_patches.py::test_multiple_with_version
+PASSED conans/test/unittests/tools/files/test_patches.py::test_multiple_no_version
+PASSED conans/test/unittests/tools/files/test_patches.py::test_single_no_patchset
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file
+FAILED conans/test/unittests/tools/files/test_patches.py::test_base_path - As...
+FAILED conans/test/unittests/tools/files/test_patches.py::test_apply_in_build_from_patch_in_source
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_arguments
+========================= 4 failed, 9 passed in 0.08s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

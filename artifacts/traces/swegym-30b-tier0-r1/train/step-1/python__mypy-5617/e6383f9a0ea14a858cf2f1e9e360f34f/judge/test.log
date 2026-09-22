@@ -1,0 +1,59 @@
+Checking patch test-data/unit/check-tuples.test...
+Checking patch test-data/unit/semanal-errors.test...
+Applied patch test-data/unit/check-tuples.test cleanly.
+Applied patch test-data/unit/semanal-errors.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+gw0 I / gw1 I
+gw0 [4] / gw1 [4]
+
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+_____________________________ testAssignEmptyPy36 ______________________________
+[gw1] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-tuples.test:1462:
+/testbed/mypy/test/testcheck.py:132: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:227: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+/testbed/mypy/test/helpers.py:116: in assert_string_arrays_equal
+    raise AssertionError(msg)
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-tuples.test, line 1462)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+Actual:
+  main:2: error: cannot assign to ()            (diff)
+
+_____________________________ testAssignEmptyBogus _____________________________
+[gw0] linux -- Python 3.9.19 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-tuples.test:1470:
+/testbed/mypy/test/testcheck.py:132: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:227: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+/testbed/mypy/test/helpers.py:116: in assert_string_arrays_equal
+    raise AssertionError(msg)
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-tuples.test, line 1470)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:1: error: 'Literal[1]?' object is not iterable (diff)
+Actual:
+  main:1: error: cannot assign to ()            (diff)
+  main:1: error: 'Literal[1]?' object is not iterable (diff)
+
+Alignment of first line difference:
+  E: main:1: error: 'Literal[1]?' object is not iterable
+  A: main:1: error: cannot assign to ()
+                    ^
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyPy27
+PASSED mypy/test/testsemanal.py::SemAnalErrorSuite::testInvalidLvalues6
+FAILED mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyPy36
+FAILED mypy/test/testcheck.py::TypeCheckSuite::testAssignEmptyBogus
+========================= 2 failed, 2 passed in 1.87s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

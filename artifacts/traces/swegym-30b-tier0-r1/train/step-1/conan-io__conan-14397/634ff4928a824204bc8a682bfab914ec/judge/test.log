@@ -1,0 +1,36 @@
+Checking patch conans/test/unittests/tools/cmake/test_cmake_install.py...
+Applied patch conans/test/unittests/tools/cmake/test_cmake_install.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 4 items
+
+conans/test/unittests/tools/cmake/test_cmake_install.py ....             [100%]
+
+==================================== PASSES ====================================
+_______________________ test_run_install_cli_args_strip ________________________
+----------------------------- Captured stderr call -----------------------------
+CMakeToolchain generated: CMakePresets.json
+Running CMake.install()
+__________________________ test_run_install_cli_args ___________________________
+----------------------------- Captured stderr call -----------------------------
+CMakeToolchain generated: CMakePresets.json
+Running CMake.install()
+__________________________ test_run_install_component __________________________
+----------------------------- Captured stderr call -----------------------------
+CMakeToolchain generated: CMakePresets.json
+Running CMake.install()
+____________________________ test_run_install_strip ____________________________
+----------------------------- Captured stderr call -----------------------------
+CMakeToolchain generated: CMakePresets.json
+Running CMake.install()
+=========================== short test summary info ============================
+PASSED conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args_strip
+PASSED conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_cli_args
+PASSED conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_component
+PASSED conans/test/unittests/tools/cmake/test_cmake_install.py::test_run_install_strip
+============================== 4 passed in 0.37s ===============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=0

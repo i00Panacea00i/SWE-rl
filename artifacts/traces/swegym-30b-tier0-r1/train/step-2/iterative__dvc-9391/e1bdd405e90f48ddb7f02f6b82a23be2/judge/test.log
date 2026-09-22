@@ -1,0 +1,816 @@
+Checking patch tests/unit/command/test_experiments.py...
+Applied patch tests/unit/command/test_experiments.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/dvc/__init__.py
+
+>>>>> Start Test Output
+/opt/miniconda3/envs/testbed/lib/python3.9/site-packages/pytest_benchmark/logger.py:46: PytestBenchmarkWarning: Benchmarks are automatically disabled because xdist plugin is active.Benchmarks cannot be performed reliably in a parallelized environment.
+  warner(PytestBenchmarkWarning(text))
+============================= test session starts ==============================
+collected 29 items
+
+tests/unit/command/test_experiments.py FFFFF........................     [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_experiments_list _____________________________
+
+self = <MagicMock name='ls' id='139936423370416'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0',)
+kwargs = {'all_commits': True, 'git_remote': 'origin', 'num': -1, 'rev': ['foo']}
+expected = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', git_remote='origin', rev=['foo'], all_commits=True, num=-1)
+actual = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', all_commits=True, rev='foo', num=-1, git_remote='origin')
+_error_message = <function NonCallableMock.assert_called_with.<locals>._error_message at 0x7f457cc660d0>
+cause = None
+
+    def assert_called_with(self, /, *args, **kwargs):
+        """assert that the last call was made with the specified arguments.
+    
+        Raises an AssertionError if the args and keyword args passed in are
+        different to the last call to the mock."""
+        if self.call_args is None:
+            expected = self._format_mock_call_signature(args, kwargs)
+            actual = 'not called.'
+            error_message = ('expected call not found.\nExpected: %s\nActual: %s'
+                    % (expected, actual))
+            raise AssertionError(error_message)
+    
+        def _error_message():
+            msg = self._format_mock_failure_message(args, kwargs)
+            return msg
+        expected = self._call_matcher(_Call((args, kwargs), two=True))
+        actual = self._call_matcher(self.call_args)
+        if actual != expected:
+            cause = expected if isinstance(expected, Exception) else None
+>           raise AssertionError(_error_message()) from cause
+E           AssertionError: expected call not found.
+E           Expected: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', git_remote='origin', rev=['foo'], all_commits=True, num=-1)
+E           Actual: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', all_commits=True, rev='foo', num=-1, git_remote='origin')
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:907: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <MagicMock name='ls' id='139936423370416'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0',)
+kwargs = {'all_commits': True, 'git_remote': 'origin', 'num': -1, 'rev': ['foo']}
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+            raise AssertionError(msg)
+>       return self.assert_called_with(*args, **kwargs)
+E       AssertionError: expected call not found.
+E       Expected: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', git_remote='origin', rev=['foo'], all_commits=True, num=-1)
+E       Actual: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', all_commits=True, rev='foo', num=-1, git_remote='origin')
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits... 'rev': 'foo'} == {'all_commits...rev': ['foo']}
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:919: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+dvc = Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0'
+scm = Git: '/tmp/pytest-of-root/pytest-0/test_experiments_list0/.git'
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f457d32d310>
+
+    def test_experiments_list(dvc, scm, mocker):
+        cli_args = parse_args(
+            [
+                "experiments",
+                "list",
+                "origin",
+                "--all-commits",
+                "-n",
+                "-1",
+                "--rev",
+                "foo",
+                "--name-only",
+            ]
+        )
+        assert cli_args.func == CmdExperimentsList
+    
+        cmd = cli_args.func(cli_args)
+        m = mocker.patch("dvc.repo.experiments.ls.ls", return_value={})
+    
+        assert cmd.run() == 0
+    
+>       m.assert_called_once_with(
+            cmd.repo,
+            git_remote="origin",
+            rev=["foo"],
+            all_commits=True,
+            num=-1,
+        )
+E       AssertionError: expected call not found.
+E       Expected: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', git_remote='origin', rev=['foo'], all_commits=True, num=-1)
+E       Actual: ls(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_list0', all_commits=True, rev='foo', num=-1, git_remote='origin')
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits... 'rev': 'foo'} == {'all_commits...rev': ['foo']}
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/testbed/tests/unit/command/test_experiments.py:226: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+2026-09-18 10:08:58,471 DEBUG: Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/config.local' to gitignore file.
+2026-09-18 10:08:58,471 DEBUG: Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/tmp' to gitignore file.
+2026-09-18 10:08:58,471 DEBUG: Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/cache' to gitignore file.
+2026-09-18 10:08:58,472 DEBUG: Removing '/var/tmp/dvc/repo/7c03bf646337f13255edce199a98006a'
+2026-09-18 10:08:58,560 DEBUG: Staging files: {'/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/config', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/.gitignore', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvcignore'}
+Initialized DVC repository.
+
+You can now commit the changes to git.
+
+------------------------------ Captured log setup ------------------------------
+DEBUG    dvc.repo.scm_context:scm_context.py:82 Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/config.local' to gitignore file.
+DEBUG    dvc.repo.scm_context:scm_context.py:82 Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/tmp' to gitignore file.
+DEBUG    dvc.repo.scm_context:scm_context.py:82 Added '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/cache' to gitignore file.
+DEBUG    dvc.utils.fs:fs.py:63 Removing '/var/tmp/dvc/repo/7c03bf646337f13255edce199a98006a'
+DEBUG    dvc.repo.scm_context:scm_context.py:68 Staging files: {'/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/config', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvc/.gitignore', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster0/.dvcignore'}
+INFO     dvc.repo.init:init.py:96 Initialized DVC repository.
+
+INFO     dvc.repo.init:init.py:98 You can now commit the changes to git.
+____________________________ test_experiments_show _____________________________
+
+self = <MagicMock name='show' id='139936422769568'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0',)
+kwargs = {'all_branches': True, 'all_commits': True, 'all_tags': True, 'fetch_running': True, ...}
+expected = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_tags=True, all_branches=True, all_commits=True, hide_queued=True, hide_failed=True, num=1, revs=['foo'], sha_only=True, param_deps=True, fetch_running=True, force=True)
+actual = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_branches=True, all_tags=True, all_commits=True, hide_queued=True, hide_failed=True, revs='foo', num=1, sha_only=True, param_deps=True, fetch_running=True, force=True)
+_error_message = <function NonCallableMock.assert_called_with.<locals>._error_message at 0x7f457f59a8b0>
+cause = None
+
+    def assert_called_with(self, /, *args, **kwargs):
+        """assert that the last call was made with the specified arguments.
+    
+        Raises an AssertionError if the args and keyword args passed in are
+        different to the last call to the mock."""
+        if self.call_args is None:
+            expected = self._format_mock_call_signature(args, kwargs)
+            actual = 'not called.'
+            error_message = ('expected call not found.\nExpected: %s\nActual: %s'
+                    % (expected, actual))
+            raise AssertionError(error_message)
+    
+        def _error_message():
+            msg = self._format_mock_failure_message(args, kwargs)
+            return msg
+        expected = self._call_matcher(_Call((args, kwargs), two=True))
+        actual = self._call_matcher(self.call_args)
+        if actual != expected:
+            cause = expected if isinstance(expected, Exception) else None
+>           raise AssertionError(_error_message()) from cause
+E           AssertionError: expected call not found.
+E           Expected: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_tags=True, all_branches=True, all_commits=True, hide_queued=True, hide_failed=True, num=1, revs=['foo'], sha_only=True, param_deps=True, fetch_running=True, force=True)
+E           Actual: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_branches=True, all_tags=True, all_commits=True, hide_queued=True, hide_failed=True, revs='foo', num=1, sha_only=True, param_deps=True, fetch_running=True, force=True)
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:907: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <MagicMock name='show' id='139936422769568'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0',)
+kwargs = {'all_branches': True, 'all_commits': True, 'all_tags': True, 'fetch_running': True, ...}
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+            raise AssertionError(msg)
+>       return self.assert_called_with(*args, **kwargs)
+E       AssertionError: expected call not found.
+E       Expected: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_tags=True, all_branches=True, all_commits=True, hide_queued=True, hide_failed=True, num=1, revs=['foo'], sha_only=True, param_deps=True, fetch_running=True, force=True)
+E       Actual: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_branches=True, all_tags=True, all_commits=True, hide_queued=True, hide_failed=True, revs='foo', num=1, sha_only=True, param_deps=True, fetch_running=True, force=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_branche...g': True, ...} == {'all_branche...g': True, ...}
+E         Omitting 10 identical items, use -vv to show
+E         Differing items:
+E         {'revs': 'foo'} != {'revs': ['foo']}
+E         Use -v to get more diff
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:919: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+dvc = Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0'
+scm = Git: '/tmp/pytest-of-root/pytest-0/test_experiments_show0/.git'
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f457d2c95e0>
+
+    def test_experiments_show(dvc, scm, mocker):
+        cli_args = parse_args(
+            [
+                "experiments",
+                "show",
+                "--all-tags",
+                "--all-branches",
+                "--all-commits",
+                "--hide-queued",
+                "--hide-failed",
+                "--sha",
+                "--param-deps",
+                "-n",
+                "1",
+                "--rev",
+                "foo",
+                "--force",
+            ]
+        )
+        assert cli_args.func == CmdExperimentsShow
+    
+        cmd = cli_args.func(cli_args)
+    
+        m = mocker.patch("dvc.repo.experiments.show.show", return_value={})
+        assert cmd.run() == 0
+    
+>       m.assert_called_once_with(
+            cmd.repo,
+            all_tags=True,
+            all_branches=True,
+            all_commits=True,
+            hide_queued=True,
+            hide_failed=True,
+            num=1,
+            revs=["foo"],
+            sha_only=True,
+            param_deps=True,
+            fetch_running=True,
+            force=True,
+        )
+E       AssertionError: expected call not found.
+E       Expected: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_tags=True, all_branches=True, all_commits=True, hide_queued=True, hide_failed=True, num=1, revs=['foo'], sha_only=True, param_deps=True, fetch_running=True, force=True)
+E       Actual: show(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_show0', all_branches=True, all_tags=True, all_commits=True, hide_queued=True, hide_failed=True, revs='foo', num=1, sha_only=True, param_deps=True, fetch_running=True, force=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_branche...g': True, ...} == {'all_branche...g': True, ...}
+E         Omitting 10 identical items, use -vv to show
+E         Differing items:
+E         {'revs': 'foo'} != {'revs': ['foo']}
+E         Use -v to get more diff
+
+/testbed/tests/unit/command/test_experiments.py:111: AssertionError
+_________________________ test_experiments_remove_flag _________________________
+
+self = <MagicMock name='remove' id='139936422038208'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0',)
+kwargs = {'all_commits': True, 'exp_names': [], 'git_remote': 'myremote', 'num': 2, ...}
+expected = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev=['foo'], num=2, queue=False, git_remote='myremote')
+actual = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev='foo', num=2, queue=False, git_remote='myremote')
+_error_message = <function NonCallableMock.assert_called_with.<locals>._error_message at 0x7f457cc2e430>
+cause = None
+
+    def assert_called_with(self, /, *args, **kwargs):
+        """assert that the last call was made with the specified arguments.
+    
+        Raises an AssertionError if the args and keyword args passed in are
+        different to the last call to the mock."""
+        if self.call_args is None:
+            expected = self._format_mock_call_signature(args, kwargs)
+            actual = 'not called.'
+            error_message = ('expected call not found.\nExpected: %s\nActual: %s'
+                    % (expected, actual))
+            raise AssertionError(error_message)
+    
+        def _error_message():
+            msg = self._format_mock_failure_message(args, kwargs)
+            return msg
+        expected = self._call_matcher(_Call((args, kwargs), two=True))
+        actual = self._call_matcher(self.call_args)
+        if actual != expected:
+            cause = expected if isinstance(expected, Exception) else None
+>           raise AssertionError(_error_message()) from cause
+E           AssertionError: expected call not found.
+E           Expected: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev=['foo'], num=2, queue=False, git_remote='myremote')
+E           Actual: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev='foo', num=2, queue=False, git_remote='myremote')
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:907: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <MagicMock name='remove' id='139936422038208'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0',)
+kwargs = {'all_commits': True, 'exp_names': [], 'git_remote': 'myremote', 'num': 2, ...}
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+            raise AssertionError(msg)
+>       return self.assert_called_with(*args, **kwargs)
+E       AssertionError: expected call not found.
+E       Expected: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev=['foo'], num=2, queue=False, git_remote='myremote')
+E       Actual: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev='foo', num=2, queue=False, git_remote='myremote')
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...'num': 2, ...} == {'all_commits...'num': 2, ...}
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:919: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+dvc = Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0'
+scm = Git: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0/.git'
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f457cc2b310>
+capsys = <_pytest.capture.CaptureFixture object at 0x7f457cc21640>
+caplog = <_pytest.logging.LogCaptureFixture object at 0x7f457cbc1490>
+
+    def test_experiments_remove_flag(dvc, scm, mocker, capsys, caplog):
+        cli_args = parse_args(
+            [
+                "experiments",
+                "remove",
+                "--all-commits",
+                "--rev",
+                "foo",
+                "--num",
+                "2",
+                "--git-remote",
+                "myremote",
+            ]
+        )
+        assert cli_args.func == CmdExperimentsRemove
+        cmd = cli_args.func(cli_args)
+        m = mocker.patch("dvc.repo.experiments.remove.remove", return_value={})
+        assert cmd.run() == 0
+>       m.assert_called_once_with(
+            cmd.repo,
+            exp_names=[],
+            all_commits=True,
+            rev=["foo"],
+            num=2,
+            queue=False,
+            git_remote="myremote",
+        )
+E       AssertionError: expected call not found.
+E       Expected: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev=['foo'], num=2, queue=False, git_remote='myremote')
+E       Actual: remove(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_remove_flag0', exp_names=[], all_commits=True, rev='foo', num=2, queue=False, git_remote='myremote')
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...'num': 2, ...} == {'all_commits...'num': 2, ...}
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/testbed/tests/unit/command/test_experiments.py:370: AssertionError
+----------------------------- Captured stdout call -----------------------------
+No experiments to remove.
+____________________________ test_experiments_push _____________________________
+
+self = <MagicMock name='push' id='139936422097104'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'])
+kwargs = {'all_commits': True, 'dvc_remote': 'my-remote', 'force': True, 'jobs': 1, ...}
+expected = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], rev=['foo'], all_commits=True, num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+actual = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], all_commits=True, rev='foo', num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+_error_message = <function NonCallableMock.assert_called_with.<locals>._error_message at 0x7f457f5bb4c0>
+cause = None
+
+    def assert_called_with(self, /, *args, **kwargs):
+        """assert that the last call was made with the specified arguments.
+    
+        Raises an AssertionError if the args and keyword args passed in are
+        different to the last call to the mock."""
+        if self.call_args is None:
+            expected = self._format_mock_call_signature(args, kwargs)
+            actual = 'not called.'
+            error_message = ('expected call not found.\nExpected: %s\nActual: %s'
+                    % (expected, actual))
+            raise AssertionError(error_message)
+    
+        def _error_message():
+            msg = self._format_mock_failure_message(args, kwargs)
+            return msg
+        expected = self._call_matcher(_Call((args, kwargs), two=True))
+        actual = self._call_matcher(self.call_args)
+        if actual != expected:
+            cause = expected if isinstance(expected, Exception) else None
+>           raise AssertionError(_error_message()) from cause
+E           AssertionError: expected call not found.
+E           Expected: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], rev=['foo'], all_commits=True, num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E           Actual: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], all_commits=True, rev='foo', num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:907: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <MagicMock name='push' id='139936422097104'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'])
+kwargs = {'all_commits': True, 'dvc_remote': 'my-remote', 'force': True, 'jobs': 1, ...}
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+            raise AssertionError(msg)
+>       return self.assert_called_with(*args, **kwargs)
+E       AssertionError: expected call not found.
+E       Expected: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], rev=['foo'], all_commits=True, num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       Actual: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], all_commits=True, rev='foo', num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...jobs': 1, ...} == {'all_commits...jobs': 1, ...}
+E         Omitting 7 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:919: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+dvc = Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0'
+scm = Git: '/tmp/pytest-of-root/pytest-0/test_experiments_push0/.git'
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f457ccb1f10>
+
+    def test_experiments_push(dvc, scm, mocker):
+        cli_args = parse_args(
+            [
+                "experiments",
+                "push",
+                "origin",
+                "experiment1",
+                "experiment2",
+                "--all-commits",
+                "-n",
+                "2",
+                "--rev",
+                "foo",
+                "--force",
+                "--no-cache",
+                "--remote",
+                "my-remote",
+                "--jobs",
+                "1",
+                "--run-cache",
+            ]
+        )
+        assert cli_args.func == CmdExperimentsPush
+    
+        cmd = cli_args.func(cli_args)
+        m = mocker.patch("dvc.repo.experiments.push.push", return_value={})
+    
+        assert cmd.run() == 0
+    
+>       m.assert_called_once_with(
+            cmd.repo,
+            "origin",
+            ["experiment1", "experiment2"],
+            rev=["foo"],
+            all_commits=True,
+            num=2,
+            force=True,
+            push_cache=False,
+            dvc_remote="my-remote",
+            jobs=1,
+            run_cache=True,
+        )
+E       AssertionError: expected call not found.
+E       Expected: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], rev=['foo'], all_commits=True, num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       Actual: push(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_push0', 'origin', ['experiment1', 'experiment2'], all_commits=True, rev='foo', num=2, force=True, push_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...jobs': 1, ...} == {'all_commits...jobs': 1, ...}
+E         Omitting 7 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/testbed/tests/unit/command/test_experiments.py:264: AssertionError
+----------------------------- Captured stdout call -----------------------------
+No experiments to push.
+To push cached outputs for this experiment to DVC remote storage,re-run this command without '--no-cache'.
+____________________________ test_experiments_pull _____________________________
+
+self = <MagicMock name='pull' id='139936422006640'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'])
+kwargs = {'all_commits': True, 'dvc_remote': 'my-remote', 'force': True, 'jobs': 1, ...}
+expected = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], rev=['foo'], all_commits=True, num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+actual = call(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], all_commits=True, rev='foo', num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+_error_message = <function NonCallableMock.assert_called_with.<locals>._error_message at 0x7f457cb80790>
+cause = None
+
+    def assert_called_with(self, /, *args, **kwargs):
+        """assert that the last call was made with the specified arguments.
+    
+        Raises an AssertionError if the args and keyword args passed in are
+        different to the last call to the mock."""
+        if self.call_args is None:
+            expected = self._format_mock_call_signature(args, kwargs)
+            actual = 'not called.'
+            error_message = ('expected call not found.\nExpected: %s\nActual: %s'
+                    % (expected, actual))
+            raise AssertionError(error_message)
+    
+        def _error_message():
+            msg = self._format_mock_failure_message(args, kwargs)
+            return msg
+        expected = self._call_matcher(_Call((args, kwargs), two=True))
+        actual = self._call_matcher(self.call_args)
+        if actual != expected:
+            cause = expected if isinstance(expected, Exception) else None
+>           raise AssertionError(_error_message()) from cause
+E           AssertionError: expected call not found.
+E           Expected: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], rev=['foo'], all_commits=True, num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E           Actual: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], all_commits=True, rev='foo', num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:907: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+self = <MagicMock name='pull' id='139936422006640'>
+args = (Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'])
+kwargs = {'all_commits': True, 'dvc_remote': 'my-remote', 'force': True, 'jobs': 1, ...}
+
+    def assert_called_once_with(self, /, *args, **kwargs):
+        """assert that the mock was called exactly once and that that call was
+        with the specified arguments."""
+        if not self.call_count == 1:
+            msg = ("Expected '%s' to be called once. Called %s times.%s"
+                   % (self._mock_name or 'mock',
+                      self.call_count,
+                      self._calls_repr()))
+            raise AssertionError(msg)
+>       return self.assert_called_with(*args, **kwargs)
+E       AssertionError: expected call not found.
+E       Expected: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], rev=['foo'], all_commits=True, num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       Actual: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], all_commits=True, rev='foo', num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...jobs': 1, ...} == {'all_commits...jobs': 1, ...}
+E         Omitting 7 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/opt/miniconda3/envs/testbed/lib/python3.9/unittest/mock.py:919: AssertionError
+
+During handling of the above exception, another exception occurred:
+
+dvc = Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0'
+scm = Git: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0/.git'
+mocker = <pytest_mock.plugin.MockerFixture object at 0x7f457cba5400>
+
+    def test_experiments_pull(dvc, scm, mocker):
+        cli_args = parse_args(
+            [
+                "experiments",
+                "pull",
+                "origin",
+                "experiment",
+                "--all-commits",
+                "--rev",
+                "foo",
+                "--force",
+                "--no-cache",
+                "--remote",
+                "my-remote",
+                "--jobs",
+                "1",
+                "--run-cache",
+            ]
+        )
+        assert cli_args.func == CmdExperimentsPull
+    
+        cmd = cli_args.func(cli_args)
+        m = mocker.patch("dvc.repo.experiments.pull.pull", return_value={})
+    
+        assert cmd.run() == 0
+    
+>       m.assert_called_once_with(
+            cmd.repo,
+            "origin",
+            ["experiment"],
+            rev=["foo"],
+            all_commits=True,
+            num=1,
+            force=True,
+            pull_cache=False,
+            dvc_remote="my-remote",
+            jobs=1,
+            run_cache=True,
+        )
+E       AssertionError: expected call not found.
+E       Expected: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], rev=['foo'], all_commits=True, num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       Actual: pull(Repo: '/tmp/pytest-of-root/pytest-0/test_experiments_pull0', 'origin', ['experiment'], all_commits=True, rev='foo', num=1, force=True, pull_cache=False, dvc_remote='my-remote', jobs=1, run_cache=True)
+E       
+E       pytest introspection follows:
+E       
+E       Kwargs:
+E       assert {'all_commits...jobs': 1, ...} == {'all_commits...jobs': 1, ...}
+E         Omitting 7 identical items, use -vv to show
+E         Differing items:
+E         {'rev': 'foo'} != {'rev': ['foo']}
+E         Use -v to get more diff
+
+/testbed/tests/unit/command/test_experiments.py:321: AssertionError
+----------------------------- Captured stdout call -----------------------------
+No experiments to pull.
+To pull cached outputs for this experimentfrom DVC remote storage,re-run this command without '--no-cache'.
+==================================== PASSES ====================================
+__________________ test_experiments_init_type_invalid_choice ___________________
+----------------------------- Captured stdout call -----------------------------
+usage: dvc experiments init [-h] [-q | -v] [--run] [--interactive] [-f]
+                            [--explicit] [--name NAME] [--code CODE]
+                            [--data DATA] [--models MODELS] [--params PARAMS]
+                            [--metrics METRICS] [--plots PLOTS] [--live LIVE]
+                            [--type {default,checkpoint}]
+                            ...
+
+Quickly setup any project to use experiments.
+Documentation: <https://man.dvc.org/exp/init>
+
+positional arguments:
+  command               Command to execute.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -q, --quiet           Be quiet.
+  -v, --verbose         Be verbose.
+  --run                 Run the experiment after initializing it
+  --interactive, -i     Prompt for values that are not provided
+  -f, --force           Overwrite existing stage
+  --explicit            Only use the path values explicitly provided
+  --name NAME, -n NAME  Name of the stage to create (default: train)
+  --code CODE           Path to the source file or directory which your
+                        experiments depend (default: src)
+  --data DATA           Path to the data file or directory which your
+                        experiments depend (default: data)
+  --models MODELS       Path to the model file or directory for your
+                        experiments (default: models)
+  --params PARAMS       Path to the parameters file for your experiments
+                        (default: params.yaml)
+  --metrics METRICS     Path to the metrics file for your experiments
+                        (default: metrics.json)
+  --plots PLOTS         Path to the plots file or directory for your
+                        experiments (default: plots)
+  --live LIVE           Path to log dvclive outputs for your experiments
+  --type {default,checkpoint}
+                        Select type of stage to create (default: default)
+----------------------------- Captured stderr call -----------------------------
+2026-09-18 10:08:59,733 ERROR: argument --type: invalid choice: 'invalid' (choose from 'default', 'checkpoint')
+------------------------------ Captured log call -------------------------------
+ERROR    dvc.cli.parser:parser.py:118 argument --type: invalid choice: 'invalid' (choose from 'default', 'checkpoint')
+____________ test_experiments_init_displays_output_on_no_run[args0] ____________
+---------------------------- Captured stdout setup -----------------------------
+2026-09-18 10:08:59,740 DEBUG: Writing '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvc/config'.
+2026-09-18 10:08:59,813 DEBUG: Removing '/var/tmp/dvc/repo/ec7f19bba891bbb9c067f510d42cc980'
+2026-09-18 10:08:59,897 DEBUG: Staging files: {'/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvcignore', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvc/config'}
+Initialized DVC repository.
+
+------------------------------ Captured log setup ------------------------------
+DEBUG    dvc.config:config.py:206 Writing '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvc/config'.
+DEBUG    dvc.utils.fs:fs.py:63 Removing '/var/tmp/dvc/repo/ec7f19bba891bbb9c067f510d42cc980'
+DEBUG    dvc.repo.scm_context:scm_context.py:68 Staging files: {'/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvcignore', '/tmp/pytest-of-root/pytest-0/dvc-test-cachemaster1/.dvc/config'}
+INFO     dvc.repo.init:init.py:96 Initialized DVC repository.
+__________ test_experiments_init_extra_args[extra_args1-expected_kw1] __________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+_____________________________ test_experiments_gc ______________________________
+----------------------------- Captured stdout call -----------------------------
+No experiments to remove.
+----------------------------- Captured stderr call -----------------------------
+2026-09-18 10:09:00,652 WARNING: This will remove all experiments except those derived from the workspace and all git commits of the current repo. Run queued experiments will be preserved.
+------------------------------ Captured log call -------------------------------
+WARNING  dvc.commands.experiments.gc:gc.py:52 This will remove all experiments except those derived from the workspace and all git commits of the current repo. Run queued experiments will be preserved.
+__________ test_experiments_init_extra_args[extra_args3-expected_kw3] __________
+----------------------------- Captured stdout call -----------------------------
+Creating name stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+_________ test_experiments_init_cmd_not_required_for_interactive_mode __________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+_______________________ test_experiments_remove_special ________________________
+----------------------------- Captured stdout call -----------------------------
+No experiments to remove.
+____________________________ test_experiments_diff _____________________________
+----------------------------- Captured stdout call -----------------------------
+{}
+______________________ test_experiments_init[extra_args0] ______________________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+_________________________ test_experiments_init_config _________________________
+----------------------------- Captured stdout call -----------------------------
+2026-09-18 10:09:01,678 DEBUG: Writing '/tmp/pytest-of-root/pytest-0/test_experiments_init_config0/.dvc/config'.
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+------------------------------ Captured log call -------------------------------
+DEBUG    dvc.config:config.py:206 Writing '/tmp/pytest-of-root/pytest-0/test_experiments_init_config0/.dvc/config'.
+__________ test_experiments_init_extra_args[extra_args2-expected_kw2] __________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+________________________ test_experiments_init_explicit ________________________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+______________________ test_experiments_init[extra_args1] ______________________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+__________ test_experiments_init_extra_args[extra_args4-expected_kw4] __________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+____________________________ test_experiments_save _____________________________
+----------------------------- Captured stdout call -----------------------------
+Experiment has been saved as: None
+
+To promote an experiment to a Git branch run:
+
+	dvc exp branch <exp> <branch>
+
+__________ test_experiments_init_extra_args[extra_args0-expected_kw0] __________
+----------------------------- Captured stdout call -----------------------------
+Creating train stage in dvc.yaml
+
+You can now run your experiment using "dvc exp run".
+=========================== short test summary info ============================
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_type_invalid_choice
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_displays_output_on_no_run[args0]
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_extra_args[extra_args1-expected_kw1]
+PASSED tests/unit/command/test_experiments.py::test_experiments_gc
+PASSED tests/unit/command/test_experiments.py::test_experiments_remove_invalid
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_extra_args[extra_args3-expected_kw3]
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_displays_output_on_no_run[args1]
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_cmd_not_required_for_interactive_mode
+PASSED tests/unit/command/test_experiments.py::test_experiments_remove_special
+PASSED tests/unit/command/test_experiments.py::test_experiments_diff
+PASSED tests/unit/command/test_experiments.py::test_experiments_init[extra_args0]
+PASSED tests/unit/command/test_experiments.py::test_experiments_apply
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_config
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_extra_args[extra_args2-expected_kw2]
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_explicit
+PASSED tests/unit/command/test_experiments.py::test_experiments_branch
+PASSED tests/unit/command/test_experiments.py::test_experiments_init[extra_args1]
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_extra_args[extra_args4-expected_kw4]
+PASSED tests/unit/command/test_experiments.py::test_experiments_run
+PASSED tests/unit/command/test_experiments.py::test_experiments_save
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_extra_args[extra_args0-expected_kw0]
+PASSED tests/unit/command/test_experiments.py::test_experiments_diff_revs
+PASSED tests/unit/command/test_experiments.py::test_experiments_init_cmd_required_for_non_interactive_mode
+PASSED tests/unit/command/test_experiments.py::test_experiments_clean
+FAILED tests/unit/command/test_experiments.py::test_experiments_list - Assert...
+FAILED tests/unit/command/test_experiments.py::test_experiments_show - Assert...
+FAILED tests/unit/command/test_experiments.py::test_experiments_remove_flag
+FAILED tests/unit/command/test_experiments.py::test_experiments_push - Assert...
+FAILED tests/unit/command/test_experiments.py::test_experiments_pull - Assert...
+========================= 5 failed, 24 passed in 5.52s =========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

@@ -1,0 +1,739 @@
+Checking patch conans/test/unittests/tools/files/test_patches.py...
+Applied patch conans/test/unittests/tools/files/test_patches.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 13 items
+
+conans/test/unittests/tools/files/test_patches.py FFFFFFFFFFFFF          [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_single_patch_file ____________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afdb5c30>
+
+    def test_single_patch_file(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file')
+
+conans/test/unittests/tools/files/test_patches.py:42: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = '/my_source/patch-file'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>
+base = '/my_source'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+________________________________ test_base_path ________________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afcb5570>
+
+    def test_base_path(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file', base_path="subfolder")
+
+conans/test/unittests/tools/files/test_patches.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = 'subfolder'
+patch_file = 'subfolder/patch-file', patch_string = None, strip = 0
+fuzz = False, kwargs = {}, patch_type = None, patch_description = None
+patchlog = <Logger patch_ng (WARNING)>, base = 'subfolder'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+___________________ test_apply_in_build_from_patch_in_source ___________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afc6f820>
+
+    def test_apply_in_build_from_patch_in_source(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file', base_path="/my_build/subfolder")
+
+conans/test/unittests/tools/files/test_patches.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = '/my_build/subfolder'
+patch_file = '/my_build/subfolder/patch-file', patch_string = None, strip = 0
+fuzz = False, kwargs = {}, patch_type = None, patch_description = None
+patchlog = <Logger patch_ng (WARNING)>, base = '/my_build/subfolder'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+_________________________ test_single_patch_arguments __________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afdc9690>
+
+    def test_single_patch_arguments(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        conanfile.folders.set_base_source("/path/to/sources")
+>       patch(conanfile, patch_file='patch-file', strip=23, fuzz=True)
+
+conans/test/unittests/tools/files/test_patches.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None
+patch_file = '/path/to/sources/patch-file', patch_string = None, strip = 23
+fuzz = True, kwargs = {}, patch_type = None, patch_description = None
+patchlog = <Logger patch_ng (WARNING)>, base = '/path/to/sources'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+____________________________ test_single_apply_fail ____________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f29afc6e140>
+
+    def test_single_apply_fail(monkeypatch):
+        class MockedApply:
+            def apply(self, *args, **kwargs):
+                return False
+    
+        monkeypatch.setattr(patch_ng, "fromfile", lambda _: MockedApply())
+    
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        with pytest.raises(ConanException) as excinfo:
+>           patch(conanfile, patch_file='patch-file-failed')
+
+conans/test/unittests/tools/files/test_patches.py:146: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = './patch-file-failed'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>, base = '.'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+____________________________ test_single_patch_type ____________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afdc8220>
+
+    def test_single_patch_type(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file', patch_type='patch_type')
+
+conans/test/unittests/tools/files/test_patches.py:107: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = './patch-file'
+patch_string = None, strip = 0, fuzz = False
+kwargs = {'patch_type': 'patch_type'}, patch_type = 'patch_type'
+patch_description = None, patch_type_str = ' (patch_type)'
+patch_description_str = '', patchlog = <Logger patch_ng (WARNING)>, base = '.'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+___________________ test_single_patch_file_from_forced_build ___________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afd47a00>
+
+    def test_single_patch_file_from_forced_build(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("/my_source")
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='/my_build/patch-file')
+
+conans/test/unittests/tools/files/test_patches.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = '/my_build/patch-file'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+___________________________ test_single_patch_string ___________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afdc9090>
+
+    def test_single_patch_string(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.folders.set_base_source("my_folder")
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_string='patch_string')
+
+conans/test/unittests/tools/files/test_patches.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = None
+patch_string = 'patch_string', strip = 0, fuzz = False, kwargs = {}
+patch_type = None, patch_description = None
+patchlog = <Logger patch_ng (WARNING)>
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+________________________ test_single_patch_description _________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afc6c0d0>
+
+    def test_single_patch_description(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file', patch_description='patch_description')
+
+conans/test/unittests/tools/files/test_patches.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = './patch-file'
+patch_string = None, strip = 0, fuzz = False
+kwargs = {'patch_description': 'patch_description'}, patch_type = None
+patch_description = 'patch_description', patch_type_str = ''
+patch_description_str = ': patch_description'
+patchlog = <Logger patch_ng (WARNING)>, base = '.'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+________________________ test_single_patch_extra_fields ________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29b0cd5690>
+
+    def test_single_patch_extra_fields(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+>       patch(conanfile, patch_file='patch-file', patch_type='patch_type',
+              patch_description='patch_description')
+
+conans/test/unittests/tools/files/test_patches.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = './patch-file'
+patch_string = None, strip = 0, fuzz = False
+kwargs = {'patch_description': 'patch_description', 'patch_type': 'patch_type'}
+patch_type = 'patch_type', patch_description = 'patch_description'
+patch_type_str = ' (patch_type)', patch_description_str = ': patch_description'
+patchlog = <Logger patch_ng (WARNING)>, base = '.'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+__________________________ test_multiple_with_version __________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afcb4e20>
+
+    def test_multiple_with_version(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        conanfile.conan_data = {'patches': {
+            "1.11.0": [
+                {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+                 'base_path': 'source_subfolder', },
+                {'patch_file': 'patches/0002-implicit-copy-constructor.patch',
+                 'base_path': 'source_subfolder',
+                 'patch_type': 'backport',
+                 'patch_source': 'https://github.com/google/flatbuffers/pull/5650',
+                 'patch_description': 'Needed to build with modern clang compilers.'}
+            ],
+            "1.12.0": [
+                {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+                 'base_path': 'source_subfolder', },
+            ]}}
+    
+        with pytest.raises(AssertionError) as excinfo:
+            apply_conandata_patches(conanfile)
+        assert 'Can only be applied if conanfile.version is already defined' == str(excinfo.value)
+    
+        conanfile.version = "1.2.11"
+        apply_conandata_patches(conanfile)
+        assert len(str(conanfile.output)) == 0
+    
+        conanfile.version = "1.11.0"
+>       apply_conandata_patches(conanfile)
+
+conans/test/unittests/tools/files/test_patches.py:194: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+conan/tools/files/patches.py:110: in apply_conandata_patches
+    patch(conanfile, patch_file=patch_file, **it)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = 'source_subfolder'
+patch_file = 'source_subfolder/./patches/0001-buildflatbuffers-cmake.patch'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>
+base = 'source_subfolder'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+___________________________ test_multiple_no_version ___________________________
+
+mock_patch_ng = <conans.test.unittests.tools.files.test_patches.MockPatchset object at 0x7f29afd7db70>
+
+    def test_multiple_no_version(mock_patch_ng):
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        conanfile.conan_data = {'patches': [
+            {'patch_file': 'patches/0001-buildflatbuffers-cmake.patch',
+             'base_path': 'source_subfolder', },
+            {'patch_file': 'patches/0002-implicit-copy-constructor.patch',
+             'base_path': 'source_subfolder',
+             'patch_type': 'backport',
+             'patch_source': 'https://github.com/google/flatbuffers/pull/5650',
+             'patch_description': 'Needed to build with modern clang compilers.'}
+        ]}
+>       apply_conandata_patches(conanfile)
+
+conans/test/unittests/tools/files/test_patches.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+conan/tools/files/patches.py:110: in apply_conandata_patches
+    patch(conanfile, patch_file=patch_file, **it)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = 'source_subfolder'
+patch_file = 'source_subfolder/./patches/0001-buildflatbuffers-cmake.patch'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>
+base = 'source_subfolder'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+___________________________ test_single_no_patchset ____________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f29afcd07c0>
+
+    def test_single_no_patchset(monkeypatch):
+        monkeypatch.setattr(patch_ng, "fromfile", lambda _: None)
+    
+        conanfile = ConanFileMock()
+        conanfile.display_name = 'mocked/ref'
+        with pytest.raises(ConanException) as excinfo:
+>           patch(conanfile, patch_file='patch-file-failed')
+
+conans/test/unittests/tools/files/test_patches.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conanfile = mocked/ref, base_path = None, patch_file = './patch-file-failed'
+patch_string = None, strip = 0, fuzz = False, kwargs = {}, patch_type = None
+patch_description = None, patchlog = <Logger patch_ng (WARNING)>, base = '.'
+
+    def patch(conanfile, base_path=None, patch_file=None, patch_string=None, strip=0, fuzz=False, **kwargs):
+        """ Applies a diff from file (patch_file)  or string (patch_string)
+            in base_path directory or current dir if None
+        :param base_path: Base path where the patch should be applied.
+        :param patch_file: Patch file that should be applied.
+        :param patch_string: Patch string that should be applied.
+        :param strip: Number of folders to be stripped from the path.
+        :param output: Stream object.
+        :param fuzz: Should accept fuzzy patches.
+        :param kwargs: Extra parameters that can be added and will contribute to output information
+        """
+    
+        patch_type = kwargs.get('patch_type')
+        patch_description = kwargs.get('patch_description')
+    
+        if patch_type or patch_description:
+            patch_type_str = ' ({})'.format(patch_type) if patch_type else ''
+            patch_description_str = ': {}'.format(patch_description) if patch_description else ''
+            conanfile.output.info('Apply patch{}{}'.format(patch_type_str, patch_description_str))
+    
+        patchlog = logging.getLogger("patch_ng")
+        patchlog.handlers = []
+        patchlog.addHandler(PatchLogHandler(conanfile, patch_file))
+    
+        if patch_file:
+            if not os.path.isabs(patch_file):
+                base = base_path or conanfile.folders.base_source
+                patch_file = os.path.join(base, patch_file)
+    
+>       if not patchset:
+E       NameError: name 'patchset' is not defined
+
+conan/tools/files/patches.py:57: NameError
+=========================== short test summary info ============================
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file
+FAILED conans/test/unittests/tools/files/test_patches.py::test_base_path - Na...
+FAILED conans/test/unittests/tools/files/test_patches.py::test_apply_in_build_from_patch_in_source
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_arguments
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_apply_fail
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_type
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_file_from_forced_build
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_string
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_description
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_patch_extra_fields
+FAILED conans/test/unittests/tools/files/test_patches.py::test_multiple_with_version
+FAILED conans/test/unittests/tools/files/test_patches.py::test_multiple_no_version
+FAILED conans/test/unittests/tools/files/test_patches.py::test_single_no_patchset
+============================== 13 failed in 0.12s ==============================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

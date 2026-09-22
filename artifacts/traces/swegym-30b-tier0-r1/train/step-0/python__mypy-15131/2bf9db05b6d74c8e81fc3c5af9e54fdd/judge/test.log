@@ -1,0 +1,60 @@
+Checking patch test-data/unit/check-modules.test...
+Checking patch test-data/unit/check-python311.test...
+Checking patch test-data/unit/check-statements.test...
+Applied patch test-data/unit/check-modules.test cleanly.
+Applied patch test-data/unit/check-python311.test cleanly.
+Applied patch test-data/unit/check-statements.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+created: 2/2 workers
+2 workers [3 items]
+
+FF.                                                                      [100%]
+=================================== FAILURES ===================================
+_____________________ testInvalidTupleValueAsExceptionType _____________________
+[gw0] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-statements.test:986:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-statements.test, line 986)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:8: error: Exception type must be derived from BaseException (or be a tuple of exception classes) (diff)
+Actual:
+  main:8: error: Exception type must be derived from BaseException (diff)
+
+Alignment of first line difference:
+  E: ...rived from BaseException (or be a tuple of exception classes)
+  A: ...rived from BaseException
+                                ^
+________________________ testTupleValueAsExceptionType _________________________
+[gw1] linux -- Python 3.11.9 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-statements.test:960:
+Failed: Unexpected type checker output (/testbed/test-data/unit/check-statements.test, line 960)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+  main:11: error: Incompatible types in assignment (expression has type "E1",...
+  main:12: error: Incompatible types in assignment (expression has type "E1",...
+  main:18: error: Incompatible types in assignment (expression has type "Unio...
+  main:19: error: Incompatible types in assignment (expression has type "Unio...
+  main:23: error: Exception type must be derived from BaseException (or be a tuple of exception classes) (diff)
+Actual:
+  main:11: error: Incompatible types in assignment (expression has type "E1",...
+  main:12: error: Incompatible types in assignment (expression has type "E1",...
+  main:18: error: Incompatible types in assignment (expression has type "Unio...
+  main:19: error: Incompatible types in assignment (expression has type "Unio...
+  main:23: error: Exception type must be derived from BaseException (diff)
+
+Alignment of first line difference:
+  E: ...erived from BaseException (or be a tuple of exception classes)
+  A: ...erived from BaseException
+                                 ^
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testOverloadedExceptionType
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testInvalidTupleValueAsExceptionType
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-statements.test::testTupleValueAsExceptionType
+========================= 2 failed, 1 passed in 1.62s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

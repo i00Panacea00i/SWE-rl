@@ -1,0 +1,47 @@
+Checking patch test-data/unit/check-dataclasses.test...
+Applied patch test-data/unit/check-dataclasses.test cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/mypy/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+gw0 I / gw1 I
+gw0 [4] / gw1 [4]
+
+FF..                                                                     [100%]
+=================================== FAILURES ===================================
+______________________ testSlotsDefinitionWithTwoPasses4 _______________________
+[gw0] linux -- Python 3.10.14 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-dataclasses.test:1515:
+/testbed/mypy/test/testcheck.py:140: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:227: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-dataclasses.test, line 1515)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+Actual:
+  main:7: error: "PublishedMessages" both defines "__slots__" and is used with "slots=True" (diff)
+
+______________________ testSlotsDefinitionWithTwoPasses1 _______________________
+[gw1] linux -- Python 3.10.14 /opt/miniconda3/envs/testbed/bin/python
+data: /testbed/test-data/unit/check-dataclasses.test:1461:
+/testbed/mypy/test/testcheck.py:140: in run_case
+    self.run_case_once(testcase)
+/testbed/mypy/test/testcheck.py:227: in run_case_once
+    assert_string_arrays_equal(output, a, msg.format(testcase.file, testcase.line))
+E   AssertionError: Unexpected type checker output (/testbed/test-data/unit/check-dataclasses.test, line 1461)
+----------------------------- Captured stderr call -----------------------------
+Expected:
+Actual:
+  main:14: error: "Node" both defines "__slots__" and is used with "slots=True" (diff)
+
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses3
+PASSED mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses2
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses4
+FAILED mypy/test/testcheck.py::TypeCheckSuite::check-dataclasses.test::testSlotsDefinitionWithTwoPasses1
+========================= 2 failed, 2 passed in 1.53s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

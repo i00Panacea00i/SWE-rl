@@ -1,0 +1,157 @@
+Checking patch conans/test/integration/command/test_profile.py...
+Checking patch conans/test/unittests/model/profile_test.py...
+Applied patch conans/test/integration/command/test_profile.py cleanly.
+Applied patch conans/test/unittests/model/profile_test.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/conan/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 12 items
+
+conans/test/unittests/model/profile_test.py F                            [  8%]
+conans/test/integration/command/test_profile.py F                        [ 16%]
+conans/test/unittests/model/profile_test.py .                            [ 25%]
+conans/test/integration/command/test_profile.py .                        [ 33%]
+conans/test/unittests/model/profile_test.py .                            [ 41%]
+conans/test/integration/command/test_profile.py .                        [ 50%]
+conans/test/unittests/model/profile_test.py ..                           [ 66%]
+conans/test/integration/command/test_profile.py .                        [ 75%]
+conans/test/unittests/model/profile_test.py .                            [ 83%]
+conans/test/integration/command/test_profile.py .                        [ 91%]
+conans/test/unittests/model/profile_test.py .                            [100%]
+
+=================================== FAILURES ===================================
+____________________________ test_profile_serialize ____________________________
+
+    def test_profile_serialize():
+        profile = Profile()
+        profile.options.loads("zlib*:aoption=1\nzlib*:otheroption=1")
+        profile.buildenv = ProfileEnvironment.loads("VAR1=1\nVAR2=2")
+        profile.conf.update("user.myfield:value", "MyVal")
+        profile.settings["arch"] = "x86_64"
+        profile.settings["compiler"] = "Visual Studio"
+        profile.settings["compiler.version"] = "12"
+        profile.tool_requires["*"] = ["zlib/1.2.8"]
+        profile.update_package_settings({"MyPackage": [("os", "Windows")]})
+        expected_json = {
+            "settings": {"arch": "x86_64", "compiler": "Visual Studio", "compiler.version": "12"},
+            "package_settings": {"MyPackage": {"os": "Windows"}}, "options": {},
+            "tool_requires": {"*": ["'zlib/1.2.8'"]}, "conf": {"user.myfield:value": "MyVal"},
+            "build_env": "VAR1=1\nVAR2=2\n"}
+>       assert expected_json == profile.serialize()
+E       assert {'build_env':...ndows'}}, ...} == {'build_env':...ws')])}), ...}
+E         Omitting 5 identical items, use -vv to show
+E         Differing items:
+E         {'tool_requires': {'*': ["'zlib/1.2.8'"]}} != {'tool_requires': OrderedDict([('*', ['zlib/1.2.8'])])}
+E         Use -v to get the full diff
+
+conans/test/unittests/model/profile_test.py:135: AssertionError
+____________________________ test_profile_show_json ____________________________
+
+    def test_profile_show_json():
+        c = TestClient()
+        c.save({"myprofilewin": "[settings]\nos=Windows\n[tool_requires]\nmytool/*:mytool/1.0",
+                "myprofilelinux": "[settings]\nos=Linux"})
+>       c.run("profile show -pr:b=myprofilewin -pr:h=myprofilelinux --format=json")
+
+conans/test/integration/command/test_profile.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+conans/test/utils/tools.py:559: in run
+    return self._run_cli(command_line, assert_error=assert_error)
+conans/test/utils/tools.py:533: in _run_cli
+    self._handle_cli_result(command_line, assert_error=assert_error, error=error, trace=trace)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <conans.test.utils.tools.TestClient object at 0x7f63fde4f460>
+command = 'profile show -pr:b=myprofilewin -pr:h=myprofilelinux --format=json'
+assert_error = False, error = 7
+trace = 'Traceback (most recent call last):\n  File "/testbed/conans/test/utils/tools.py", line 522, in _run_cli\n    command....rror(f\'Object of type {o.__class__.__name__} \'\nTypeError: Object of type RecipeReference is not JSON serializable\n'
+
+    def _handle_cli_result(self, command, assert_error, error, trace=None):
+        if (assert_error and not error) or (not assert_error and error):
+            if assert_error:
+                msg = " Command succeeded (failure expected): "
+            else:
+                msg = " Command failed (unexpectedly): "
+            exc_message = "\n{header}\n{cmd}\n{output_header}\n{output}\n".format(
+                header='{:=^80}'.format(msg),
+                output_header='{:=^80}'.format(" Output: "),
+                cmd=command,
+                output=str(self.stderr) + str(self.stdout) + "\n" + str(self.out)
+            )
+            if trace:
+                exc_message += '{:=^80}'.format(" Traceback: ") + f"\n{trace}"
+>           raise Exception(exc_message)
+E           Exception: 
+E           ======================== Command failed (unexpectedly): ========================
+E           profile show -pr:b=myprofilewin -pr:h=myprofilelinux --format=json
+E           =================================== Output: ====================================
+E           ERROR: Traceback (most recent call last):
+E             File "/testbed/conans/test/utils/tools.py", line 522, in _run_cli
+E               command.run(args)
+E             File "/testbed/conan/cli/cli.py", line 172, in run
+E               command.run(self._conan_api, args[0][1:])
+E             File "/testbed/conan/cli/command.py", line 141, in run
+E               sub.run(conan_api, parser, *args)
+E             File "/testbed/conan/cli/command.py", line 157, in run
+E               self._format(parent_parser, info, *args)
+E             File "/testbed/conan/cli/command.py", line 94, in _format
+E               formatter(info)
+E             File "/testbed/conan/cli/commands/profile.py", line 30, in json_profiles
+E               cli_out_write(json.dumps(result))
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/__init__.py", line 231, in dumps
+E               return _default_encoder.encode(obj)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 199, in encode
+E               chunks = self.iterencode(o, _one_shot=True)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 257, in iterencode
+E               return _iterencode(o, 0)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 179, in default
+E               raise TypeError(f'Object of type {o.__class__.__name__} '
+E           TypeError: Object of type RecipeReference is not JSON serializable
+E           
+E           ERROR: Object of type RecipeReference is not JSON serializable
+E           
+E           
+E           ================================== Traceback: ==================================
+E           Traceback (most recent call last):
+E             File "/testbed/conans/test/utils/tools.py", line 522, in _run_cli
+E               command.run(args)
+E             File "/testbed/conan/cli/cli.py", line 172, in run
+E               command.run(self._conan_api, args[0][1:])
+E             File "/testbed/conan/cli/command.py", line 141, in run
+E               sub.run(conan_api, parser, *args)
+E             File "/testbed/conan/cli/command.py", line 157, in run
+E               self._format(parent_parser, info, *args)
+E             File "/testbed/conan/cli/command.py", line 94, in _format
+E               formatter(info)
+E             File "/testbed/conan/cli/commands/profile.py", line 30, in json_profiles
+E               cli_out_write(json.dumps(result))
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/__init__.py", line 231, in dumps
+E               return _default_encoder.encode(obj)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 199, in encode
+E               chunks = self.iterencode(o, _one_shot=True)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 257, in iterencode
+E               return _iterencode(o, 0)
+E             File "/opt/miniconda3/envs/testbed/lib/python3.10/json/encoder.py", line 179, in default
+E               raise TypeError(f'Object of type {o.__class__.__name__} '
+E           TypeError: Object of type RecipeReference is not JSON serializable
+
+conans/test/utils/tools.py:600: Exception
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED conans/test/unittests/model/profile_test.py::ProfileTest::test_profile_settings_update
+PASSED conans/test/integration/command/test_profile.py::test_profile_path
+PASSED conans/test/unittests/model/profile_test.py::ProfileTest::test_apply
+PASSED conans/test/integration/command/test_profile.py::test_profile_path_missing
+PASSED conans/test/unittests/model/profile_test.py::ProfileTest::test_profile_dump_order
+PASSED conans/test/unittests/model/profile_test.py::test_update_build_requires
+PASSED conans/test/integration/command/test_profile.py::test_shorthand_syntax
+PASSED conans/test/unittests/model/profile_test.py::ProfileTest::test_package_settings_update
+PASSED conans/test/integration/command/test_profile.py::test_ignore_paths_when_listing_profiles
+PASSED conans/test/unittests/model/profile_test.py::ProfileTest::test_profile_subsettings_update
+FAILED conans/test/unittests/model/profile_test.py::test_profile_serialize - ...
+FAILED conans/test/integration/command/test_profile.py::test_profile_show_json
+========================= 2 failed, 10 passed in 0.99s =========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1

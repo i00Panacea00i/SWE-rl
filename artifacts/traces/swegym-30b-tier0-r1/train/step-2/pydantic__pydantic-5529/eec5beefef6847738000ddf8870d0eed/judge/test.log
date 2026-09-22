@@ -1,0 +1,114 @@
+Checking patch tests/test_model_validator.py...
+Applied patch tests/test_model_validator.py cleanly.
+SWE_SOURCE_IMPORT_OK /testbed/pydantic/__init__.py
+
+>>>>> Start Test Output
+============================= test session starts ==============================
+collected 5 items
+
+tests/test_model_validator.py FF...                                      [100%]
+
+=================================== FAILURES ===================================
+____________________ test_model_validator_before[<lambda>] _____________________
+
+classmethod_decorator = <function <lambda> at 0x7f9f4bee6e50>
+
+    @pytest.mark.parametrize('classmethod_decorator', [classmethod, lambda x: x])
+    def test_model_validator_before(classmethod_decorator: Any) -> None:
+>       class Model(BaseModel):
+
+tests/test_model_validator.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+pydantic/main.py:165: in __new__
+    _model_construction.complete_model_class(
+pydantic/_internal/_model_construction.py:179: in complete_model_class
+    schema = cls.__get_pydantic_core_schema__(cls, gen_schema.generate_schema)
+pydantic/main.py:245: in __get_pydantic_core_schema__
+    return __handler(__source)
+pydantic/_internal/_generate_schema.py:172: in generate_schema
+    schema = self._generate_schema(obj, from_dunder_get_core_schema=True)
+pydantic/_internal/_generate_schema.py:308: in _generate_schema
+    from_property = self._generate_schema_from_property(obj, obj)
+pydantic/_internal/_generate_schema.py:265: in _generate_schema_from_property
+    return get_schema(source, handler)
+pydantic/main.py:245: in __get_pydantic_core_schema__
+    return __handler(__source)
+pydantic/_internal/_generate_schema.py:262: in handler
+    return self._generate_schema(source, False)
+pydantic/_internal/_generate_schema.py:315: in _generate_schema
+    return self.model_schema(obj)
+pydantic/_internal/_generate_schema.py:244: in model_schema
+    return apply_model_validators(schema, decorators.model_validator.values())
+pydantic/_internal/_generate_schema.py:1177: in apply_model_validators
+    info_arg = inspect_validator(validator.func, validator.info.mode)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+validator = <function test_model_validator_before.<locals>.Model.val_model at 0x7f9f4d4cdb80>
+mode = 'before'
+
+    def inspect_validator(validator: Callable[..., Any], mode: FieldValidatorModes) -> bool:
+        """
+        Look at a field or model validator function and determine if it whether it takes an info argument.
+    
+        An error is raised if the function has an invalid signature.
+    
+        Args:
+            validator: The validator function to inspect.
+            mode: The proposed validator mode.
+    
+        Returns:
+            Whether the validator takes an info argument.
+        """
+        sig = signature(validator)
+        n_positional = count_positional_params(sig)
+        if mode == 'wrap':
+            if n_positional == 3:
+                return True
+            elif n_positional == 2:
+                return False
+        else:
+            assert mode in {'before', 'after', 'plain'}, f"invalid mode: {mode!r}, expected 'before', 'after' or 'plain"
+            if n_positional == 2:
+                return True
+            elif n_positional == 1:
+                return False
+    
+>       raise PydanticUserError(
+            f'Unrecognized field_validator function signature for {validator} with `mode={mode}`:{sig}',
+            code='field-validator-signature',
+        )
+E       pydantic.errors.PydanticUserError: Unrecognized field_validator function signature for <function test_model_validator_before.<locals>.Model.val_model at 0x7f9f4d4cdb80> with `mode=before`:(cls, values: 'Any', info: 'ValidationInfo') -> 'dict[str, Any] | Model'
+E       
+E       For further information visit https://errors.pydantic.dev/2.0a2/u/field-validator-signature
+
+pydantic/_internal/_decorators.py:330: PydanticUserError
+________________________________ test_subclass _________________________________
+
+    def test_subclass() -> None:
+        class Human(BaseModel):
+            @model_validator(mode='before')
+            @classmethod
+            def run_model_validator(cls, values: dict[str, Any]) -> dict[str, Any]:
+                values['age'] *= 2
+                return values
+    
+        class Person(Human):
+            age: int
+    
+>       assert Person(age=28).age == 56
+E       AssertionError: assert 28 == 56
+E        +  where 28 = Person(age=28).age
+E        +    where Person(age=28) = <class 'tests.test_model_validator.test_subclass.<locals>.Person'>(age=28)
+
+tests/test_model_validator.py:85: AssertionError
+==================================== PASSES ====================================
+=========================== short test summary info ============================
+PASSED tests/test_model_validator.py::test_model_validator_after
+PASSED tests/test_model_validator.py::test_model_validator_wrap
+PASSED tests/test_model_validator.py::test_model_validator_before[classmethod]
+FAILED tests/test_model_validator.py::test_model_validator_before[<lambda>]
+FAILED tests/test_model_validator.py::test_subclass - AssertionError: assert ...
+========================= 2 failed, 3 passed in 0.19s ==========================
+
+>>>>> End Test Output
+SWE_SUITE_EXIT=1
