@@ -35,6 +35,28 @@ train/step-N/<instance_id>/<rollout_uuid>/
     └── baseline-control/   # 判分基线对照（部分轨迹有：execution.json / result.json / test.log）
 ```
 
+## 与 VERL DataProto 的对齐（`token_alignment`）
+
+每条**正常结束**的 episode 在顶层写入 `token_alignment`，即回传给 verl 的 DataProto 核心张量：
+
+```jsonc
+"token_alignment": {
+  "prompt_ids":        [932 tokens...],   // → DataProto.input_ids 前缀
+  "response_ids":      [2354 tokens...],  // → DataProto.responses
+  "response_mask":     [0,1,1,0,...],     // → DataProto.response_mask（只有模型生成 token 为 1）
+  "response_logprobs": [-0.03, -0.0,...]  // → DataProto.rollout_log_probs（100% 完整）
+}
+```
+
+回传链路：`swe_agent_loop.py` 构造 `verl.experimental.agent_loop.agent_loop.AgentLoopOutput(
+prompt_ids, response_ids, response_mask, response_logprobs, reward_score, num_turns, ...)`。
+
+**覆盖率**（全量 1692 条）：**98%（1663 条）**——缺失的 29 条全为异常终止（`stop_reason=None`，
+不进训练）。`response_logprobs` 完整率 100%；`response_mask` 有效 token 占比中位 49%
+（agent 场景正常：约一半 response 是 observation 回填）；response 长度中位 4686 tokens（上限 8160 ≈ 预算 8192）。
+
+`advantages` / `returns` 不在落盘内（训练内部 GAE 计算，不参与数据验收）。
+
 ## episode.json 关键字段
 
 ```jsonc
