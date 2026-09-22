@@ -91,5 +91,5 @@ spec:
       resources:
         limits:
           nvidia.com/gpu: "4"
-          memory: 512Gi
+          memory: 320Gi
           cpu: "96"

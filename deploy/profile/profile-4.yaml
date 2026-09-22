@@ -50,7 +50,7 @@ spec:
         limits:
           nvidia.com/gpu: 4
           cpu: "100"
-          memory: 350Gi
+          memory: 320Gi
       volumeMounts:
         - name: cfs
           mountPath: /mnt/cfs
