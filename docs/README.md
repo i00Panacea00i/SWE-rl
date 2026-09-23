@@ -63,6 +63,12 @@
 | [ags_tool_setup.md](infrastructure/ags_tool_setup.md) | 旧"逐题建工具"方案 | 🕐 已被取代 |
 | [tokyo_gpu_plan.md](infrastructure/tokyo_gpu_plan.md) | 跨区链路规划（§0 时延评估仍有参考价值） | 🕐 部分参考 |
 
+### `reports/` · 汇报材料
+
+| 文档 | 说明 |
+|---|---|
+| [training-data-sources.md](reports/training-data-sources.md) | **训练数据来源说明（汇报版）**：7 类来源总览表 / 分类说明 / 真实样例（题目·规格·轨迹·模型）/ 合规声明（无爬虫 · 无合作方 · 无隐私）/ 数据血缘链路 |
+
 ### `archive/` · 历史文档（已过时，留档追溯）
 
 | 文档 | 说明 |
