@@ -29,6 +29,7 @@
 | [training-loop-flow.md](overview/training-loop-flow.md) | **训练闭环流程**（SandBox tracing → TKE 训练 → 新模型回 SandBox + 数字账） | 09-21 |
 | [pod-ags-communication.md](overview/pod-ags-communication.md) | Pod ↔ AGS 通信全链路手册（三层架构 / 7 步生命周期 / 4 组真实数据案例） | 09-21 |
 | [training-config-audit.md](overview/training-config-audit.md) | 训练配置全面审计（16 项问题 / 实测 × 基准三角验证 / P0-P2 方案） | 09-21 |
+| [tke-ags-tcr-pipeline-report.md](overview/tke-ags-tcr-pipeline-report.md) | **TKE·AGS·TCR 训练 Pipeline 架构分析报告**（面向领导：架构全景 / 控制流与数据流 / 真实 log 与训练数据佐证 / 5 处截图占位） | 09-23 |
 | [verl-training-deepdive.md](overview/verl-training-deepdive.md) | **verl 训练全流程深度复盘**（基于 2092 条真实 trace：编排/数据链/模型角色/算法/系统/异常/瓶颈，12 项证据索引）——团队复用的技术底稿 | 09-22 |
 
 ### `training-runs/` · 训练与评估全记录（9 次运行）

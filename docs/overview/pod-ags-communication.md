@@ -1,6 +1,8 @@
 # Pod ↔ AGS 通信全链路：测试与训练通用手册
 
 > **读者指引**：管理者看 §0（60 秒速览）；工程师看 §1–§6（含真实数据案例）。
+> **管理版报告**：面向领导汇报的 TKE·AGS·TCR 完整架构分析见
+> [tke-ags-tcr-pipeline-report.md](tke-ags-tcr-pipeline-report.md)。
 > **素材来源**：测试侧 400 条轨迹（`artifacts/archive/pass4-eval-20260921/`）与
 > 训练侧 3384 份命令证据（CFS `traces/swegym-30b-tier0-r1/train/`）——全部为
 > 2026-09-20/21 真实运行数据，未做修饰。
