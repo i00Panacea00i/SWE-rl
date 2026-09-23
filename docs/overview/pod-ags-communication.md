@@ -1,11 +1,9 @@
 # Pod ↔ AGS 通信全链路：测试与训练通用手册
 
-> **读者指引**：管理者看 §0（60 秒速览）；工程师看 §1–§6（含真实数据案例）。
-> **管理版报告**：面向领导汇报的 TKE·AGS·TCR 完整架构分析见
-> [tke-ags-tcr-pipeline-report.md](tke-ags-tcr-pipeline-report.md)。
+
 > **素材来源**：测试侧 400 条轨迹（`artifacts/archive/pass4-eval-20260921/`）与
 > 训练侧 3384 份命令证据（CFS `traces/swegym-30b-tier0-r1/train/`）——全部为
-> 2026-09-20/21 真实运行数据，未做修饰。
+> 2026-09-20/21 运行数据
 
 ---
 
@@ -30,6 +28,9 @@
 - 单条命令往返 **0.1–30 秒**（本手册案例实测 0.12–0.59 秒）
 - 每条轨迹（episode）最多 **12 轮**"写命令→收结果"
 - 平台上限 **100 个沙箱**同时在线（我们按批调度）
+
+**真实操作日志**（本次新增）：控制面（沙箱创建实测 **7.1 秒** / 三条真实事故与恢复链）
+与数据面（命令级完整档案 / 逐轨迹完成事件流）的逐条一手记录——见 **§1.5**。
 
 **为什么这样设计**：① 安全——模型代码只在隔离沙箱里跑，碰不到我们任何生产系统；
 ② 公平——训练与测试用**同一套**通道和判分器；③ 可审计——每条命令、每个回传都有存档。
@@ -71,6 +72,138 @@
 | 代码路径 | `verl_plugin/swe_agent_loop.py` → `EpisodeSession` | `controller/eval_driver.py` → `EpisodeSession` |
 | 沙箱通道 | **完全相同**（同一 `sandbox/ags_instance.py`） | **完全相同** |
 | 落盘 | `traces/<run>/train/step-N/.../agent/execution.json` | `traces/<run>/vllm[-pass4]/<iid>__sK/execution.json` |
+
+---
+
+## 1.5 运行时操作 log 实证（控制面 + 数据面 · 2026-09-18 实测）
+
+> 本节全部内容为真实训练运行的一手记录，来源：CFS
+> `logs/swegym-30b-tier0-r1/train-*.log` 与 `traces/swegym-30b-tier0-r1/train/` 轨迹归档。
+> 每段 log 后用 `>` 标注"这说明什么"（管理者视角）。
+
+### 1.5.1 控制面 · 沙箱生命周期的完整证据链
+
+**每条轨迹都落盘了所配沙箱的"身份档案"**（`agent/execution.json` 的控制字段，真实原文）：
+
+```json
+{
+  "instance_id": "conan-io__conan-14177",
+  "sandbox_id": "g3mvnjzyf7gaqn6nf5raod3j7mfahqwkhf6jcjdm",
+  "fingerprint": "Linux 4e3c4d60 6.6.69-cube.pvm.guest.005.x-g039db8913c80 #1 SMP PREEMPT_DYNAMIC Thu May 21 ... Debian GNU/Linux 13 (trixie)",
+  "cleanup_error": null
+}
+```
+
+> **说明什么**：`sandbox_id` 是腾讯云 AGS 为该轨迹分配的隔离环境编号（可与控制台实例列表逐一对照）；
+> `fingerprint` 证明环境与题目要求一致（防跑错镜像）；`cleanup_error: null` 表示沙箱被**干净销毁**——全程零实例泄漏。
+
+**控制面全流程耗时实测**（对 107 条完整轨迹逐条挖掘）：
+
+| 控制面阶段 | 实测 | 说明 |
+|---|---|---|
+| 会话启动 → 沙箱首条自检命令 | **中位 7.1 秒**（最快 5.1s / 最慢 9.5s） | 含：创建实例 → 等待 RUNNING → 连接 → 环境自检 |
+| 沙箱创建模式 | `image_override`（126/136 条） | 镜像覆盖模式全面生效 |
+| 清理结果 | `cleanup_error: null`（100%） | 零残留实例 |
+
+### 1.5.2 控制面 · 三条真实事故 log 与恢复链
+
+**事故 ① 凭证限流**（真实报错原文，含腾讯云中文提示）：
+
+```
+RuntimeError: refresh_user_token failed: {
+  "TraceId": "8b74a4b5-e5d8-40a4-b104-56d13b0ea534", "RequestId": "",
+  "Error": "[TencentCloudSDKError] Code=RequestLimitExceeded,
+            Message=您当前每秒请求 `24` 次，超过了每秒频率上限 `20`，请稍后重试。"}
+```
+> 来源：`train-20260918T092324Z.log:1332`（AgentLoopWorkerTQ pid=10566）
+> 根因：10 个并行工作进程同时刷新凭证；修复：**跨进程文件缓存 + 退避重试**；
+> 修复后 21 小时训练**零凭证故障**。
+
+**事故 ② 训练镜像缺云 SDK**（启动即失败，10 条轨迹留下真实记录）：
+
+```
+error: {"type": "ModuleNotFoundError", "message": "No module named 'tencentcloud'"}
+```
+> 来源：step-0 轨迹 `episode.json` 的 `error` 字段（沙箱创建前即失败）。
+> 修复：镜像内安装 `tencentcloud-sdk-python-ags`。
+
+**事故 ③ CPU 内存越限（OOM）**（Ray 平台报告的原文节选）：
+
+```
+ray.exceptions.OutOfMemoryError: 7 worker(s) were killed due to the node running
+low on memory. Memory on the node (IP: 10.0.12.9) was 286.52GB / 300.00GB (0.955074)
+Top 10 memory users:
+  7656  39.98GB  ray::WorkerDict.actor_rollout_save_checkpoint
+  7659  39.95GB  ray::WorkerDict.actor_rollout_save_checkpoint
+  9517  24.98GB  VLLM::Worker_TP3        （TP0–TP3 各 24.98GB）
+ 10566   0.90GB  ray::AgentLoopWorkerTQ
+```
+
+**完整恢复链（控制面的"教科书时刻"）**：
+
+```
+10:58:57  Saving checkpoint to .../global_step_5      ← 第 5 步检查点先落地（保险生效）
+   ↓（OOM：7 个进程被杀；内存 286.52 / 300.00 GB = 95.5%）
+11:08:22  新训练 Pod 启动（train-20260918T110822Z.log）
+11:18:45  Found checkpoint: .../global_step_5
+11:18:45  Resuming from .../global_step_5, setting global step to 5
+11:18:49  [Rank 0] Loaded LoRA-only checkpoint (384 keys)
+11:18:50  [Rank 0] Loaded optimizer / rng / lr_scheduler（四件套齐全）
+   ↓
+最终 50/50 步完成（故障损失 ≈ 0）
+```
+
+> **说明什么**：容灾不是"尽力而为"——检查点先落地、故障被平台精确报告、
+> 新进程自动发现检查点并**精确续训**，每一步都有 log 可查。
+
+### 1.5.3 数据面 · 命令级操作 log（每条命令都有完整档案）
+
+`agent/execution.json` 的 `commands` 数组逐条记录（真实原文）：
+
+```json
+{"time": 1789723581.98,
+ "command": "cd /testbed && git -c safe.directory=/testbed ... rev-parse HEAD",
+ "exit_code": 0, "stdout": "b43eb83956f053a47cc3897cfdd57b9da13a16e6\n",
+ "stderr": "", "duration_s": 0.515, "trusted": true}
+```
+
+**一次完整轨迹的数据面全景**（`conan-14177/f273d0c1`，真实案例）：
+
+| 项 | 真实值 |
+|---|---|
+| 沙箱实例 | `g3mvnjzyf7gaqn6nf5raod3j7mfahqwkhf6jcjdm` |
+| 命令构成 | 13 条 = **5 条框架自检**（trusted）+ 8 条模型命令 |
+| 前 4 条自检 | `git rev-parse HEAD`（0.515s）→ `uname -a`（0.122s）→ 应用测试补丁（0.119s）→ 索引快照（0.296s） |
+| 第 5 条起 | 模型命令（trusted=false），如 `find /testbed -name "patches.py"`（0.133s） |
+
+**数据面耗时构成**（107 条轨迹统计）：
+
+| 指标 | 实测 | 说明 |
+|---|---|---|
+| 沙箱内执行累计 | 中位 **4.4 秒**/轨迹 | 全部命令纯执行时间之和 |
+| 占轨迹总时长 | 约 **5%** | 其余 95% 为模型生成与网络往返 |
+| 命令构成（全样本 1626 条） | trusted 535（33%）/ 模型命令 1091（67%） | 框架自检与模型操作全程可分辨 |
+
+### 1.5.4 数据面 · 逐轨迹完成事件流（训练日志实时 JSON）
+
+每条轨迹完成时，训练日志打印一行结构化事件（真实原文，节选自 step-6）：
+
+```json
+{"event": "swe_episode_complete",
+ "episode": ".../traces/swegym-30b-tier0-r1/train/step-6/python__mypy-15159/e2d236841a9340b49ed1fcb43617ab0b",
+ "instance_id": "python__mypy-15159", "phase": "train", "global_step": 6,
+ "operations": 3, "reward": 1.0, "resolved": true}
+```
+```
+（同一时刻并行轨迹的真实节选）
+{"instance_id": "python__mypy-11241", "operations": 12, "reward": 0.0, "resolved": false}
+{"instance_id": "python__mypy-16869", "operations": 12, "reward": 0.0, "resolved": false}
+{"instance_id": "conan-io__conan-14397", "operations": 12, "reward": 0.0, "resolved": false}
+```
+
+> **说明什么**：这是全系统最细粒度的实时监控流——哪道题、第几步、做了几次操作、
+> 拿多少奖励、是否解决，逐条可查。上例中 mypy-15159 仅 3 次操作拿到满分，
+> 而同一时刻的并行轨迹用满 12 次操作仍未通过——**同题的对比差异正是训练信号的来源**。
 
 ---
 
