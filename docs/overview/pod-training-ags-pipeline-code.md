@@ -282,14 +282,16 @@ ct_merge_context_msg      (:162)  观察文本 → mask=0         （环境反�
 
 ## 4. 一个训练步内的代码级时序（真实耗时对照）
 
-| 阶段 | verl 侧动作 | 本仓库代码入口 | AGS 是否参与 | 落盘产物 | 实测耗时（step 6）|
+| 阶段 | verl 侧动作 | 本仓库代码入口 | AGS 是否参与 | 落盘产物 | 实测耗时（step 11 稳态）|
 |---|---|---|---|---|---|
-| **rollout** | `generate_sequences` → `SWEAgentLoop.run` | `_episode` 全流程（:39-243）| **是**（创建/命令/销毁/判分）| `episode.json` + `execution.json` + `candidate.patch` + `judge/*` | **693.4s** |
-| old_log_prob | 重算策略概率 | — | 否 | — | 32.3s |
-| ref | 参考模型前向 | — | 否 | — | 29.4s |
+| **rollout** | `generate_sequences` → `SWEAgentLoop.run` | `_episode` 全流程（:39-243）| **是**（创建/命令/销毁/判分）| `episode.json` + `execution.json` + `candidate.patch` + `judge/*` | **641.3s** |
+| old_log_prob | 重算策略概率 | — | 否 | — | 31.1s |
+| ref | 参考模型前向 | — | 否 | — | 29.9s |
 | adv | GRPO 组内优势 | — | 否 | — | 0.06s |
-| update | actor 梯度更新 | — | 否 | 检查点（每 5 步：`save_lora_only`）| ≈26s（含权重同步）|
+| update_actor | LoRA 梯度更新（26.7M 参数）| — | 否 | 检查点（每 5 步：`save_lora_only`）| 75.4s |
+| update_weights | LoRA 灌回 vLLM（51MB 逐单元）| `adapter_export.py`（补丁）| — | `BOUNDED_LORA_EXPORT` 日志 | 3.4s |
 | 合计 | — | — | — | — | **781.3s** |
+> 数据来源：step 11 日志行 2001（各项加总 = `perf/time_per_step` 自洽）；早期版本混用了 step 6/11 两行数据，已勘误——详见 [single-training-step-anatomy.md](single-training-step-anatomy.md) §0.3。
 
 > **代码级结论**：AGS 只出现在 rollout 阶段（一条直线：`_episode`），
 > 但其内部有 4 次 AGS 云 API 交互（创建 rollout 沙箱 / 销毁 / 创建判分沙箱 / 销毁）
@@ -399,7 +401,7 @@ ct_merge_context_msg      (:162)  观察文本 → mask=0         （环境反�
 ## 附录 B · 一页纸调用链（打印备用）
 
 ```
-【一步训练 · rollout 阶段 · 693s】
+【一步训练 · rollout 阶段 · 641s】
  AgentLoop.run
   └─ _episode                                    swe_agent_loop.py:43
       ├─ 路由校验 / 目录 / record 骨架            :40-65
@@ -420,12 +422,13 @@ ct_merge_context_msg      (:162)  观察文本 → mask=0         （环境反�
              git apply → swe-eval.sh → test.log → result.json
       └─ AgentLoopOutput（token 对齐 + reward）    :224-231
 
-【一步训练 · 训练阶段 · 88s】（AGS 不参与）
- old_log_prob 32s → ref 29s → adv 0.06s → update ≈26s → 权重同步
+【一步训练 · 训练阶段 · 140s】（AGS 不参与）
+ old_log_prob 31s → ref 30s → adv 0.06s → update_actor 75s → update_weights 3.4s
 ```
 
 ---
 
 > **维护提示**：本文所有行号以 2026-09-23 的 main 分支为准；
 > 修改 `swe_agent_loop.py` / `episode.py` 后请同步更新 §2 与附录 A。
-> 已知数字勘误：早期文档中的"命令超时 120s"实为 **60s**（本文以代码为准，见 §5.1）。
+> 已知数字勘误：① 早期文档中的"命令超时 120s"实为 **60s**（本文以代码为准，见 §5.1）；
+> ② 早期文档混用 step 6/11 两行日志，导致"生成占 88.7% / update 26s"有误——正确值见 §4 表（82.1% / 75.4s）。
