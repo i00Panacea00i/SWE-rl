@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: swe-rl-merge-r2
+  labels:
+    app: swe-rl-merge
+spec:
+  restartPolicy: Never
+  activeDeadlineSeconds: 10800
+  # 不写 nodeName（吸取 run-09 教训：硬编码节点会因节点重建而秒失败）
+  containers:
+    - name: merge
+      image: docker.io/verlai/verl@sha256:b867883b0dd011363e69ab2ab344922a28c5bd0409e2a324e3ee70fb27ca7543
+      command: ["bash", "-c"]
+      args:
+        - |
+          set -euo pipefail
+          KIT=/mnt/cfs/swe-rl/runs/eval-30b-base-vs-lora/kit
+          CKPT=/mnt/cfs/swe-rl/checkpoints/swegym-30b-tier0-r2/global_step_70/actor
+          ADAPTER=$CKPT/hf-adapter
+          OUT=/mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct-lora-r2s70
+          LOG=/mnt/cfs/swe-rl/logs/eval-r2
+          mkdir -p $LOG
+          cd "$KIT"
+          export PYTHONPATH="$KIT"
+          echo "=== [1/2] FSDP 分片 → hf-adapter（4 进程）==="
+          torchrun --nproc_per_node=4 "$KIT/controller/convert_lora_to_hf.py" "$CKPT" "$ADAPTER" \
+            2>&1 | tee "$LOG/convert-$(date -u +%Y%m%dT%H%M%SZ).log"
+          echo "=== [2/2] base + adapter → 合并模型（纯 CPU）==="
+          rm -rf "$OUT"
+          python "$KIT/controller/merge_lora_native.py" \
+            --base /mnt/cfs/swe-rl/model/Qwen3-Coder-30B-A3B-Instruct \
+            --adapter "$ADAPTER" \
+            --out "$OUT" \
+            2>&1 | tee "$LOG/merge-$(date -u +%Y%m%dT%H%M%SZ).log"
+          echo "=== ALL DONE ==="
+      env:
+        - name: HF_HOME
+          value: /mnt/cfs/swe-rl/hf-cache
+      resources:
+        limits:
+          cpu: "60"
+          memory: 96Gi
+      volumeMounts:
+        - name: cfs
+          mountPath: /mnt/cfs
+  volumes:
+    - name: cfs
+      persistentVolumeClaim:
+        claimName: swe-rl-cfs
