@@ -32,6 +32,7 @@
 | [tke-ags-tcr-pipeline-report.md](overview/tke-ags-tcr-pipeline-report.md) | **TKE·AGS·TCR 训练 Pipeline 架构分析报告**（面向领导：架构全景 / 控制流与数据流 / 真实 log 与训练数据佐证 / 5 处截图占位） | 09-23 |
 | [pod-training-ags-pipeline-code.md](overview/pod-training-ags-pipeline-code.md) | **Pod 训练 × AGS 调用代码级文档**（函数级调用链 / 四接口契约 / 数据结构溯源 / 超时矩阵 / 函数索引；54 处 `文件:行号`） | 09-23 |
 | [single-training-step-anatomy.md](overview/single-training-step-anatomy.md) | **一个训练 Step 的完整解剖**（七幕时序 781s 分解 / 模型输出与沙箱咬合 / 权重同步机制 / 落盘证据链；含数据勘误） | 09-24 |
+| [episode-anatomy-mypy-15159.md](overview/episode-anatomy-mypy-15159.md) | **轨迹解剖：一条真实 episode 的 123 秒**（mypy-15159 满分案例：读题→生成→传输→修复→判分→梯度全链路，附 8 条命令时间轴与素材清单） | 09-24 |
 | [verl-training-deepdive.md](overview/verl-training-deepdive.md) | **verl 训练全流程深度复盘**（基于 2092 条真实 trace：编排/数据链/模型角色/算法/系统/异常/瓶颈，12 项证据索引）——团队复用的技术底稿 | 09-22 |
 
 ### `training-runs/` · 训练与评估全记录（9 次运行）
