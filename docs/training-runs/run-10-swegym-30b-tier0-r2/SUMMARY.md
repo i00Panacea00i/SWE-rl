@@ -92,4 +92,4 @@ resolved **2,506（39.8%）**（v1：9.6%）；reward=1.0 占 40.1%；空补丁 
 | 保留本轮全部配置（数据筛选 / prompt 纪律 / 预算 / filter_groups）| 已验证有效，作为基线 |
 | 评估侧：扩大 heldout（40→100 题）以降低噪声 | ±2.5pp 的分辨率不足以支撑更强结论 |
 
-> 关联：v1 复盘 rl-full-retrospective.md；轨迹解剖 episode-anatomy-mypy-15159.md；云架构 cloud-architecture-diagram.md。
+> 关联：**超参数对比复盘 [R1-R2-HYPERPARAM-REVIEW.md](R1-R2-HYPERPARAM-REVIEW.md)**（与 r1 的逐项对比与归因）；v1 复盘 rl-full-retrospective.md；轨迹解剖 episode-anatomy-mypy-15159.md；云架构 cloud-architecture-diagram.md。
