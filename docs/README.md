@@ -68,6 +68,8 @@
 | [ags_image_override.md](infrastructure/ags_image_override.md) | AGS 镜像覆盖方案（1 个通用工具服务 N 道题，含实测证据） | ✅ 现行 |
 | [ags_tool_setup.md](infrastructure/ags_tool_setup.md) | 旧"逐题建工具"方案 | 🕐 已被取代 |
 | [tokyo_gpu_plan.md](infrastructure/tokyo_gpu_plan.md) | 跨区链路规划（§0 时延评估仍有参考价值） | 🕐 部分参考 |
+| [cfs-to-cos-cvm-setup.md](infrastructure/cfs-to-cos-cvm-setup.md) | **CFS→COS 归档迁移：CVM 环境配置手册**（CVM 申请参数 / NFS 挂载 / coscli·tccli 就绪 / 自检清单） | ✅ 现行 |
+| [cfs-to-cos-migration-runbook.md](infrastructure/cfs-to-cos-migration-runbook.md) | **CFS→COS 归档迁移：AI 操作手册**（七阶段命令级 runbook / 3 个人工确认点 / 对账校验 / 失败模式速查） | ✅ 现行 |
 
 ### `reports/` · 汇报材料
 
